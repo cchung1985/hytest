@@ -17,6 +17,12 @@ from rest_framework.decorators import api_view
 from accounts.serializers import UserSerializer
 from accounts.models import EmailVerification
 
+#產生驗證圖形用
+from PIL import Image
+from PIL import ImageFont
+from PIL import ImageDraw
+import StringIO
+
 import string
 import random
 def randomString(length):
@@ -74,7 +80,27 @@ def checkUsername(request):
 def captcha(request):
 	captcha = randomString(6)
 	request.session['captcha'] = captcha
-	return HttpResponse(captcha)
+
+	font_type=r"arial.ttf"
+	font_size=20
+	font=ImageFont.truetype(font_type,font_size)
+	print("font has been created")
+	im=Image.new('RGB',(120,40),(255,255,255))
+	draw=ImageDraw.Draw(im)
+	draw.text((20,10),captcha,font=font,fill=(0,0,222))
+	
+	for w in xrange(120):
+	    for h in xrange(40):
+	        tmp=random.randint(0,100)
+	        if tmp>98:
+	            draw.point((w,h),fill=(0,0,0))	
+	            
+	output = StringIO.StringIO()
+	im.save(output,"PNG")
+	content = output.getvalue()
+	output.close()  
+	return HttpResponse(content, content_type='image/png')
+
 
 @api_view(['GET'])
 def user_i_view(request):
