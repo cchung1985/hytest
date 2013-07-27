@@ -18,9 +18,7 @@ from accounts.serializers import UserSerializer
 from accounts.models import EmailVerification
 
 #產生驗證圖形用
-from PIL import Image
-from PIL import ImageFont
-from PIL import ImageDraw
+from PIL import Image, ImageFont, ImageDraw
 import StringIO
 
 import string
@@ -81,10 +79,14 @@ def captcha(request):
 	captcha = randomString(6)
 	request.session['captcha'] = captcha
 
-	font_type=r"arial.ttf"
+	font_type=r'arial.ttf'
 	font_size=20
-	font=ImageFont.truetype(font_type,font_size)
-	print("font has been created")
+	
+	try:
+		font=ImageFont.truetype("arial.ttf",font_size)
+	except:
+		print("font has been created")
+	
 	im=Image.new('RGB',(120,40),(255,255,255))
 	draw=ImageDraw.Draw(im)
 	draw.text((20,10),captcha,font=font,fill=(0,0,222))
@@ -199,11 +201,11 @@ def verifyEmail(request):
 	emailVeri.delete()
 	return HttpResponse("認證成功", content_type="text/plain")
 	
-	
+
 @require_POST
 def changePassword(request):
-	password = request.DATA.get('password')
-	newPassword = request.DATA.get('newpassword')
+	password = request.POST.get('password')
+	newPassword = request.POST.get('newpassword')
 	user = request.user
 	
 	if not user.check_password(password):
@@ -214,7 +216,6 @@ def changePassword(request):
 	print 'change passowrd'
 	return HttpResponse()
 	
-
 '''
 class userDetail(APIView):
 	def get(self, request, user_id):
