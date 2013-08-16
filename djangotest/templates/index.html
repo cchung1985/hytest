@@ -453,17 +453,19 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-lg-2 control-label" for="createItemName">品名</label>
+							<div id="createItemNameField" class="form-group">
+								<label class="col-lg-2 control-label" for="createItemName">品名*</label>
 								<div class="col-lg-8">
 									<input type="text" class="form-control" id="createItemName" placeholder="">
 								</div>
+								<span class="col-lg-3 help-block msg-error"></span>
 							</div>
-							<div class="form-group">
-								<label class="col-lg-2 control-label" for="createItemPrice">價格</label>
+							<div id="createItemPriceField" class="form-group">
+								<label class="col-lg-2 control-label" for="createItemPrice">價格*</label>
 								<div class="col-lg-8">
-									<input type="text" class="form-control" id="createItemPrice" placeholder="">
+									<input type="text" class="form-control num-only" id="createItemPrice" placeholder="" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')">
 								</div>
+								<span class="col-lg-3 help-block msg-error"></span>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">新舊</label>
@@ -493,11 +495,12 @@
 									</label>
 								</div>
 							</div>
-							<div class="form-group">
+							<div id="createItemDescField" class="form-group">
 								<label class="col-lg-2 control-label">商品描述</label>
 								<div class="col-lg-8">
 									<textarea id="createItemDesc" class="form-control" rows="3"></textarea>
 								</div>
+								<span class="col-lg-3 help-block msg-error"></span>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-2 control-label">商品分類</label>
@@ -572,10 +575,21 @@
 			el: $("#createItemPanel"),
 			events: {
 				"show.bs.modal": "showPanel",
-				"click #createItemSubmit": "submit"
+				"click #createItemSubmit": "submit",
+				"click #createItemName": "checkItemName",
+				"click #createItemPrice": "checkItemPrice",
+				"change #createItemName": "checkItemName",
+				"change #createItemPrice": "checkItemPrice",
+				"change #createItemDesc": "checkItemDesc",
 			},
 			initialize: function() {
 				var that = this;
+				<!--field-->
+				this.field = {
+					name: this.$('#createItemNameField'),
+					price: this.$('#createItemPriceField'),
+					describe: this.$('#createItemDescField'),
+				}
 				this.files = {};
 				this.itemImages = this.$("#newItemImages");
 				this.itemImages.find('input:file').fileupload({
@@ -601,6 +615,7 @@
 				this.itemSizeAttr = this.$('input:radio[name=sizeAttr]');
 				this.createItemCategory = this.$('#createItemCategory');
 				this.categorys = [];
+				
 				$.getJSON('shops/item-categorys').done(function(data){
 					var category;
 					for(var i in data){
@@ -633,6 +648,44 @@
 				});
 				*/
 				
+			},
+			showError: function(fieldName, msg){
+				var $field = this.field[fieldName];
+				if(!$field){return;}
+				$field.addClass('has-error');
+				if(msg){$field.find('.msg-error').text(msg);}
+			},
+			clearError: function(fieldName){
+				var $field = this.field[fieldName];
+				$field.removeClass('has-error');
+				$field.find('.msg-error').text('');
+			},
+			checkItemName: function(){
+				var view = this;
+				var name = this.createItemName.val();
+				if(name.length==0){
+					view.showError('name', '名稱不可空白');
+				}else{
+					view.clearError('name');
+				}
+			},
+			checkItemPrice:	function(){
+				var view = this;
+				var price = this.createItemPrice.val();
+				if(price.length==0){
+					view.showError('price', '價錢不可空白');
+				}else{
+					view.clearError('price');
+				}
+			},
+			checkItemDesc: function(){
+				var view = this;
+				var describe = this.createItemDesc.val();
+				if(describe.length>100){
+					view.showError('describe','敘述文字不可超過100字');
+				}else{
+					view.clearError('describe');
+				}
 			},
 			showPanel:function(){
 				var that = this;

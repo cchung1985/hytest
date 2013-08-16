@@ -173,22 +173,27 @@ def createUser(request):
 	if user is not None:
 		login(request, user)
 	return JSONResponse({'status':'OK'},status=status.HTTP_201_CREATED)
-	
-		
-	'''
-	key = ''.join(random.choice(string.ascii_uppercase + string.digits) for i in range(10))
+
+"""
+@require_POST
+def sendVerifyEmail(request):
+	user = request.user
+
+	key = randomString(10);
 	emailVeri = EmailVerification(user=user,key=key)
 	emailVeri.save()
 	url = 'http://127.0.0.1:8000/accounts/verify?key=%s'%(key)
 	subject = '會員信箱認證(測試)'
-	from_email = '測試測試<cchung1985@gmail.com>'
-	to = email
+	from_email = '測試測試<mark.humanwell@gmail.com>'
+	to = u
 	text_content = url
 	html_content = '<html><body><a href="%s">確認信箱%s</a></body></html>'%(url,url)
 	msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
 	msg.attach_alternative(html_content, "text/html")
 	msg.send()
-	'''
+
+	return
+"""
 
 def verifyEmail(request):
 	key = request.GET.get('key')
