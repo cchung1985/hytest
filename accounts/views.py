@@ -5,6 +5,7 @@ from django.http import HttpResponse
 
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMultiAlternatives
 from django.views.decorators.http import require_http_methods, require_GET, require_POST
 #from django.views.decorators.csrf import csrf_exempt
@@ -172,28 +173,48 @@ def createUser(request):
 	user = authenticate(username=email, password=password)
 	if user is not None:
 		login(request, user)
+		sendVerifyEmail(request)
 	return JSONResponse({'status':'OK'},status=status.HTTP_201_CREATED)
 
-"""
-@require_POST
-def sendVerifyEmail(request):
-	user = request.user
 
-	key = randomString(10);
-	emailVeri = EmailVerification(user=user,key=key)
+@login_required
+def sendVerifyEmail(request):
+	
+	print(request.user)
+	try:
+		user = User.objects.get(username=request.user)
+	except User.DoesNotExist:
+		return(u'使用者不存在')
+	
+	email= user.email
+	key = randomString(10)
+
+	try:
+		emailVeri = user.emailverification
+		emailVeri.key = key;
+		print('try')	
+	except:
+		emailVeri = EmailVerification(user=user, key=key)
+		print('except')
+		
 	emailVeri.save()
+	
 	url = 'http://127.0.0.1:8000/accounts/verify?key=%s'%(key)
 	subject = '會員信箱認證(測試)'
 	from_email = '測試測試<mark.humanwell@gmail.com>'
-	to = u
+	to = email
 	text_content = url
 	html_content = '<html><body><a href="%s">確認信箱%s</a></body></html>'%(url,url)
 	msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
 	msg.attach_alternative(html_content, "text/html")
-	msg.send()
 
-	return
-"""
+	try:
+		msg.send()
+	except:
+		return HttpResponse(u'認證信發出失敗')
+		
+	return HttpResponse(u'認證信已發送至:'+email)
+
 
 def verifyEmail(request):
 	key = request.GET.get('key')
@@ -207,7 +228,7 @@ def verifyEmail(request):
 	user.save()
 	emailVeri.delete()
 	return HttpResponse("認證成功", content_type="text/plain")
-	
+
 
 @require_POST
 def changePassword(request):

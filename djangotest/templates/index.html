@@ -321,45 +321,50 @@
 																<input type="text" class="form-control" id="settingUsername" placeholder="">
 															</div>
 														</div>
+														<div class="form-group">
+															<div class="col-lg-6 col-offset-3">
+																<button class="btn btn-primary">寄發認證信</button>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									<div class="accordion-group">
-										<div class="accordion-heading">
+										<div class="accordion-group">
+											<div class="accordion-heading">
 											<a class="accordion-toggle" data-toggle="collapse" href="#collapsePassword">修改密碼</a>
 										</div>
-										<div id="collapsePassword" class="accordion-body collapse">
-											<div class="accordion-inner">
-												<div class="form-horizontal">
-													<div class="form-group">
-														<label class="col-lg-3 control-label" for="settingPassword">舊密碼</label>
-														<div class="col-lg-6">
-															<input type="password" class="form-control" id="settingPassword" placeholder="">
+											<div id="collapsePassword" class="accordion-body collapse">
+												<div class="accordion-inner">
+													<div class="form-horizontal">
+														<div class="form-group">
+															<label class="col-lg-3 control-label" for="settingPassword">舊密碼</label>
+															<div class="col-lg-6">
+																<input type="password" class="form-control" id="settingPassword" placeholder="">
+															</div>
 														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label" for="settingNewPassword">新密碼</label>
-														<div class="col-lg-6">
-															<input type="password" class="form-control" id="settingNewPassword" placeholder="">
+														<div class="form-group">
+															<label class="col-lg-3 control-label" for="settingNewPassword">新密碼</label>
+															<div class="col-lg-6">
+																<input type="password" class="form-control" id="settingNewPassword" placeholder="">
+															</div>
 														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label" for="settingNewPassword2">確認新密碼</label>
-														<div class="col-lg-6">
-															<input type="password" class="form-control" id="settingNewPassword2" placeholder="">
+														<div class="form-group">
+															<label class="col-lg-3 control-label" for="settingNewPassword2">確認新密碼</label>
+															<div class="col-lg-6">
+																<input type="password" class="form-control" id="settingNewPassword2" placeholder="">
+															</div>
 														</div>
-													</div>
-													<div class="form-group">
-														<div class="col-lg-6 col-offset-3">
-															<button class="btn btn-primary">確認修改</button>
+														<div class="form-group">
+															<div class="col-lg-6 col-offset-3">
+																<button class="btn btn-primary">確認修改</button>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 								</div>
 							</div>
 							<div class="col-lg-2">
@@ -463,7 +468,7 @@
 							<div id="createItemPriceField" class="form-group">
 								<label class="col-lg-2 control-label" for="createItemPrice">價格*</label>
 								<div class="col-lg-8">
-									<input type="text" class="form-control num-only" id="createItemPrice" placeholder="" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')">
+									<input type="text" class="form-control num-only" id="createItemPrice" placeholder="">
 								</div>
 								<span class="col-lg-3 help-block msg-error"></span>
 							</div>
@@ -576,15 +581,13 @@
 			events: {
 				"show.bs.modal": "showPanel",
 				"click #createItemSubmit": "submit",
-				"click #createItemName": "checkItemName",
-				"click #createItemPrice": "checkItemPrice",
 				"change #createItemName": "checkItemName",
 				"change #createItemPrice": "checkItemPrice",
 				"change #createItemDesc": "checkItemDesc",
+				"keydown #createItemPrice": "checkKeyNumber",
 			},
 			initialize: function() {
 				var that = this;
-				<!--field-->
 				this.field = {
 					name: this.$('#createItemNameField'),
 					price: this.$('#createItemPriceField'),
@@ -676,6 +679,24 @@
 					view.showError('price', '價錢不可空白');
 				}else{
 					view.clearError('price');
+				}
+			},
+			checkKeyNumber: function(event){
+				 // Allow: backspace, delete, tab, escape, and enter
+				 console.log(event.keyCode);
+				if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 || 
+					 // Allow: Ctrl+A
+					(event.keyCode == 65 && event.ctrlKey === true) || 
+					 // Allow: home, end, left, right
+					(event.keyCode >= 35 && event.keyCode <= 39)) {
+						 // let it happen, don't do anything
+						 return;
+				}
+				else {
+					// Ensure that it is a number and stop the keypress
+					if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+						event.preventDefault(); 
+					}   
 				}
 			},
 			checkItemDesc: function(){
@@ -1017,6 +1038,7 @@
 					if(data.status == 'OK'){
 						view.$el.modal('hide');
 						loginUser.fetch();
+						msgbox('註冊成功!! 認證信已發送至'+email);
 						return;
 					}
 					
@@ -1040,7 +1062,8 @@
 		var settingView = Backbone.View.extend({
 			el:$('#settingModal'),
 			events:{
-				'click #collapsePassword .btn-submit':'changePassword'
+				'click #collapsePassword .btn-submit':'changePassword',
+				'click #collapseAccount .btn-submit':'sendVerifyEmail',
 			},
 			initialize: function() {
 				this.listenTo(loginUser, 'change:name', this.updateUser);
@@ -1066,7 +1089,12 @@
 					alert('密碼錯誤!');
 				});
 			},
-
+			sendVerifyEmail: function(){
+				$.post('accounts/send-verify-email',{})
+				.done(function(){
+					alert('認證信已發送');
+				});
+			},
 			updateUser: function(){
 				console.log(loginUser)
 				var email = loginUser.get('email');
@@ -1152,6 +1180,35 @@
 				func(false);
 			});
 		}
+		
+		
+		function msgbox(message){
+			var $modal= $(
+				'<div class="modal fade" tabindex="-1">\
+					<div class="modal-dialog">\
+						<div class="modal-content">\
+							<div class="modal-header">\
+								<h4 class="modal-title">確認</h4>\
+							</div>\
+							<div class="modal-body">\
+								<div class="btn-confirm-message"></div>\
+							</div>\
+							<div class="modal-footer">\
+								<button class="btn btn-primary btn-confirm-ok">確定</button>\
+							</div>\
+						</div>\
+					</div>\
+				</div>').modal('show');
+			console.log($modal);
+			var $msg = $modal.find('.btn-confirm-message').text(message);
+			var $ok = $modal.find('.btn-confirm-ok').click(function(){
+				$modal.on('hidden.bs.modal',function(){
+					$modal.remove();
+					$modal = null;
+				}).modal('hide');
+			});
+		}
+		
 		
 		/*
 		var testUser2 = new User({id:2});
