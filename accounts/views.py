@@ -116,13 +116,14 @@ def user_i_view(request):
 	data['id'] = 'i'
 	return Response(data)
 
+import traceback
 @require_POST
 def createUser(request):
 	captcha = request.POST.get('captcha')
 	name = request.POST.get('name');
 	password = request.POST.get('password');
 	email = request.POST.get('email');
-	
+	print('POST.get')
 	ret = {}
 	if captcha is None or captcha != request.session.get('captcha'):
 		if 'captcha' in request.session:
@@ -167,16 +168,27 @@ def createUser(request):
 		user = User(username=name,email=email)
 		user.set_password(password)
 		user.save()
+	except:
+		print('connot add new user')
+		return JSONResponse({'status':'ERROR'})
+		
+	try:
 		#連結使用者認證資料
 		veri = Verification(user = user)
 		veri.save()
+	except:
+		print('cannot connect verification data')
+		return JSONResponse({'status':'ERROR'})
+	
+	try:
 		#附予新使用者群組Lv0(無權限)
 		g = Group.objects.get(name = 'Lv0')
 		g.user_set.add(user)
 	except:
-		#未預期錯誤
+		traceback.print_exc()
+		print('cannot add user to an initial group')
 		return JSONResponse({'status':'ERROR'})
-		
+	
 	user = authenticate(username=email, password=password)
 	if user is not None:
 		login(request, user)
@@ -197,10 +209,14 @@ def sendVerifyEmail(request):
 	key = randomString(10)
 
 	try:
+		#If the user already have one, then only update the key value
+		#若該使用者已有資料，則僅修改Key值
 		emailVeri = user.emailverification
 		emailVeri.key = key;
 		print('try')	
 	except:
+		#If not, create new data to store email-verification key
+		#新增一組認證碼資料		
 		emailVeri = EmailVerification(user=user, key=key)
 		print('except')
 		
@@ -241,7 +257,17 @@ def verifyEmail(request):
 		g = Group.objects.get(name = 'Lv1')
 		g.user_set.add(user)
 		emailVeri.delete()
-		return HttpResponse(u'認證成功')
+		#and set the user's is_emailverified field as true
+		#並把該使用者的is_emailverified欄位設定為true
+		try:
+			veri = user.verification
+			veri.email= True
+			veri.save()
+			return HttpResponse(u'認證成功')
+		except:
+			traceback.print_exc()
+			print(u'認證欄位錯誤')
+			return HttpResponse(u'認證失敗')
 	else:
 		#if not, deny this request
 		#若不是則報錯
@@ -260,15 +286,7 @@ def changePassword(request):
 	user.save()
 	print 'change passowrd'
 	return HttpResponse()
-	
-@login_required
-def grouptest(request):
-	user = User.objects.get(username = request.user)
-	g = Group.objects.get(name = 'Lv1')
-	g.user_set.add(user)
 
-	return HttpResponse()
-	
 	
 '''
 class userDetail(APIView):

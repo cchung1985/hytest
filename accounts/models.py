@@ -12,12 +12,12 @@ class EmailVerification(models.Model):
 	
 class Verification(models.Model):
 	user = models.OneToOneField(User)
-	is_emailveified = models.BooleanField(default=False)
-	is_phoneverified = models.BooleanField(default=False)
-	is_namecardverified = models.BooleanField(default=False)
+	email = models.BooleanField(default=False)
+	phone = models.BooleanField(default=False)
+	credit = models.BooleanField(default=False)
 	
 	def __unicode__(self):
-		return "email:%s phone:%s namecard:%s" % (str(self.is_emailveified), str(self.is_phoneverified), str(self.is_namecardverified))
+		return "user:%s %s,%s,%s" % (self.user.username, str(self.email), str(self.phone), str(self.credit))
 
 '''
 from django.db import models

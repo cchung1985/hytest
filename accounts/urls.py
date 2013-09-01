@@ -15,8 +15,6 @@ urlpatterns = patterns('',
 	url(r'^password$', views.changePassword),
 	url(r'^verify', views.verifyEmail),
 	#url(r'^users/(?P<user_id>\d+)$', views.userDetail.as_view()),
-
-	url(r'^grouptest$', views.grouptest),
 	
 	
 	url(r'^.*$','django.views.defaults.page_not_found')
