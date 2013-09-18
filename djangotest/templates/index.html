@@ -7,6 +7,17 @@
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<style>
 		
+		.user-option{
+			margin-top: 50px;
+			margin-bottom: 50px;
+			text-align: center;
+		}
+		.user-option button{
+			width: 250px;
+			height: 50px;
+			font-size: 30px;
+		}		
+		
 		.main-panels .tab-pane{
 			position: absolute;
 			top: 71px;
@@ -143,26 +154,26 @@
 				<div>
 					<a class="navbar-brand" href="#">YOUCON</a>
 					<ul id="userNav" class="main-nav nav nav-pills navbar-nav pull-right" style="display:none;">
-						<li class="active">
+						<li class="active"> <!-- Map Tab -->
 							<a href="#mapPanel" data-toggle="tab">
 								<span class="glyphicon glyphicon-map-marker"></span>
 								<span class="hidden-xs">地圖</span>
 							</a>
 						</li>
-						<li>
+						<li> <!-- Trace Panel Tab -->
 							<a href="#tracePanel" data-toggle="tab">
 								<span class="glyphicon glyphicon-list-alt"></span>
 								<span class="hidden-xs">追蹤清單</span>
 							</a>
 						</li>
-						<li>
+						<li> <!-- Seller Panel Tab -->
 							<a href="#sellerPanel" data-toggle="tab">
 								<span class="glyphicon glyphicon-home"></span>
 								<span class="hidden-xs">我的商店</span>
 							</a>
 						</li>
-						<li>
-							<a data-toggle="collapse" data-parent="userNav" href="#accountCollapse">
+						<li> <!-- User Panel Tab -->
+							<a href="#userPanel" data-toggle="tab">
 								<span class="glyphicon glyphicon-user"></span>
 								<span id="navUsername" class="hidden-xs"></span>
 							</a>
@@ -193,7 +204,7 @@
 			</div>
 			<div id="accountCollapse" class="collapse container">
 				<ul style="background-color:#FFFFFF" class="nav nav-stacked pull-right">
-					<li><a class="btn-settingModal" href="#settingModal" data-toggle="modal">設定<i class="glyphicon glyphicon-cog"></i></a></li>
+					<li><a data-toggle="tab" href="#settingPanel">設定<i class="glyphicon glyphicon-cog"></i></a></li>
 					<li><a id="logoutBtn" href="#">登出</a></li>
 				</ul>
 			</div>
@@ -308,113 +319,6 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 		
-		
-		<!--Setting modal -->
-		<div id="settingModal" class="modal fade" tabindex="-1">
-			<div class="modal-dialog modal-dialog-large">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title"><img src="img/setting.png" style="vertical-align:bottom;width:130px;height:130px;">帳號設定</h4>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-lg-2">
-								<ul class="nav nav-pills nav-stacked">
-									<li class="active"><a href="#accountSetting">會員設定</a></li>
-									<li><a href="#">Privacy</a></li>
-								</ul>
-							</div>
-							<div class="col-lg-8">
-								<div id="accountSetting">
-									<div class="accordion">
-										<div class="accordion-group">
-											<div class="accordion-heading">
-												<a class="accordion-toggle" data-toggle="collapse" href="#collapsePhoto">照片</a>
-											</div>
-											<div id="collapsePhoto" class="accordion-body collapse">
-												<div class="accordion-inner">
-													<img src="img/setting.png" style="width: 130px; height: 130px;">
-													<button class="btn btn-primary">上傳照片</button>
-												</div>
-											</div>
-										</div>
-										<div class="accordion-group">
-											<div class="accordion-heading">
-												<a class="accordion-toggle" data-toggle="collapse" href="#collapseAccount">
-													帳號
-												</a>
-											</div>
-											<div id="collapseAccount" class="accordion-body collapse">
-												<div class="accordion-inner">
-													<div class="form-horizontal">
-														<div class="form-group">
-															<label class="col-lg-3 control-label" for="settingEmail">帳號/Email</label>
-															<div class="col-lg-6">
-																<input type="text" class="form-control" id="settingEmail" placeholder="">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-lg-3 control-label" for="settingUsername">名稱</label>
-															<div class="col-lg-6">
-																<input type="text" class="form-control" id="settingUsername" placeholder="">
-															</div>
-														</div>
-														<div class="form-group">
-															<div class="col-lg-6 col-offset-3">
-																<button class="btn btn-primary">寄發認證信</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="accordion-group">
-											<div class="accordion-heading">
-												<a class="accordion-toggle" data-toggle="collapse" href="#collapsePassword">修改密碼</a>
-											</div>
-											<div id="collapsePassword" class="accordion-body collapse">
-												<div class="accordion-inner">
-													<div class="form-horizontal">
-														<div class="form-group">
-															<label class="col-lg-3 control-label" for="settingPassword">舊密碼</label>
-															<div class="col-lg-6">
-																<input type="password" class="form-control" id="settingPassword" placeholder="">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-lg-3 control-label" for="settingNewPassword">新密碼</label>
-															<div class="col-lg-6">
-																<input type="password" class="form-control" id="settingNewPassword" placeholder="">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-lg-3 control-label" for="settingNewPassword2">確認新密碼</label>
-															<div class="col-lg-6">
-																<input type="password" class="form-control" id="settingNewPassword2" placeholder="">
-															</div>
-														</div>
-														<div class="form-group">
-															<div class="col-lg-6 col-lg-offset-3">
-																<button class="btn btn-primary">確認修改</button>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-2">
-								這裡放廣告
-							</div>
-						</div>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		
 		<!--Seller Panel-->
 		<div id="sellerPanel2" class="modal fade" tabindex="-1">
 			<div class="modal-dialog modal-dialog-large">
@@ -514,14 +418,14 @@
 									</div>
 								</div>
 							</div>
-							<div id="createItemNameField" class="form-group">
+							<div class="form-group" id="createItemNameField">
 								<label class="col-lg-2 control-label" for="createItemName">品名*</label>
 								<div class="col-lg-8">
 									<input type="text" class="form-control" id="createItemName" placeholder="">
 								</div>
 								<span class="col-lg-3 help-block msg-error"></span>
 							</div>
-							<div id="createItemPriceField" class="form-group">
+							<div class="form-group" id="createItemPriceField">
 								<label class="col-lg-2 control-label" for="createItemPrice">價格*</label>
 								<div class="col-lg-8">
 									<input type="text" class="form-control num-only" id="createItemPrice" placeholder="">
@@ -556,7 +460,7 @@
 									</label>
 								</div>
 							</div>
-							<div id="createItemDescField" class="form-group">
+							<div class="form-group" id="createItemDescField">
 								<label class="col-lg-2 control-label">商品描述</label>
 								<div class="col-lg-8">
 									<textarea id="createItemDesc" class="form-control" rows="3"></textarea>
@@ -621,28 +525,169 @@
 			</div>
 		</div>
 		
+		<!-- Q&A Why Email Verification Modal -->
+		<div id="infoEmailModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">為什麼要信箱認證?</h4>
+					</div>
+					<div class="modal-body">
+						<img src="http://www.marketingpugetsound.com/wp-content/uploads/2013/01/Email-icon-square.png" class="img-rounded" width="200px" height="200px">				
+						<dl>
+						  <dt>信箱認證之後你可以...</dt>
+						  <dd>透過站內聊天系統與賣家聯繫</dd>
+						  <dd>保護你的帳號，忘記密碼時可由認證信箱取得新密碼‧</dd>
+						</dl>				
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+						<button id="sendVerifyEmail" type="button" class="btn btn-primary">寄發認證信</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->		
+		
+		<!--Setting modal -->
+		<div id="settingModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog modal-dialog-large">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">帳號設定</h4>
+					</div>
+					<div class="modal-body">
+						<div class="panel panel-default">	<!-- photo -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">照片</h3>
+								<button id="photo-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
+							</div>
+							<div class="panel-body"> 
+								<div class="col-lg-10" id="oldphoto-panel">	<!-- old photo -->
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAAB9CAYAAACPgGwlAAACCklEQVR4nO3XMW7EIBQA0dz/KHR0bujoXLr3EbgCqT5yNl4lhSWbnSmmQdoviyew96u11o3V190PYKKb6Ca6iW6im+gmuolOTnRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkObDr0WmtPKf1a37atp5R6rXWs5Zx7SqmnlPq+74+Y/4SmQg+QM5QACJRaa88599ZaL6X0ZVlun/+UpkEPkNj8d1iBknPupZTeWuvruo7TuCzL+H0pZaxfNf/uffo49G3bBlSsx7UbG/8Xyr7vP3CPJ/eK+Xfv00ehR68oOedeax2Y/0GJk3t2JV8x/+lNjR6n8LV4375DiRln7+4r5j+9qdGPvZ7EUsrph9bxKzylNOCumj9DH4ve2vlfquO1HvDrul42f4amQzfRTXQT3UQ30bGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MC+Ac7AmJBH0NO6AAAAAElFTkSuQmCC" alt="..." class="img-thumbnail">
+								</div>
+								<div class="col-lg-10" id="newphoto-panel" style="display: none">	<!-- new photo -->
+									<input type="file" name="photo">
+									<button id="photo-submit" type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px">上傳照片</button>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">	<!-- email -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">帳號/Email</h3>
+								<button id="email-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
+							</div>
+							<div class="panel-body"> 
+								<div id="oldemail-panel" class="col-lg-10">	<!-- old email -->
+									<p id="oldeamil" class="form-control-static">sq0032@gmail.com</p>
+								</div>
+								<div id="newemail-panel" class="form-horizontal" style="display: none">	<!-- new email -->
+									<div class="form-group">
+										<label class="col-lg-3 control-label" for="settingEmail">新Email帳號</label>
+										<div class="col-lg-6">
+											<input type="email" class="form-control" id="settingEmail" placeholder="New Email">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-lg-offset-3 col-lg-3">
+											<button type="submit" class="btn btn-primary btn-sm">修改Email</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<p class="text-danger">信箱未認證<a data-toggle="modal" href="#infoEmailModal" style="float: right">為什麼要認證?</a></p>
+							</div>
+						</div>
+						<div class="panel panel-default">	<!-- name -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">名稱</h3>
+								<button id="name-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="account-edit glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
+							</div>
+							<div class="panel-body"> 
+								<div id="oldname-panel" class="col-lg-10" >	<!-- oldname -->
+									<p id="oldname" class="form-control-static"></p>
+								</div>	
+								<div id="newname-panel" class="col-lg-10"  style="display: none"> <!-- newname -->
+									<p>名稱為網路身分識別所用，因此不提供使用者修改‧</p>
+								</div>				
+							</div>
+						</div>
+						<div class="panel panel-default">	<!-- password -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">密碼</h3>
+								<button id="password-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="account-edit glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
+							</div>
+							<div class="panel-body"> 
+								<div class="col-lg-10" id="oldpass-panel"> <!-- old password -->
+									<p class="form-control-static">********</p>
+								</div>
+								<div id="newpass-panel" class="form-horizontal" style="display: none"> <!--new password-->
+									<div class="form-group">
+										<label class="col-lg-3 control-label" for="settingPassword">舊密碼</label>
+										<div class="col-lg-6">
+											<input type="password" class="form-control" id="settingPassword" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label" for="settingNewPassword">新密碼</label>
+										<div class="col-lg-6">
+											<input type="password" class="form-control" id="settingNewPassword" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label" for="settingNewPassword2">確認新密碼</label>
+										<div class="col-lg-6">
+											<input type="password" class="form-control" id="settingNewPassword2" placeholder="">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-lg-offset-3 col-lg-10">
+											<button type="submit" class="btn btn-primary btn-sm">修改密碼</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->			
+		
+		<!-- Main Panels -->
 		<div class="main-panels tab-content">
-			<div class="tab-pane fade" id="mapPanel">
-			</div>
-			<div class="tab-pane fade" id="tracePanel">
-			</div>
-			<div class="tab-pane active fade in" id="sellerPanel">
+			<div class="tab-pane fade" id="mapPanel">	<!-- Map Panels -->
+				<p>mapPanel</p>
+			</div>	
+			<div class="tab-pane fade" id="tracePanel">	<!-- Trace Panel -->
+				<p>tracePanel</p>
+			</div>		
+			<div class="tab-pane active fade in" id="sellerPanel"> <!-- Seller Panel -->
 				<div class="container">
 					<div sytle="text-align:center;">
 						<div class="btn-group">
-							<button type="button" class="btn btn-default">
+							<button type="button" class="btn btn-default"> <!-- 開始營業 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-play"></span>
 								開始營業
 							</button>
-							<button type="button" class="btn btn-default" href="#shopModal" data-toggle="modal">
+							<button type="button" class="btn btn-default" href="#shopModal" data-toggle="modal"> <!-- 編輯店面 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-edit"></span>
 								編輯店面
 							</button>
-							<button type="button" class="btn btn-default" href="#createItemPanel" data-toggle="modal">
+							<button type="button" class="btn btn-default" href="#createItemPanel" data-toggle="modal"> <!-- 商品上架 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-cloud-upload"></span>
 								商品上架
 							</button>
-							<button type="button" class="btn btn-default">
+							<button type="button" class="btn btn-default"> <!-- 最新消息 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-exclamation-sign"></span>
 								最新消息
 							</button>
@@ -650,6 +695,25 @@
 					</div>
 				</div>
 			</div>
+			<div class="tab-pane fade" id="userPanel">  <!--User Panel -->
+				<div>
+					<div class="user-option">
+						<a href="#settingModal" data-toggle="modal">
+							<button id="testbtn" type="button">帳號設定</button>
+						</a>
+					</div>
+					<div class="user-option">
+						<a href="#">
+							<button id="testbtn" type="button">交易紀錄</button>
+						</a>
+					</div>
+					<div class="user-option">
+						<a href="#">
+							<button id="testbtn" type="button">我的評價</button>
+						</a>
+					</div>
+				<div>
+			</div>	
 		</div>
 		
 		
@@ -1211,11 +1275,32 @@
 		var settingView = Backbone.View.extend({
 			el:$('#settingModal'),
 			events:{
-				'click #collapsePassword .btn-submit':'changePassword',
+				'click #photo-edit':'openPhotoPage',
+				'click #email-edit':'openEmailPage',
+				'click #name-edit':'openNamePage',
+				'click #password-edit':'openPasswordPage',
+				'click #newphoto-panel .btn':'changePhoto',
+				'click #newpass-panel .btn':'changePassword',
+				
 				'click #collapseAccount .btn-submit':'sendVerifyEmail',
 			},
 			initialize: function() {
 				this.listenTo(loginUser, 'change', this.updateUser);
+			},
+			openPhotoPage: function(){
+				$("#newphoto-panel").toggle();
+			},
+			openEmailPage: function(){
+				$("#oldemail-panel").toggle();
+				$("#newemail-panel").toggle();
+			},
+			openNamePage: function(){
+				$("#oldname-panel").toggle();
+				$("#newname-panel").toggle();
+			},
+			openPasswordPage: function(){
+				$("#oldpass-panel").toggle();
+				$("#newpass-panel").toggle();
 			},
 			changePassword: function(){
 				var thisView = this;
@@ -1242,14 +1327,19 @@
 				$.post('accounts/send-verify-email',{})
 				.done(function(){
 					alert('認證信已發送');
+				}).fail(function(){
+					alert('認證信發送失敗 請稍後再試');
 				});
+			},
+			changePhoto: function(){
+				alert('change photo');
 			},
 			updateUser: function(){
 				console.log(loginUser)
 				var email = loginUser.get('email');
 				var name = loginUser.get('name');
-				this.$('#settingEmail').val(email);
-				this.$('#settingUsername').val(name);
+				this.$('#oldemail').html(email);
+				this.$('#oldname').html(name);
 			}
 		})
 		
@@ -1292,6 +1382,22 @@
 			}
 		});
 		
+		var infoEmailView = Backbone.View.extend({
+			el:$('#infoEmailModal'),
+			initialize: function() {
+			},
+			events: {
+				"click #sendVerifyEmail": "sendVerifyEmail",
+			},
+			sendVerifyEmail: function(){
+				$.post('accounts/send-verify-email',{})
+				.done(function(){
+					alert('認證信已發送');
+				}).fail(function(){
+					alert('認證信發送失敗 請稍後再試');
+				});
+			}
+		});
 		
 		function confirm(message,func){
 			var $modal= $(
@@ -1329,7 +1435,6 @@
 				func(false);
 			});
 		}
-		
 		
 		function msgbox(message){
 			var $modal= $(
@@ -1406,6 +1511,7 @@
 				var sellerPanel = new sellerPanelView();
 				var createItemPanel = new createItemPanelView();
 				var shopMadal = new shopModalView();
+				var infoEmailModal = new infoEmailView();
 				loginUser.fetch();
 				
 			});
