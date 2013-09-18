@@ -1,0 +1,142 @@
+[
+{
+    "pk": 1, 
+    "model": "shops.category", 
+    "fields": {
+        "name": "3C\u7522\u54c1\u53ca\u5bb6\u96fb", 
+        "parent": null
+    }
+},
+{
+    "pk": 2, 
+    "model": "shops.category", 
+    "fields": {
+        "name": "\u65e5\u5e38\u7528\u54c1", 
+        "parent": null
+    }
+},
+{
+    "pk": 3, 
+    "model": "shops.category", 
+    "fields": {
+        "name": "\u6905\u5b50", 
+        "parent": 2
+    }
+},
+{
+    "pk": 4, 
+    "model": "shops.category", 
+    "fields": {
+        "name": "\u76f8\u6a5f", 
+        "parent": 1
+    }
+},
+{
+    "pk": 5, 
+    "model": "shops.category", 
+    "fields": {
+        "name": "\u5851\u81a0\u6905", 
+        "parent": 3
+    }
+},
+{
+    "pk": 6, 
+    "model": "shops.category", 
+    "fields": {
+        "name": "\u6728\u982d\u6905", 
+        "parent": 3
+    }
+},
+{
+    "pk": 1, 
+    "model": "shops.attribute", 
+    "fields": {
+        "name": "\u5168\u65b0\u54c1"
+    }
+},
+{
+    "pk": 2, 
+    "model": "shops.attribute", 
+    "fields": {
+        "name": "\u4e8c\u624b\u54c1"
+    }
+},
+{
+    "pk": 3, 
+    "model": "shops.attribute", 
+    "fields": {
+        "name": "\u53e3\u888b\u5c0f\u7269"
+    }
+},
+{
+    "pk": 4, 
+    "model": "shops.attribute", 
+    "fields": {
+        "name": "\u80cc\u5305\u53ef\u88dd"
+    }
+},
+{
+    "pk": 5, 
+    "model": "shops.attribute", 
+    "fields": {
+        "name": "\u6a5f\u8eca\u53ef\u8f09"
+    }
+},
+{
+    "pk": 6, 
+    "model": "shops.attribute", 
+    "fields": {
+        "name": "\u9808\u958b\u8eca"
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Lv0", 
+        "permissions": []
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Lv1", 
+        "permissions": []
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Lv2", 
+        "permissions": []
+    }
+},
+{
+    "pk": 4, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Lv3", 
+        "permissions": []
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-08-30T07:17:05.430Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$YbrjqPSglBbo$xvfYxDXjn+Th/BAn505GUkIb6Du8SwpzzvaSUAAfwD8=", 
+        "email": "", 
+        "date_joined": "2013-08-30T07:16:40.674Z"
+    }
+}
+]
