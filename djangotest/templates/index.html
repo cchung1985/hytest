@@ -82,6 +82,30 @@
 			margin: 0;
 		}
 		
+		.msglist{
+			padding: 0px;
+			list-style-type: none;
+		}
+		
+		.msglist .msgbox{
+			border-radius: 5px;
+			border: 1px solid;
+			margin-bottom: 10px;
+			padding: 5px;
+		}
+		
+		.msglist .msg-me{
+			background-color: #FFCCFF;
+		}
+		
+		.msglist .msg-other{
+			background-color: #CCFFFF;
+		}
+		
+		div.speaker:after{
+			content:" 說:"
+		}
+		
 		@media (min-width: 1200px) {
 			.modal-dialog-large {
 				width: 1170px;
@@ -512,6 +536,56 @@
 			</div>
 		</div>
 		
+		<!-- Chat Modal -->
+		<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Modal title</h4>
+					</div>
+					<div class="modal-body" style="background-color: #E8E8E8">
+						<ul class="msglist">
+							<li>
+								<div class="pull-left msgbox msg-other">
+									<div class="speaker">阿超</div>
+									<div class="">好好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天晚上來那個好?不好?不好?不好?今天晚上來那個好不好?</div>
+									<div class="time" style="width:100%">
+										<div class="pull-right">11:42pm</div>
+									</div>
+								</div>
+								<div style="clear:both;"></div>
+							</li>
+							<li>
+								<div class="pull-right msgbox msg-me">
+									<div class="speaker">老黎</div>
+									<div class="">哪個?</div>
+									<div class="time" style="width:100%">
+										<div class="pull-left">11:42pm</div>
+									</div>
+								</div>
+								<div style="clear:both;"></div>
+							</li>
+							<li>
+								<div class="pull-left msgbox msg-other">
+									<div class="speaker">阿超</div>
+									<div class="">Message #3</div>
+									<div class="time" style="width:100%">
+										<div class="pull-right">11:59pm</div>
+									</div>
+								</div>
+							<div style="clear:both;"></div>
+							</li>
+						</ul>
+					</div>
+					<div class="modal-footer" style="margin-top:0px">
+						<input type="text" class="form-control pull-left" id="massage" placeholder="Enter message">
+						<button type="button" class="btn btn-default">送出</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	
 		<!--Setting modal -->
 		<div id="settingModal" class="modal fade" tabindex="-1">
 			<div class="modal-dialog modal-dialog-large">
