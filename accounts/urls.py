@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.conf.urls import patterns, url
 
 from accounts import views
@@ -13,7 +14,7 @@ urlpatterns = patterns('',
 	url(r'^users/i$', views.user_i_view),
 	url(r'^create-user$', views.createUser),
 	url(r'^password$', views.changePassword),
-	url(r'^verify', views.verifyEmail),
+	url(r'^verify$', views.verifyEmail),
 	#url(r'^users/(?P<user_id>\d+)$', views.userDetail.as_view()),
 	
 	

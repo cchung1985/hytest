@@ -133,7 +133,8 @@ INSTALLED_APPS = (
 	'accounts',
 	'shops',
 	'items',
-	'rest_framework'
+	'rest_framework',
+	'chats',
 )
 
 # A sample logging configuration. The only tangible logging

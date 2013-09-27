@@ -28,6 +28,7 @@ urlpatterns = patterns('',
 	url(r'^2$', TemplateView.as_view(template_name="index2.html")),
 	
 	url(r'^accounts/', include('accounts.urls')),
+	url(r'^chats/', include('chats.urls')),	
 	url(r'^', include('shops.urls')),
 	url(r'^', include('items.urls')),
 )

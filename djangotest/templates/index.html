@@ -641,7 +641,12 @@
 							<button type="button">我的評價</button>
 						</a>
 					</div>
-				<div>
+					
+					<!-- Chat system test start -->
+					<div id="chat-test" style="border:solid 1px">
+					</div>
+					<!-- Chat system test end -->
+				</div>
 			</div>	
 		</div>
 		
@@ -681,7 +686,7 @@
 		var Shop = Backbone.Model.extend({
 			urlRoot:'shops/'
 		});
-
+		
 		var loginUser = new User();
 		loginUser.url = 'accounts/users/i';
 		loginUser.login = function(email, password){
@@ -697,7 +702,7 @@
 				dfd.reject();
 			});
 			return dfd.promise();
-		}
+		};
 		
 		var myShop = new Shop();
 		
@@ -1603,10 +1608,62 @@
 		new myRouter();
 		Backbone.history.start();
 		
+		//////////Chat system Test (backbone) start//////////
+		var Chat = Backbone.Model.extend({
+			default:{
+				buyer: 'USER1',
+				seller: 'USER2',
+				item: 'ITEM',
+				time: 'None',
+				date: 'None',
+				seller_seen: true,
+				buyer_seen: true,
+			}
+		});
+
+		var Chat_list = Backbone.Collection.extend({
+			model: Chat,
+			url: '/chats/list'
+		});
+
+		var Chat_listView = Backbone.View.extend({
+			el: '#chat-test',
+			initialize: function(){
+				this.collection = new Chat_list();
+				this.collection.fetch({reset: true});
+				this.render();
+				
+				this.listenTo(this.collection, 'reset', this.render);
+			},
+			render: function(){
+				this.collection.each(function(item){
+					this.renderChat(item);
+				}, this);
+			},
+			renderChat: function(item){
+				var buyer = item.get('buyer');
+				var seller = item.get('seller');
+				
+				var html = 
+				'<div style="border:solid 1px red">'
+				+'	<p>buyer: '+buyer+'</p>'
+				+'	<p>seller: '+seller+'</p>'
+				+'</div>';
+				
+				//var html = '123';
+				
+				this.$el.append(html);
+			},
+		});
+		//////////Chat system Test (backbone )end//////////
+
+
 			$(function(){
+				//Chat system Test
+				var chat_listView = new Chat_listView();
+				
 				
 				var navBar = new navBarView();
-				
 				var loginModal = new loginModalView({navBar:navBar});
 				var regModal = new regModalView({navBar:navBar});
 				var settingModal = new settingView();
@@ -1622,6 +1679,7 @@
 					if(loginUser.isNew()){
 						dfd.reject();
 					}else if(loginUser.get('shops').length == 0){
+						loginUser.trigger('login');
 						dfd.reject();
 					}else{
 						loginUser.trigger('login');
@@ -1638,7 +1696,7 @@
 				}).done(function(){
 					console.log('done');
 				}).fail(function(){
-					console.log('fail');
+					console.log('fail222');
 				});
 			});
 		</script>

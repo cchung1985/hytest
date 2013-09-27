@@ -138,5 +138,137 @@
         "email": "", 
         "date_joined": "2013-08-30T07:16:40.674Z"
     }
+},
+{
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user1", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-09-26T21:18:33.894Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$EYMgxOtzitpz$0BiBH8iAkyUmUF6GRf/bOecSneHANK0yl4sfQN0vc6M=", 
+        "email": "", 
+        "date_joined": "2013-09-26T21:18:33.894Z"
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user2", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-09-26T21:18:47.298Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$Zhh0dqzmC3Cr$cCvsiIbVMQJCjvKgzaHGFMc2LGIREr6o/7ES8kSVTOA=", 
+        "email": "", 
+        "date_joined": "2013-09-26T21:18:47.298Z"
+    }
+},
+{
+    "pk": 4, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user3", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-09-26T21:20:29.364Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$ZZQ3wH4K9XG0$DDiZRyCRzgZq0wbHyPmBn2laTK/pV1TRq1betH6kkhk=", 
+        "email": "", 
+        "date_joined": "2013-09-26T21:20:29.364Z"
+    }
+},
+{
+    "pk": 5, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user4", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-09-26T21:21:27.905Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$wJd7QeWafdSd$o8Oxti2vRNw5rtqyX2C0jhAUs7u6bnrKDw/4LoWMFnk=", 
+        "email": "", 
+        "date_joined": "2013-09-26T21:21:27.905Z"
+    }
+},
+{
+    "pk": 1, 
+    "model": "items.item", 
+    "fields": {
+        "category": 5, 
+        "name": "user1_item1", 
+        "price": 100, 
+        "pic": "", 
+        "attrs": [
+            2
+        ], 
+        "owner": 2, 
+        "rid": "1", 
+        "pub_date": "2013-09-26T21:19:23.980Z", 
+        "description": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "items.item", 
+    "fields": {
+        "category": 3, 
+        "name": "user1_item2", 
+        "price": 500, 
+        "pic": "", 
+        "attrs": [
+            1
+        ], 
+        "owner": 2, 
+        "rid": "2", 
+        "pub_date": "2013-09-26T21:19:47.622Z", 
+        "description": ""
+    }
+},
+{
+    "pk": 1, 
+    "model": "chats.chat", 
+    "fields": {
+        "seller_seen": true, 
+        "date": "2013-09-27", 
+        "seller": 2, 
+        "item": 1, 
+        "time": "05:21:42", 
+        "buyer": 3, 
+        "buyer_seen": true
+    }
+},
+{
+    "pk": 2, 
+    "model": "chats.chat", 
+    "fields": {
+        "seller_seen": true, 
+        "date": "2013-09-27", 
+        "seller": 2, 
+        "item": 1, 
+        "time": "05:22:00", 
+        "buyer": 4, 
+        "buyer_seen": true
+    }
 }
 ]

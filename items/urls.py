@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 	url(r'^items/i/$', views.items_i),
 	url(r'^items/(?P<id>[0-9]+)$', views.ItemsDetail.as_view()),
 	url(r'^item-categorys$', views.getItemCategorys),
+	url(r'^items/(?P<item_id>[0-9]+)/conv/$', views.getItemConversationList),
 )
