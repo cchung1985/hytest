@@ -9,6 +9,16 @@ class EmailVerification(models.Model):
 	
 	def __unicode__(self):
 		return self.user.username
+	
+class Verification(models.Model):
+	user = models.OneToOneField(User)
+	email = models.BooleanField(default=False)
+	phone = models.BooleanField(default=False)
+	credit = models.BooleanField(default=False)
+	
+	def __unicode__(self):
+		return "user:%s %s,%s,%s" % (self.user.username, str(self.email), str(self.phone), str(self.credit))
+
 '''
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser

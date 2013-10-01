@@ -3,25 +3,70 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Project name</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-		<!--
-		<link href="less/bootstrap.less" rel="stylesheet/less">
-		-->
 		<style>
-		body {
-			padding-top: 40px; /* 60px to make the container go all the way to the bottom of the topbar */
-		}
-		#map_canvas {
+		
+		.main-panels .tab-pane{
 			position: absolute;
-			top: 40px;
+			top: 71px;
 			left: 0px;
 			right: 0px;
 			bottom: 0px;
 			z-index: -1;
 		}
-		#loginModal {
+		
+		.main-nav > li > a {
+			border-radius: 0;
+			font-size: 16px;
+			padding:15px 0 15px 0;
+			width:90px;
+			text-align:center;
+		}
+		
+		#navBar {
+			border-bottom: 1px solid #428BCA;
+		}
+		
+		#shopMap {
+			height:300px;
+		}
+		
+		.shop-box {
+			border: 1px solid #DDDDDD;
+		}
+		
+		.item-box-showcase {
+			border: 1px solid #DDDDDD;
+		}
+		
+		.item-box {
+			border: 1px solid #DDDDDD;
+			margin-bottom: 10px;
+		}
+		
+		#sellerShopBox {
+			position:absolute;
+			top:70px;
+			right:15px;
+			left:15px;
+		}
+		
+		#sellerShowCase {
+			position:absolute;
+			top:140px;
+			right:15px;
+			left:15px;
+			bottom:10px;
+		}
+		
+		#sellerItemsList {
+			overflow:auto;
+			position:absolute;
+			top:40px;
+			right:10px;
+			left:10px;
+			bottom:10px;
 		}
 		
 		#settingModal {
@@ -37,434 +82,1216 @@
 			margin: 0;
 		}
 		
-		</style>
-		<link href="css/bootstrap-responsive.css" rel="stylesheet">
-		<style>
-		
-		.modal {
-			outline: none;
-			position: absolute;
-			margin-top: 0;
-			top: 50%;
-			overflow: visible; /* allow content to popup out (i.e tooltips) */
+		.msglist{
+			padding: 0px;
+			list-style-type: none;
 		}
 		
-		.modal.fade {
-			top: -100%;
-			-webkit-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;	
-			   -moz-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
-			     -o-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
-			        transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
+		.msglist .msgbox{
+			border-radius: 5px;
+			border: 1px solid;
+			margin-bottom: 10px;
+			padding: 5px;
 		}
 		
-		
-		.modal-body {
-			max-height: none;
-			overflow: visible;
+		.msglist .msg-me{
+			background-color: #FFCCFF;
 		}
 		
-		.modal.container {
-			width: 940px;
-			margin-left: -470px;
+		.msglist .msg-other{
+			background-color: #CCFFFF;
 		}
 		
-		/* Large desktop */
+		div.speaker:after{
+			content:" 說:"
+		}		
+		
 		@media (min-width: 1200px) {
-			.modal.container {
+			.modal-dialog-large {
 				width: 1170px;
-				margin-left: -585px;
 			}
 		}
-		 
-		/* Portrait tablet to landscape and desktop */
+		@media (min-width: 980px) and (max-width: 1199px) {
+			.modal-dialog-large {
+				width: 940px;
+			}
+		}
+		
 		@media (min-width: 768px) and (max-width: 979px) {
-			.modal.container {
+			.modal-dialog-large {
 				width: 728px;
-				margin-left: -362px;
 			}
 		}
-		 
-		/* Landscape phone to portrait tablet */
+		
 		@media (max-width: 767px) {
-			.modal, 
-			.modal.container {
-				top: 1%;
-				right: 1%;
-				left: 1%;
-				bottom: auto;
-				width: auto !important;
-				height: auto !important;
-				margin: 0 !important;
-				padding: 0 !important;
+			.main-panels .tab-pane{
+				top: 51px;
+				z-index: -1;
 			}
+			
+			.main-nav > li > a {
+				padding:10px 0 10px 0;
+				font-size: 18px;
+				line-height: 30px;
+				width:50px;
+			}
+			
+			.container {
+				padding-left: 0;
+				padding-right: 0;
+			}
+			
+			.navbar-nav > li {
+				float: left;
+			}
+			
+			.navbar-nav {
+				margin: 0;
+			}
+			
+			.close {
+				font-size:40px;
+			}
+			
+			#shopMap {
+				width:80%;
+				height:200px;
+			}
+		}
 		</style>
-		<!--
-		<link href="css/bootstrap-modal.css" rel="stylesheet">
-		<link href="less/responsive.less" rel="stylesheet/less">
-		-->
-	<script type="text/javascript"
-		src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDVe-jIXFr-OWQknSaDsjLyogR6Lm9goB8&sensor=false">
-	</script>
+	<link href="css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	</head>
 	<body>
-		<div id="navBar" class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="brand" href="#">Project name</a>
-					<form class="navbar-search">
-						<input type="text" class="search-query" placeholder="搜尋">
-					</form>
-
-					<div class="nav-collapse collapse">
-						<ul id="guestNav" class="nav pull-right">
-							<li><a class="btn-loginModal" href="#loginModal" data-toggle="modal">登入</a></li>
-							<li><a class="btn-regModal" href="#regModal" data-toggle="modal">註冊</a></li>
-						</ul>
-						<ul id="userNav" class="nav pull-right">
-							<li><a class="btn-myCart" href="#" data-toggle="modal">購物車<i class="icon-shopping-cart"></i></a></li>
-							<li><a class="btn-myShop" href="#sellerPanel" data-toggle="modal">我的商店<i class="icon-home"></i></a></li>
-							<li><a class="btn-settingModal" href="#settingModal" data-toggle="modal">設定<i class="icon-wrench"></i></a></li>
-							<li><a class="userInfo" href="#"><i class="icon-user"></i><span class="username"></span></a></li>
-							<li><a id="logoutBtn" href="#">登出</a></li>
-						</ul>
-					</div><!--/.nav-collapse -->
+		<div id="navBar" style="background-color:#FFFFFF" class="navbar navbar-fixed-top">
+			<div class="container">
+				<div>
+					<a class="navbar-brand" style="position:absolute;" href="#">YOUCON</a>
+					<ul id="userNav" class="main-nav nav nav-pills navbar-nav pull-right" style="display:none;">
+						<li class="active"> <!-- Map Tab -->
+							<a href="#mapPanel" data-toggle="tab">
+								<span class="glyphicon glyphicon-map-marker"></span>
+								<span class="hidden-xs">地圖</span>
+							</a>
+						</li>
+						<li> <!-- Trace Panel Tab -->
+							<a href="#tracePanel" data-toggle="tab">
+								<span class="glyphicon glyphicon-list-alt"></span>
+								<span class="hidden-xs">追蹤清單</span>
+							</a>
+						</li>
+						<li> <!-- Seller Panel Tab -->
+							<a href="#sellerPanel" data-toggle="tab">
+								<span class="glyphicon glyphicon-home"></span>
+								<span class="hidden-xs">我的商店</span>
+							</a>
+						</li>
+						<li> <!-- User Panel Tab -->
+							<a href="#userPanel" data-toggle="tab">
+								<span class="glyphicon glyphicon-user"></span>
+								<span id="navUsername" class="hidden-xs"></span>
+							</a>
+						</li>
+					</ul>
+					<ul id="guestNav" class="main-nav nav navbar-nav pull-right">
+						<li>
+							<a href="#regModal" data-toggle="modal">
+								<div class="hidden-xs">
+									<span class="glyphicon glyphicon-user"></span>
+									<div>註冊</div>
+								</div>
+								<div class="visible-xs">註冊</div>
+							</a>
+						</li>
+						<li>
+							<a href="#loginModal" data-toggle="modal">
+								<div class="hidden-xs">
+									<span class="glyphicon glyphicon-log-in"></span>
+									<div>登入</div>
+								</div>
+								<div class="visible-xs">登入</div>
+							</a>
+						</li>
+					</ul>
+					<div style="clear:both"></div>
 				</div>
 			</div>
 		</div>
 		
 		<!--Login modal -->
-		<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3>會員登入</h3>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="control-group">
-						<label class="control-label" for="loginEmail">Email</label>
-						<div class="controls">
-							<input type="text" id="loginEmail" placeholder="Email">
+		<div id="loginModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">會員登入</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Email</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="loginEmail" placeholder="Email">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">密碼</label>
+								<div class="col-sm-7">
+									<input type="password" class="form-control" id="loginPassword" placeholder="Password">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox"> 記得我
+										</label>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="loginPassword">密碼</label>
-						<div class="controls">
-							<input type="password" id="loginPassword" placeholder="Password">
-						</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">關閉</button>
+						<button class="btn btn-primary" id="loginBtn">登入</button>
 					</div>
-					<div class="control-group">
-						<div class="controls">
-							<label class="checkbox">
-								<input type="checkbox"> 記得我
-							</label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
-				<button class="btn btn-primary btn-login">登入</button>
-			</div>
-		</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 		
 		<!--Registration modal -->
-		<div id="regModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3>會員註冊</h3>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div id="regEmailField" class="control-group">
-						<label class="control-label" for="regEmail">帳號/Email</label>
-						<div class="controls">
-							<input type="text" id="regEmail" placeholder="使用E-mail作為您的帳號">
-							<span class="help-inline msg-error"></span>
+		<div id="regModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">會員註冊</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div id="regEmailField" class="form-group">
+								<label class="col-sm-3 control-label">帳號/Email</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="regEmail" placeholder="使用E-mail作為您的帳號">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div id="regUsernameField" class="form-group">
+								<label class="col-sm-3 control-label">名稱</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="regUsername" placeholder="最多填入20個字元">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div id="regPasswordField" class="form-group">
+								<label class="col-sm-3 control-label">密碼</label>
+								<div class="col-sm-6">
+									<input type="password" class="form-control" id="regPassword" placeholder="請輸入8到16個字元">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div id="regPasswordConfirmField" class="form-group">
+								<label class="col-sm-3 control-label">確認密碼</label>
+								<div class="col-sm-6">
+									<input type="password" class="form-control" id="regPasswordConfirm" placeholder="">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-3 col-sm-offset-3">
+									<img id="regCaptchaImage">
+								</div>
+								<div class="col-sm-3">
+									<button class="btn btn-default" id="refreshCaptcha"><i class="glyphicon glyphicon-refresh"></i></button>
+								</div>
+							</div>
+							<div id="regCaptchaField" class="form-group">
+								<label class="col-sm-3 control-label">驗證碼</label>
+								<div class="col-sm-6">
+									<input class="form-control" type="text" id="regCaptcha" placeholder="">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div id="regAgreeField" class="form-group">
+								<label class="col-sm-3 control-label" for="regCaptcha"></label>
+								<div class="col-sm-9">
+									<label class="checkbox">
+										<input id="regAgree" type="checkbox">
+										<span class="help-block">我已經詳細閱讀並同意xxx服務條款</span>
+									</label>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div id="regUsernameField" class="control-group">
-						<label class="control-label" for="regUsername">名稱</label>
-						<div class="controls">
-							<input type="text" id="regUsername" placeholder="最多填入20個字元">
-							<span class="help-inline msg-error"></span>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">關閉</button>
+						<button class="btn btn-primary" id="registerBtn" data-loading-text="註冊中...">註冊</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+		<!--Item Modal-->
+		<div id="itemModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">新增商品</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">圖片</label>
+								<div class="col-sm-8">
+									<div id="itemImages">
+										<div class="" style="float:left;width:100px;height:100px">
+											<input class="single" type="file" name="0">
+											<div class="preview-image"></div>
+										</div>
+										<div style="float:left;width:100px;height:100px;">
+											<input type="file" name="1">
+											<div class="preview-image"></div>
+										</div>
+										<div style="float:left;width:100px;height:100px;">
+											<input type="file" name="2">
+											<div class="preview-image"></div>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group" id="itemNameField">
+								<label class="col-sm-2 control-label" for="itemName">品名*</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="itemName" placeholder="">
+								</div>
+								<span class="col-sm-2 help-block msg-error"></span>
+							</div>
+							<div class="form-group" id="itemPriceField">
+								<label class="col-sm-2 control-label" for="itemPrice">價格*</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control num-only" id="itemPrice" placeholder="">
+								</div>
+								<span class="col-sm-2 help-block msg-error"></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">新舊</label>
+								<div class="col-sm-8 btn-group" data-toggle="buttons">
+									<label class="btn btn-info active">
+										<input type="radio" name="conditionAttr" value="1">全新
+									</label>
+									<label class="btn btn-info">
+										<input type="radio" name="conditionAttr" value="2">二手品
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">尺寸</label>
+								<div class="col-sm-8 btn-group" data-toggle="buttons">
+									<label class="btn btn-info active">
+										<input type="radio" name="sizeAttr" value="3">口袋小物
+									</label>
+									<label class="btn btn-info">
+										<input type="radio" name="sizeAttr" value="4">背包可裝
+									</label>
+									<label class="btn btn-info">
+										<input type="radio" name="sizeAttr" value="5">機車可載
+									</label>
+									<label class="btn btn-info">
+										<input type="radio" name="sizeAttr" value="6">須開車
+									</label>
+								</div>
+							</div>
+							<div class="form-group" id="itemDescField">
+								<label class="col-sm-2 control-label">商品描述</label>
+								<div class="col-sm-8">
+									<textarea id="itemDesc" class="form-control" rows="3"></textarea>
+								</div>
+								<span class="col-sm-2 help-block msg-error"></span>
+							</div>
+							<div class="form-group" id="itemCategoryField">
+								<label class="col-sm-2 control-label">商品分類</label>
+							</div>
+							<div class="form-group" id="itemCategory">
+							</div>
+						</div>
+					</div><!-- /.modal-body -->
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</button>
+						<button class="btn btn-primary" id="itemSubmit">確定</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
+		<!--Shop Modal-->
+		<div id="shopModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4><span class="glyphicon glyphicon-edit"></span>編輯店面資訊</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">商店名稱</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="shopName" placeholder="" autocomplete="off">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">商店地址</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="shopAddress" placeholder="" autocomplete="off">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-7 col-sm-offset-3">
+									<div id="shopMap">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">商店介紹</label>
+								<div class="col-sm-7">
+									<textarea class="form-control" rows="3" id="shopDesc"></textarea>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div id="regPasswordField" class="control-group">
-						<label class="control-label" for="regPassword">密碼</label>
-						<div class="controls">
-							<input type="password" id="regPassword" placeholder="請輸入8到16個字元">
-							<span class="help-inline msg-error"></span>
-						</div>
-					</div>
-					<div id="regPasswordConfirmField" class="control-group">
-						<label class="control-label" for="regPasswordConfirm">確認密碼</label>
-						<div class="controls">
-							<input type="password" id="regPasswordConfirm" placeholder="">
-							<span class="help-inline msg-error"></span>
-						</div>
-					</div>
-					<div id="regCaptchaField" class="control-group">
-						<label class="control-label" for="regCaptcha">驗證碼</label>
-						<div class="controls">
-							<p class="captcha"></p>
-							<button class="btn btn-small btn-captcha-refresh"><i class="icon-refresh"></i></button>
-							<input class="input-small" type="text" id="regCaptcha" placeholder="">
-							<span class="help-inline msg-error"></span>
-						</div>
-					</div>
-					<div id="regAgreeField" class="control-group">
-						<div class="controls">
-							<label class="checkbox">
-								<input id="regAgree" type="checkbox">
-								<span class="help-inline">我已經詳細閱讀並同意xxx服務條款</span>
-							</label>
-						</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">
+							取消
+						</button>
+						<button id="shopSubmitBtn" type="button" class="btn btn-primary">
+							確認
+						</button>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
-				<button id="registerBtn" data-loading-text="註冊中..." class="btn btn-primary">註冊</button>
 			</div>
 		</div>
 		
 		<!--Setting modal -->
-		<div id="settingModal" class="modal hide fade container" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3><img src="img/setting.png" style="vertical-align:bottom;width:130px;height:130px;">帳號設定</h3>
-			</div>
-			<div class="row">
-				<div class="span3">
-					<ul class="nav nav-list">
-						<li class="active"><a href="#">會員設定</a></li>
-						<li><a href="#">Privacy</a></li>
-					</ul>
-				</div>
-				<div class="span6 modal-body">
-					<div id="accountSetting">
-						<div class="accordion">
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" href="#collapsePhoto">照片</a>
+		<div id="settingModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog modal-dialog-large">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">帳號設定</h4>
+					</div>
+					<div class="modal-body">
+						<div class="panel panel-default">	<!-- photo -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">照片</h3>
+								<button id="photo-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
 							</div>
-							<div id="collapsePhoto" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<img src="img/setting.png" style="width: 130px; height: 130px;">
-									<button class="btn btn-primary">上傳照片</button>
+							<div class="panel-body"> 
+								<div class="col-sm-10" id="oldphoto-panel">	<!-- old photo -->
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAAB9CAYAAACPgGwlAAACCklEQVR4nO3XMW7EIBQA0dz/KHR0bujoXLr3EbgCqT5yNl4lhSWbnSmmQdoviyew96u11o3V190PYKKb6Ca6iW6im+gmuolOTnRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkObDr0WmtPKf1a37atp5R6rXWs5Zx7SqmnlPq+74+Y/4SmQg+QM5QACJRaa88599ZaL6X0ZVlun/+UpkEPkNj8d1iBknPupZTeWuvruo7TuCzL+H0pZaxfNf/uffo49G3bBlSsx7UbG/8Xyr7vP3CPJ/eK+Xfv00ehR68oOedeax2Y/0GJk3t2JV8x/+lNjR6n8LV4375DiRln7+4r5j+9qdGPvZ7EUsrph9bxKzylNOCumj9DH4ve2vlfquO1HvDrul42f4amQzfRTXQT3UQ30bGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MC+Ac7AmJBH0NO6AAAAAElFTkSuQmCC" alt="..." class="img-thumbnail">
+								</div>
+								<div class="col-sm-10" id="newphoto-panel" style="display: none">	<!-- new photo -->
+									<input type="file" name="photo">
+									<button id="photo-submit" type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px">上傳照片</button>
 								</div>
 							</div>
 						</div>
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" href="#collapseAccount">
-									帳號
-								</a>
+						<div class="panel panel-default">	<!-- email -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">帳號/Email</h3>
+								<button id="email-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
 							</div>
-							<div id="collapseAccount" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<div class="form-horizontal">
-										<div class="control-group">
-											<label class="control-label" for="settingEmail">帳號/Email</label>
-											<div class="controls">
-												<input type="text" id="settingEmail" placeholder="">
-											</div>
+							<div class="panel-body"> 
+								<div id="oldemail-panel" class="col-sm-10">	<!-- old email -->
+									<p id="oldeamil" class="form-control-static">sq0032@gmail.com</p>
+								</div>
+								<div id="newemail-panel" class="form-horizontal" style="display: none">	<!-- new email -->
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="settingEmail">新Email帳號</label>
+										<div class="col-sm-6">
+											<input type="email" class="form-control" id="settingEmail" placeholder="New Email">
 										</div>
-										<div class="control-group">
-											<label class="control-label" for="settingUsername">名稱</label>
-											<div class="controls">
-												<input type="text" id="settingUsername" placeholder="">
-											</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-offset-3 col-sm-3">
+											<button type="submit" class="btn btn-primary btn-sm">修改Email</button>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" href="#collapsePassword">修改密碼</a>
+							<div class="panel-footer">
+								<p class="text-danger">信箱未認證<a data-toggle="modal" href="#infoEmailModal" style="float: right">為什麼要認證?</a></p>
 							</div>
-							<div id="collapsePassword" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<div class="form-horizontal">
-										<div class="control-group">
-											<label class="control-label" for="settingPassword">舊密碼</label>
-											<div class="controls">
-												<input type="password" id="settingPassword" placeholder="">
-											</div>
+						</div>
+						<div class="panel panel-default">	<!-- name -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">名稱</h3>
+								<button id="name-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="account-edit glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
+							</div>
+							<div class="panel-body"> 
+								<div id="oldname-panel" class="col-sm-10" >	<!-- oldname -->
+									<p id="oldname" class="form-control-static"></p>
+								</div>	
+								<div id="newname-panel" class="col-sm-10"  style="display: none"> <!-- newname -->
+									<p>名稱為網路身分識別所用，因此不提供使用者修改‧</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">	<!-- password -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">密碼</h3>
+								<button id="password-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="account-edit glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
+							</div>
+							<div class="panel-body"> 
+								<div class="col-sm-10" id="oldpass-panel"> <!-- old password -->
+									<p class="form-control-static">********</p>
+								</div>
+								<div id="newpass-panel" class="form-horizontal" style="display: none"> <!--new password-->
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="settingPassword">舊密碼</label>
+										<div class="col-sm-6">
+											<input type="password" class="form-control" id="settingPassword" placeholder="">
 										</div>
-										<div class="control-group">
-											<label class="control-label" for="settingNewPassword">新密碼</label>
-											<div class="controls">
-												<input type="password" id="settingNewPassword" placeholder="">
-											</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="settingNewPassword">新密碼</label>
+										<div class="col-sm-6">
+											<input type="password" class="form-control" id="settingNewPassword" placeholder="">
 										</div>
-										<div class="control-group">
-											<label class="control-label" for="settingNewPassword2">確認新密碼</label>
-											<div class="controls">
-												<input type="password" id="settingNewPassword2" placeholder="">
-											</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="settingNewPassword2">確認新密碼</label>
+										<div class="col-sm-6">
+											<input type="password" class="form-control" id="settingNewPassword2" placeholder="">
 										</div>
-										<div class="control-group">
-											<div class="controls">
-												<button class="btn-submit btn btn-primary">確認修改</button>
-											</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-offset-3 col-sm-10">
+											<button type="submit" class="btn btn-primary btn-sm">修改密碼</button>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>	
 					</div>
-					</div>
-				</div>
-				<div class="span2">
-					這裡放廣告
-				</div>
-			</div>
-		</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->			
 		
-		<!--Seller Panel-->
-		<div id="sellerPanel" class="modal hide fade container" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3><img src="img/setting.png" style="vertical-align:bottom;width:130px;height:130px;">SHOP</h3>
+		<!-- Q&A Why Email Verification Modal -->
+		<div id="infoEmailModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">為什麼要信箱認證?</h4>
+					</div>
+					<div class="modal-body">
+						<img src="http://www.marketingpugetsound.com/wp-content/uploads/2013/01/Email-icon-square.png" class="img-rounded" width="200px" height="200px">				
+						<dl>
+							<dt>信箱認證之後你可以...</dt>
+							<dd>透過站內聊天系統與賣家聯繫</dd>
+							<dd>保護你的帳號，忘記密碼時可由認證信箱取得新密碼‧</dd>
+						</dl>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+						<button id="sendVerifyEmail" type="button" class="btn btn-primary">寄發認證信</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
+		<!-- Chat Modal -->
+		<div id="chatroomModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Modal title</h4>
+					</div>
+					<div class="modal-body" style="background-color: #E8E8E8">
+						<ul class="msglist">
+						<!--
+							<li>
+								<div class="pull-left msgbox msg-other">
+									<div class="speaker">阿超</div>
+									<div class="">好好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天晚上來那個好?不好?不好?不好?今天晚上來那個好不好?</div>
+									<div class="time" style="width:100%">
+										<div class="pull-right">11:42pm</div>
+									</div>
+								</div>
+								<div style="clear:both;"></div>
+							</li>
+							<li>
+								<div class="pull-right msgbox msg-me">
+									<div class="speaker">老黎</div>
+									<div class="">哪個?</div>
+									<div class="time" style="width:100%">
+										<div class="pull-left">11:42pm</div>
+									</div>
+								</div>
+								<div style="clear:both;"></div>
+							</li>
+							<li>
+								<div class="pull-left msgbox msg-other">
+									<div class="speaker">阿超</div>
+									<div class="">Message #3</div>
+									<div class="time" style="width:100%">
+										<div class="pull-right">11:59pm</div>
+									</div>
+								</div>
+							<div style="clear:both;"></div>
+							</li>
+						-->
+						</ul>
+					</div>
+					<div class="modal-footer" style="margin-top:0px">
+						<input type="text" class="form-control pull-left" id="massage" placeholder="Enter message">
+						<button type="button" class="btn btn-default" id="sendBtn">送出</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+		
+		<!-- Main Panels -->
+		<div class="main-panels tab-content">
+			<div class="tab-pane active fade in" id="mapPanel"> <!-- Map Panels -->
+				<p>mapPanel</p>
 			</div>
-			<div class="row">
-				<div class="span3">
-					<ul class="nav nav-list">
-						<li class="active"><a href="#myShop" data-toggle="tab">我的商店</a></li>
-						<li><a href="#tab2" data-toggle="tab">我的店面</a></li>
-					</ul>
-				</div>
-				<div class="modal-body span8" style="min-height:400px;max-height:800px;">
-					<div class="tab-content">
-						<div class="tab-pane active" id="myShop">
+			<div class="tab-pane fade" id="tracePanel"> <!-- Trace Panel -->
+			</div>
+			<div class="tab-pane fade" id="sellerPanel"> <!-- Seller Panel -->
+				<div class="container" style="position:relative;height:100%">
+					<div id="sellerShopPanel" sytle="text-align:center;">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default"> <!-- 開始營業 -->
+								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-play"></span>
+								開始營業
+							</button>
+							<button type="button" class="btn btn-default" href="#shopModal" data-toggle="modal"> <!-- 編輯店面 -->
+								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-edit"></span>
+								編輯店面
+							</button>
+							<button type="button" class="btn btn-default" id="itemModalBtn"> <!-- 商品上架 -->
+								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-cloud-upload"></span>
+								商品上架
+							</button>
+							<button type="button" class="btn btn-default" id="test"> <!-- 最新消息 -->
+								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-exclamation-sign"></span>
+								最新消息
+							</button>
+						</div>
+						<div id="sellerShopBox">
+							
+						</div>
+						<div id="sellerShowCase" class="item-box-showcase">
 							<div>
-								<ul class="items list">
-									<li class="item" style="position:relative;width:100%;margin:0 0 30px 0;">
-										<div class="img"><img height="90" width="120" src="img/160x120.png"></div>
-										<div class="title" style="position:absolute;top:0px;left:180px;">品名:塑膠椅</div>
-										<div class="price" style="position:absolute;top:30px;left:180px;">價錢:100</div>
-										<div class="category" style="position:absolute;top:60px;left:180px;">分類:居家用品->椅子</div>
-										<div class="attribute" style="position:absolute;top:0px;left:360px;width:30px">
-											<span class="label label-info">二手品</span>
-											<span class="label label-info">機車可載</span>
-										</div>
-										<div class="description" style="position:absolute;top:0px;left:450px;">商品描述</div>
-									</li>
-									<li class="item" style="position:relative;width:100%;margin:0 0 30px 0;">
-										<div class="img"><img height="90" width="120" src="img/160x120.png"></div>
-										<div class="title" style="position:absolute;top:0px;left:180px;">品名:塑膠椅</div>
-										<div class="price" style="position:absolute;top:30px;left:180px;">價錢:100</div>
-										<div class="category" style="position:absolute;top:60px;left:180px;">分類:居家用品->椅子</div>
-										<div class="attribute" style="position:absolute;top:0px;left:360px;width:30px">
-											<span class="label label-info">二手品</span>
-											<span class="label label-info">機車可載</span>
-										</div>
-										<div class="description" style="position:absolute;top:0px;left:450px;">商品描述</div>
-									</li>
-									<li class="">
-										<button class="btn btn-large btn-block btn-primary" type="button">新增商品</button>
-									</li>
-								</ul>
+								tool bar
 							</div>
-						</div>
-						<div class="tab-pane" id="tab2">
-							<p>One fine body…qqqqqqqqqqqqqqqq</p>
+							<div id="sellerItemsList">
+								
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- 
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div style="background-color:#dceaf4;" class="span10">
-				aaa
+			<div class="tab-pane fade" id="userPanel">  <!--User Panel -->
+				<div>
+					<div class="user-option">
+						<a href="#settingModal" data-toggle="modal">
+							<button type="button" id="settingModalbtn">帳號設定</button>
+						</a>
+					</div>
+					<div class="user-option">
+						<a href="#">
+							<button type="button">交易紀錄</button>
+						</a>
+					</div>
+					<div class="user-option">
+						<a href="#">
+							<button type="button">我的評價</button>
+						</a>
+					</div>
+					<div class="user-option">
+						<a href="#">
+							<button type="button" id="logoutBtn">登出帳號</button>
+						</a>
+					</div>
+					<!-- Chat system test start -->
+					<div id="chat-test" style="border:solid 1px">
+					</div>
+					<!-- Chat system test end -->
 				</div>
-				<div style="background-color:#dceaf4;" class="span2">
-				bbb
-				</div>
-			</div>
+			</div>	
 		</div>
-		 -->
-		<div class="" id="map_canvas">
-		</div> <!-- /container -->
 		
+		
+		
+		{% csrf_token %}
 		<!--<script src="js/less-1.3.3.min.js"></script>-->
 		<script src="http://code.jquery.com/jquery.js"></script>
+		
+		<script src="js/vendor/jquery.ui.widget.js"></script>
+		
+		<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
+		<script src="js/jquery.iframe-transport.js"></script>
+		<script src="js/jquery.fileupload.js"></script>
+		<script src="js/jquery.fileupload-process.js"></script>
+		<script src="js/jquery.fileupload-image.js"></script>
+		
 		<script src="js/bootstrap.js"></script>
 		<!-- <script src="js/bootstrap.min.js"></script> -->
-		<!--<script src="js/bootstrap-modal.js"></script>
-		<script src="js/bootstrap-modalmanager.js"></script>-->
 		<script src="js/underscore-min.js"></script>
 		<script src="js/backbone-min.js"></script>
 		<script src="js/main.js"></script>
 		<script type="text/javascript">
-		
-		function viewport()
-		{
-		var e = window
-		, a = 'inner';
-		if ( !( 'innerWidth' in window ) )
-		{
-		a = 'client';
-		e = document.documentElement || document.body;
-		}
-		return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
-		}
-		$(window).resize(function() {
-			console.log(viewport())
-		});
 
 		var User = Backbone.Model.extend({
-			defaults : {
-				name : null,
-				email: null,
-			},
 			urlRoot:'accounts/users/'
 		});
 		
-		var loginUser = new User({id:'i'});
+		var LoginUser = User.extend({
+			url: 'accounts/users/i',
+			login: function(email, password){
+				var dfd = $.Deferred();
+				$.get('accounts/login',{email:email,password:password}).done(function(){
+					loginUser.fetch().done(function(){
+						dfd.resolve();
+						loginUser.trigger('login');
+					}).fail(function(){
+						dfd.reject();
+					});
+				}).fail(function(){
+					dfd.reject();
+				});
+				return dfd.promise();
+			}
+		});
 		
-		var sellerPanelView = Backbone.View.extend({
-			el: $("#sellerPanel"),
-			events: {
-				"show": "showPanel",
-				"click #testBtn": "test",
+		var Item = Backbone.Model.extend({
+			urlRoot:'items/'
+		});
+		
+		var Items = Backbone.Collection.extend({
+			model:Item
+		});
+		
+		var ItemCategory = Backbone.Model.extend({
+		});
+		
+		var ItemCategorys = Backbone.Collection.extend({
+			model:ItemCategory,
+			url:'item-categorys',
+			getByID: function(id){
+				return this.find(function(category){
+					return (category.get('id') == id);
+				});
 			},
-			test:function(){
-				this.$el.modal('hide');
+			getByIDs: function(ids){
+				return this.filter(function(category){
+					return $.inArray(category.get('id'), ids) > -1;
+				});
+			},
+			getByParentID: function(id){
+				return this.filter(function(category){
+					return (category.get('parent') == id);
+				});
+			}
+		});
+		
+		var ShopItems = Items.extend({
+			initialize: function(shop){
+				this.shop = shop;
+			},
+			url: function(){
+				return 'shops/'+this.shop.get('id')+'/items/';
+			}
+		});
+		
+		var Shop = Backbone.Model.extend({
+			urlRoot:'shops/'
+		});
+
+		var loginUser = new LoginUser();
+		var itemCategorys = new ItemCategorys();
+		var myShop = new Shop();
+		var myShopItems = new ShopItems(myShop);
+		
+		var ItemBoxView = Backbone.View.extend({
+			className: "item-box",
+			events: {
 			},
 			initialize: function() {
-				$("#sellerPanel").modal({show:false,});
+				this.listenTo(this.model, "change", this.render);
+			},
+			render: function() {
+				var that = this;
+				var name = this.model.get('name');
+				var price = this.model.get('price');
+				var description = this.model.get('description');
+				var attrs = this.model.get('attrs');
+				var categoryID = this.model.get('category');
+				
+				this.$el.html(
+					'<div class="item-box-name"></div>\
+					<div class="item-box-price"></div>\
+					<div class="item-box-description"></div>\
+					<div class="item-box-attrs"></div>\
+					<div class="item-box-category"></div>');
+				this.$('.item-box-name').text(name);
+				this.$('.item-box-price').text(price);
+				this.$('.item-box-description').text(description);
+				this.$('.item-box-attrs').text(attrs);
+				this.$('.item-box-category').text(itemCategorys.getByID(categoryID).get('name'));
+			}
+		});
+		
+		var ShopBoxView = Backbone.View.extend({
+			className: "shop-box",
+			events: {
+			},
+			initialize: function() {			
+				this.listenTo(this.model, "change", this.render);
+			},
+			render: function() {
+				var name = this.model.get('name');
+				var address = this.model.get('address');
+				var description = this.model.get('description');
+				var isOpen = this.model.get('open');
+				this.$el.html('<div class="shop-box-name"></div><div class="shop-box-address"></div><div class="shop-box-description"></div>');
+				this.$('.shop-box-name').text(name+(isOpen?'(open)':'(close)'));
+				this.$('.shop-box-address').text(address);
+				this.$('.shop-box-description').text(description);
+			}
+		});
+		
+		var ShopModalView = Backbone.View.extend({
+			el: $("#shopModal"),
+			events: {
+				"shown.bs.modal": "shown",
+				"show.bs.modal": "show",
+				"keyup #shopAddress": "getLatLng",
+				"click #shopSubmitBtn": "submit"
+			},
+			initialize: function(){
+				var $shopName = this.$shopName = this.$("#shopName");
+				var $shopAddress = this.$shopAddress = this.$("#shopAddress");
+				var $shopDesc = this.$shopDesc = this.$("#shopDesc");
+				
+				var geocoder = this.geocoder = new google.maps.Geocoder();
+			
+				var latlng = new google.maps.LatLng(23.973875,120.982024);
+				var mapOptions = {
+					zoom: 14,
+					center: latlng,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				
+				this.map = new google.maps.Map(this.$('#shopMap')[0],mapOptions);
+				
+				var marker = this.marker = new google.maps.Marker({
+					draggable:true,
+					position: latlng,
+					title:"台灣",
+					map:this.map
+				});
+				
+				google.maps.event.addListener(this.marker, 'mouseup', function() {
+					var latlng = marker.getPosition(); 
+					geocoder.geocode(
+						{latLng:latlng},
+						function (results,status) {
+							if(status==google.maps.GeocoderStatus.OK) {
+								$shopAddress.val(results[0].formatted_address);
+							}
+						}
+					);
+				});
+			},
+			submit:function(){
+				var that = this;
+				var name = this.$shopName.val();
+				var address = this.$shopAddress.val();
+				var description = this.$shopDesc.val();
+				var latlng = this.marker.getPosition();
+				var latitute = latlng.lat();
+				var longtitute = latlng.lng();
+				myShop.set({
+					name:name,
+					address:address,
+					description:description,
+					latitute:latitute,
+					longtitute:longtitute
+				});
+				myShop.save().done(function(){
+					alert('修改成功');
+					that.$el.modal('hide');
+				}).fail(function(){
+					myShop.fetch();
+					alert('資料錯誤');
+				});
+			},
+			getLatLng:function(){
+				var address = this.$shopAddress.val();
+				if(this.address && (this.address == address)){
+					return;
+				}
+				this.address = address;
+				
+				var that = this;
+				if(this.timer){
+					clearTimeout(this.timer);
+				}
+				this.timer = setTimeout(function(){
+					that.geocoder.geocode(
+						{address:address},
+						function (results,status) {
+							if(status==google.maps.GeocoderStatus.OK) {
+								var LatLng = results[0].geometry.location;
+								that.map.setCenter(LatLng);
+								that.marker.setPosition(LatLng);
+								that.marker.setTitle(address);
+							}
+						}
+					);
+					that.timer = null;
+				},1000);
+			},
+			show:function(){
+				var that = this;
+				if(myShop.isNew()){
+					var latlng = new google.maps.LatLng(23.973875,120.982024);
+					this.marker.setPosition(latlng);
+				}else{
+					myShop.fetch().done(function(){
+						that.$shopName.val(myShop.get('name'));
+						that.$shopAddress.val(myShop.get('address'));
+						that.$shopDesc.val(myShop.get('description'));
+						var latlng = new google.maps.LatLng(myShop.get('latitute'),myShop.get('longtitute'));
+						that.marker.setPosition(latlng);
+					});
+				}
+			},
+			shown:function(){
+				google.maps.event.trigger(this.map, "resize");
+				var latlng = this.marker.getPosition();
+				this.map.setCenter(latlng);
+			}
+		});
+		
+		var FormFieldView = Backbone.View.extend({
+			initialize: function(){
+				if(this.options.val){
+					if($.isFunction(this.options.val)){
+						
+					}
+				}else{
+					this.val = function(){
+						var $input = this.$('input');
+						return $input.val.apply($input, arguments);
+					}
+				}
+			},
+			showError: function(msg){
+				this.$el.addClass('has-error');
+				if(msg){
+					this.$('.msg-error').text(msg);
+				}
+			},
+			clearError: function(){
+				this.$el.removeClass('has-error');
+				this.$('.msg-error').text('');
+			}
+		});
+		
+		var ItemModalView = Backbone.View.extend({
+			el: "#itemModal",
+			events: {
+				"click #itemSubmit": "submit",
+				"change #itemName": "checkItemName",
+				"change #itemPrice": "checkItemPrice",
+				"change #itemDesc": "checkItemDesc",
+				"change #itemCategory": "changeItemCategory",
+				"keydown #itemPrice": "checkKeyNumber",
+			},
+			initialize: function() {
+				var that = this;
+				
+				this.nameField = new FormFieldView({el:this.$('#itemNameField')});
+				this.priceField = new FormFieldView({el:this.$('#itemPriceField')});
+				this.descriptionField = new FormFieldView({el:this.$('#itemDescField')});
+				
+				this.name = this.$('#itemName');
+				this.price = this.$('#itemPrice');
+				this.description = this.$('#itemDesc');
+				this.conditionAttr = this.$('input:radio[name=conditionAttr]');
+				this.sizeAttr = this.$('input:radio[name=sizeAttr]');
+				this.category = this.$('#itemCategory');
+				
+				//uploadfile
+				this.files = {};
+				this.itemImages = this.$("#newItemImages");
+				this.itemImages.find('input:file').fileupload({
+					autoUpload: false,
+					singleFileUploads:true,
+					previewMaxWidth: 100,
+					previewMaxHeight: 75,
+				}).on('fileuploadadd',function(e, data){
+					var index = $(this).attr('name');
+					that.files[index] = data;
+					console.log(that.files);
+				}).on('fileuploadprocessalways',function(e,data){
+					var index = data.index,
+						file = data.files[index];
+					$(this).parent().find(".preview-image").empty().append(file.preview);
+				});
 				
 			},
-			showPanel: function(){
-				console.log('show');
-				/*
+			checkItemName: function(){
+				var name = this.name.val();
+				if(name.length==0){
+					this.nameField.showError('名稱不可空白');
+				}else{
+					this.nameField.clearError();
+				}
+			},
+			checkItemPrice:	function(){
+				var price = this.price.val();
+				if(price.length==0){
+					this.priceField.showError('價錢不可空白');
+				}else{
+					this.priceField.clearError();
+				}
+			},
+			checkKeyNumber: function(event){
+				 // Allow: backspace, delete, tab, escape, and enter
+				 console.log(event.keyCode);
+				if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 || 
+					 // Allow: Ctrl+A
+					(event.keyCode == 65 && event.ctrlKey === true) || 
+					 // Allow: home, end, left, right
+					(event.keyCode >= 35 && event.keyCode <= 39)) {
+						 // let it happen, don't do anything
+						 return;
+				} else {
+					// Ensure that it is a number and stop the keypress
+					if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+						event.preventDefault(); 
+					}
+				}
+			},
+			checkItemDesc: function(){
 				var view = this;
-				$("#sellerPanel").modal({height:'100px'});
-				this.$el.modal({height:'100px'});
+				var description = this.description.val();
+				if(description.length>100){
+					this.descriptionField.showError('敘述文字不可超過100字');
+				}else{
+					this.descriptionField.clearError();
+				}
+			},
+			changeItemCategory: function(event){
+				var $target = $(event.target);
+				var categoryID = parseInt($target.val());
 				
-				view.$el.modal('loading');
-				setTimeout(function(){
-					view.$el.modal('loading');
-				}, 1000);
+				if(itemCategorys.getByID(categoryID).get('child').length == 0){
+					this.category.val(categoryID);
+					return;
+				}
+				
+				$target.parent().nextAll().remove();
+				this.category.val(null);
+				
+				var $select = $('<select>').attr('size','5').addClass('form-control');
+				_.each(itemCategorys.getByParentID(categoryID),function(category){
+					$('<option>').attr('value',category.get('id')).html(category.get('name')).appendTo($select);
+				});
+				$('<div>').addClass("col-sm-4").css('margin','10px 0 0 0').append($select).appendTo(this.category);
+			},
+			submit: function(){
+				var that = this;
+				var name = this.name.val();
+				var price = parseInt(this.price.val());
+				var description = this.description.val();
+				var conditionAttr = this.conditionAttr.filter(':checked').val();
+				var sizeAttr = this.sizeAttr.filter(':checked').val();
+				var attrs = [parseInt(conditionAttr),parseInt(sizeAttr)];
+				var category = this.category.val();
+
+				this.item.set({
+					name:name,
+					price:price,
+					description:description,
+					attrs:attrs,
+					category:category,
+					shops:[myShop.get('id')]
+				});
+				
+				this.item.save().done(function(){
+					that.$el.modal('hide');
+					/*
+					var item_id = newItem.get('id');
+					var dfs = []
+					for(var i in that.files){
+						that.files[i].url = 'shops/upload/items/'+item_id+'/image/'+i;
+						console.log(that.files[i]);
+						dfs.push(that.files[i].submit())
+					}
+					console.log(dfs);
+					that.files = {};
+					that.$el.modal('hide');
+					newItem.set({'name':newItem.get('name')+"(上傳圖片中)"});
+					myItems.add(newItem);
+					$.when.apply($, dfs).done(function(){
+						myItems.fetch();
+					});
+					*/
+				});
+			},
+			clearField: function(){
+				this.name.val('');
+				this.price.val('');
+				this.description.val('');
+				this.conditionAttr.parent().removeClass('active');
+				this.conditionAttr.filter('[value=1]').prop('checked', true).parent().addClass('active');
+				this.sizeAttr.parent().removeClass('active');
+				this.sizeAttr.filter('[value=3]').prop('checked', true).parent().addClass('active');
+				this.category.empty().val(null);
+				
+				//產生category選單
+				var $select = $('<select>').attr('size','5').addClass('form-control');
+				_.each(itemCategorys.getByParentID(null),function(category){
+					$('<option>').attr('value',category.get('id')).html(category.get('name')).appendTo($select);
+				});
+				$('<div>').addClass("col-sm-4").css('margin','10px 0 0 0').append($select).appendTo(this.category);
+				
+				
+				this.itemImages.find(".preview-image").empty();
+			},
+			initField:function(item){
+				//初始化(未完成)
+				this.clearField();
+			},
+			open: function(item){
+				this.item = item?item:(new Item());
+				if(this.item.isNew()){
+					this.clearField();
+					this.$el.modal('show');
+				}else{
+					this.initField(this.item);
+				}
+			}
+		});
+		
+		var MapPanelView = Backbone.View.extend({
+			el: $("#mapPanel"),
+			events:{
+				'shown': "shown",
+			},
+			initialize:function(){
+				var latlng = new google.maps.LatLng(25.056220142845, 121.54178450802);
+				var mapOptions = {
+					center: latlng,
+					zoom: 14,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				this.map = new google.maps.Map(this.el, mapOptions);
+				var noPoi = [{
+					featureType: "poi",
+					stylers: [{ visibility: "off" }]
+				}];
+				this.map.setOptions({styles: noPoi});
+			},
+			shown:function(){
+				google.maps.event.trigger(this.map, "resize");
+			}
+		});
+		
+		var SellerPanelView = Backbone.View.extend({
+			el: "#sellerPanel",
+			events: {
+				"show": "show",
+				"click #itemModalBtn": "newItemModal"
+				//"click #myItemsShowList": "listItems",
+				//"click #myItemsShowTable": "tableItems"
+			},
+			newItemModal:function(){
+				this.itemModal.open();
+			},
+			initialize: function() {
+				this.itemModal = new ItemModalView();
+				this.shopModal = new ShopModalView();
+				
+				//this.listenTo(myShop, 'sync', this.updateItems);
+				//this.listenTo(myItems, 'sync', this.updateItems);
+				//this.listenTo(myItems, 'add', this.updateItems);
+				this.listenTo(myShopItems, 'reset', this.resetItems);
+				
+				this.$sellerItemsList = this.$('#sellerItemsList');
+				this.$sellerShopBox = this.$('#sellerShopBox');
+				
+				this.shopBox = new ShopBoxView({model:myShop});
+				this.$sellerShopBox.append(this.shopBox.$el);
+			},
+			tableItems:function(){
+				this.$myItemsList.removeClass('items-list').addClass('items-table');
+			},
+			listItems:function(){
+				this.$myItemsList.removeClass('items-table').addClass('items-list');
+			},
+			resetItems:function(){
+				var that = this;
+				this.itemBoxList = [];
+				this.$sellerItemsList.empty();
+				myShopItems.each(function(item){
+					console.log(item);
+					var itemBox= new ItemBoxView({model:item})
+					item.trigger('change');
+					that.itemBoxList.push(itemBox);
+					that.$sellerItemsList.append(itemBox.el);
+				});
+			},
+			show:function(){
+				/*
+				var that = this;
+				myShop.fetch().done(function(){
+					//var itemIDs = myShop.get('items');
+					var shopItems = that.shopItems = new Items();
+					shopItems.url = 'shops/'+myShop.get('id')+'/items/';
+					shopItems.fetch();
+				});
 				*/
 			}
 		});
 		
-		var loginModalView = Backbone.View.extend({
+		var UserPanelView = Backbone.View.extend({
+			el: $("#userPanel"),
+			events:{
+				"click #settingModalbtn": "openSettingModal",
+				"click #logoutBtn":	"logout",
+			},
+			openSettingModal:function(){
+				//do something
+			},
+			logout: function(){
+				$.get('accounts/logout').done(function(data) {
+					//重新整理
+					location.reload();
+				}).fail(function(){
+					alert('登出失敗!');
+				});
+			}
+		});
+		
+		var LoginModalView = Backbone.View.extend({
 			el: $("#loginModal"),
 			events: {
 				"show": "showModal",
-				"click .btn-login": "login",
+				"click #loginBtn": "login",
 			},
 			initialize: function() {
 				this.$('#loginEmail').val("");
@@ -474,30 +1301,25 @@
 				this.$('#loginPassword').val("");
 			},
 			login: function() {
-				var thisView = this;
-				var navBar = this.options.navBar;
+				var that = this;
 				var email = this.$("#loginEmail").val();
 				var password = this.$("#loginPassword").val();
-				$.get('accounts/login',{email:email,password:password})
+				loginUser.login(email,password)
 				.done(function(){
-					console.log('login done!')
-					loginUser.fetch();
-					thisView.$el.modal('hide');
+					that.$el.modal('hide');
 				}).fail(function(jqXHR, textStatus, errorThrown){
 					alert('帳號或密碼錯誤!');
 				});
-			},
-			render: function() {
-				
+				this.$('#loginPassword').val("");
 			}
 		});
 		
-		var regModalView = Backbone.View.extend({
-			el: $("#regModal"),
+		var RegModalView = Backbone.View.extend({
+			el: "#regModal",
 			events: {
-				"show": "showModal",
+				"show.bs.modal": "showModal",
 				"click #registerBtn": "register",
-				"click .btn-captcha-refresh": "getCaptcha",
+				"click #refreshCaptcha": "getCaptcha",
 				"change #regEmail": "checkEmail",
 				"change #regUsername": "checkUsername",
 				"keyup #regPassword": "checkPassword",
@@ -529,12 +1351,12 @@
 			showError: function(fieldName, msg){
 				var $field = this.field[fieldName];
 				if(!$field){return;}
-				$field.addClass('error');
+				$field.addClass('has-error');
 				if(msg){$field.find('.msg-error').text(msg);}
 			},
 			clearError: function(fieldName){
 				var $field = this.field[fieldName];
-				$field.removeClass('error');
+				$field.removeClass('has-error');
 				$field.find('.msg-error').text('');
 			},
 			clearAgree: function(){
@@ -565,10 +1387,10 @@
 				var $nameField = this.$nameField;
 				if(name.length == 0){
 					this.clearError('name');
-					return
+					return;
 				}else if(name.length > 20){
 					view.showError('name', '名稱太長');
-					return
+					return;
 				}
 				$.getJSON('accounts/check-name', {name:name}).done(function(data){
 					if(data.status == 'ERROR'){
@@ -611,12 +1433,9 @@
 				this.$('.msg-error').text('');
 			},
 			getCaptcha: function(){
-				var view = this;
-				return $.get('accounts/captcha',function(data){
-					view.$('.captcha').html(data);
-					view.input.captcha.val('');
-					//view.clearCaptcha();
-				});
+				var d = new Date();
+				$("#regCaptchaImage").attr("src", "accounts/captcha?"+d.getTime());
+				this.input.captcha.val('');
 			},
 			register: function() {
 				var view = this;
@@ -648,13 +1467,16 @@
 				var $regBtn = this.$regBtn;
 				$regBtn.button('loading');
 				
+				$regBtn.prop('disabled', true);
 				$.post('accounts/create-user',{name:name,email:email,password:password,captcha:captcha},'json')
 				.done(function(data){
+					$regBtn.prop('disabled', false);
 					$regBtn.button('reset');
 					console.log(data);
 					if(data.status == 'OK'){
 						view.$el.modal('hide');
-						loginUser.set('id','i').fetch();
+						loginUser.fetch();
+						msgbox('註冊成功!! 認證信已發送至'+email);
 						return;
 					}
 					
@@ -666,6 +1488,7 @@
 					}
 					
 				}).fail(function(){
+					$regBtn.prop('disabled', false);
 					$regBtn.button('reset');
 					alert('註冊失敗!');
 				});
@@ -675,13 +1498,33 @@
 			}
 		});
 		
-		var settingView = Backbone.View.extend({
+		var SettingView = Backbone.View.extend({
 			el:$('#settingModal'),
 			events:{
-				'click #collapsePassword .btn-submit':'changePassword'
+				'click #photo-edit':'openPhotoPage',
+				'click #email-edit':'openEmailPage',
+				'click #name-edit':'openNamePage',
+				'click #password-edit':'openPasswordPage',
+				'click #newphoto-panel .btn':'changePhoto',
+				'click #newpass-panel .btn':'changePassword'
 			},
 			initialize: function() {
-				this.listenTo(loginUser, 'change:name', this.updateUser);
+				this.listenTo(loginUser, 'change', this.updateUser);
+			},
+			openPhotoPage: function(){
+				$("#newphoto-panel").toggle();
+			},
+			openEmailPage: function(){
+				$("#oldemail-panel").toggle();
+				$("#newemail-panel").toggle();
+			},
+			openNamePage: function(){
+				$("#oldname-panel").toggle();
+				$("#newname-panel").toggle();
+			},
+			openPasswordPage: function(){
+				$("#oldpass-panel").toggle();
+				$("#newpass-panel").toggle();
 			},
 			changePassword: function(){
 				var thisView = this;
@@ -704,94 +1547,342 @@
 					alert('密碼錯誤!');
 				});
 			},
-
+			sendVerifyEmail: function(){
+				$.post('accounts/send-verify-email',{})
+				.done(function(){
+					alert('認證信已發送');
+				}).fail(function(){
+					alert('認證信發送失敗 請稍後再試');
+				});
+			},
+			changePhoto: function(){
+				alert('change photo');
+			},
 			updateUser: function(){
-				console.log(loginUser)
 				var email = loginUser.get('email');
 				var name = loginUser.get('name');
-				this.$('#settingEmail').val(email);
-				this.$('#settingUsername').val(name);
+				this.$('#oldemail').text(email);
+				this.$('#oldname').text(name);
 			}
 		})
 		
-		
-		var navBarView = Backbone.View.extend({
-			el:$('#navBar'),
+		var NavBarView = Backbone.View.extend({
+			el: '#navBar',
 			events: {
 				"click #logoutBtn": "logout",
+				'show.bs.tab #userNav a[href="#sellerPanel"]': "showSellerPanel",
+				'shown.bs.tab #userNav a[href="#mapPanel"]': "shownMapPanel"
 			},
 			initialize: function() {
 				this.$userNav = this.$("#userNav");
 				this.$guestNav = this.$("#guestNav");
 				this.guestMode();
-				
-				this.listenTo(loginUser, 'change:name', this.changeMode);
-				
-			},
-			changeMode: function(){
-				if(loginUser.get('name') == 'guest'){
-					this.guestMode();
-				}else{
-					this.userMode(loginUser);
-				}
-				console.log('changeMode');
-				console.log(loginUser);
-			},
-			logout: function(){
-				$.get('accounts/logout').done(function(data) {
-					loginUser.set('id','i');
-					loginUser.fetch();
-				}).fail(function(){
-					alert('登出失敗!');
-				});
+				this.listenTo(loginUser, 'login', this.loginMode);
 			},
 			guestMode: function(){
 				this.$userNav.hide();
 				this.$guestNav.show();
 			},
-			userMode: function(user){
-				this.$userNav.show().find('.username').text(user.get('name'));
+			loginMode: function(){
+				this.$userNav.show().find('#navUsername').text(loginUser.get('name'));
 				this.$guestNav.hide();
+			},
+			//logout: function(){
+			//	$.get('accounts/logout').done(function(data) {
+			//		//重新整理
+			//		location.reload();
+			//	}).fail(function(){
+			//		alert('登出失敗!');
+			//	});
+			//},
+			showSellerPanel: function(){
+				$("#sellerPanel").trigger('show');
+			},
+			shownMapPanel:function(){
+				$("#mapPanel").trigger('shown');
 			}
 		});
-		/*
-		var testUser2 = new User({id:2});
-		testUser2.fetch();
-		console.log(testUser2);
 		
-		var testUser = new User({name:'qq',email:'qq@qq.com',password:'password'});
-		testUser.save();
-		console.log(testUser);
-		
-		$.get('accounts/captcha',function(data){
-			console.log(data);
+		var InfoEmailView = Backbone.View.extend({
+			el:$('#infoEmailModal'),
+			initialize: function() {
+			},
+			events: {
+				"click #sendVerifyEmail": "sendVerifyEmail",
+			},
+			sendVerifyEmail: function(){
+				$.post('accounts/send-verify-email',{})
+				.done(function(){
+					alert('認證信已發送');
+				}).fail(function(){
+					alert('認證信發送失敗 請稍後再試');
+				});
+			}
 		});
-		*/
+		
+		function confirm(message,func){
+			var $modal= $(
+				'<div class="modal fade" tabindex="-1">\
+					<div class="modal-dialog">\
+						<div class="modal-content">\
+							<div class="modal-header">\
+								<h4 class="modal-title">確認</h4>\
+							</div>\
+							<div class="modal-body">\
+								<div class="btn-confirm-message"></div>\
+							</div>\
+							<div class="modal-footer">\
+								<button class="btn btn-default btn-confirm-cancel">取消</button>\
+								<button class="btn btn-primary btn-confirm-ok">確定</button>\
+							</div>\
+						</div>\
+					</div>\
+				</div>').modal('show');
+			console.log($modal);
+			var $msg = $modal.find('.btn-confirm-message').text(message);
+			var $ok = $modal.find('.btn-confirm-ok').click(function(){
+				$modal.on('hidden.bs.modal',function(){
+					$modal.remove();
+					$modal = null;
+				}).modal('hide');
+				func(true);
+			});
+			
+			var $cancel = $modal.find('.btn-confirm-cancel').click(function(){
+				$modal.on('hidden.bs.modal',function(){
+					$modal.remove();
+					$modal = null;
+				}).modal('hide');
+				func(false);
+			});
+		}
+		
+		function msgbox(message){
+			var $modal= $(
+				'<div class="modal fade" tabindex="-1">\
+					<div class="modal-dialog">\
+						<div class="modal-content">\
+							<div class="modal-header">\
+								<h4 class="modal-title">確認</h4>\
+							</div>\
+							<div class="modal-body">\
+								<div class="btn-confirm-message"></div>\
+							</div>\
+							<div class="modal-footer">\
+								<button class="btn btn-primary btn-confirm-ok">確定</button>\
+							</div>\
+						</div>\
+					</div>\
+				</div>').modal('show');
+			console.log($modal);
+			var $msg = $modal.find('.btn-confirm-message').text(message);
+			var $ok = $modal.find('.btn-confirm-ok').click(function(){
+				$modal.on('hidden.bs.modal',function(){
+					$modal.remove();
+					$modal = null;
+				}).modal('hide');
+			});
+		}
+		
+		var myRouter = Backbone.Router.extend({
+			routes: {
+				":test": "testfunc",
+			},
+			testfunc: function(p1) {
+				alert('testfunc: '+p1);
+				console.log('testfunc: '+p1);
+			}
+		});
+		new myRouter();
+		Backbone.history.start();
+		
+		//////////Chat system Test (backbone) start//////////
+		var Reply = Backbone.Model.extend({
+			default:{
+				reply: 'None',
+				speaker: 'Unknown',
+				date: 'None',
+				time: 'None'
+			}
+		});
+		
+		var Replys = Backbone.Collection.extend({
+			model: Reply,
+			url: '/chats/chat_id',
+		});
+		
+		var ChatroomModalView = Backbone.View.extend({
+			el: '#chatroomModal',
+			initialize: function(chatinfo){
+				this.chatinfo = chatinfo
+				this.replys = new Replys();
+				this.replys.url = '/chats/'+this.chatinfo.get('id');
+				this.replys.fetch({reset: true});
+			
+				this.renderHead();
+				this.renderBody();
+				
+				this.listenTo( this.replys, 'reset', this.renderBody);
+			},
+			events:{
+				'click #sendBtn':'sendReply',
+				'click .close':'close'
+			},
+			sendReply:function(){
+				alert("send reply");
+				replys.create()
+			},
+			renderBody:function(){
+				console.log(this.replys.length);
+				this.replys.each(function(reply){
+					this.renderReply(reply);
+				}, this);				
+			},
+			renderReply:function(reply){
+				var $msgli = $("<li>");
+				$msgli.html(
+				'	<div class="pull-left msgbox msg-other">'
+				+'		<div class="speaker">'+reply.get('speaker')+'</div>'
+				+'		<div class="">'+reply.get('reply')+'</div>'
+				+'		<div class="time" style="width:100%">'
+				+'			<div class="pull-right">11:42pm</div>'
+				+'		</div>'
+				+'	</div>'
+				+'	<div style="clear:both;"></div>'					
+				);
+				$('.msglist').append($msgli);	
+			},
+			renderHead:function(){
+				$('.modal-title').html(this.chatinfo.get('item').name);		
+			},
+			close:function(){
+				$('.msglist').html('');
+			}
+		});
+		
+		var Chat = Backbone.Model.extend({
+			default:{
+				id: 'None',
+				buyer: 'USER1',
+				seller: 'USER2',
+				item: 'ITEM',
+				time: 'None',
+				date: 'None',
+				seller_seen: true,
+				buyer_seen: true,
+			}
+		});
+		
+		var ChatList = Backbone.Collection.extend({
+			model: Chat,
+		});
+		
+		var ItemChatList = ChatList.extend({
+			initialize: function(item){
+			},
+			url: function(){
+				return 'items/'+item.get('id')+'/chat/';
+			}
+		});
+
+		var ChatView = Backbone.View.extend({
+			tagName: 'div',
+			events:{
+				'click #chatroomModalbtn': 'openChatroomModal'
+			},
+			render: function(){
+				var buyername = this.model.get('buyer').username;
+				var sellername = this.model.get('seller').username;
+				var item = this.model.get('item').name;
+				
+				this.$el.html(
+				'<div style="border:solid 1px red">'
+				+'	<p>item: '+item+'</p>'
+				+'	<p>seller: '+sellername+'</p>'
+				+'	<p>buyer: '+buyername+'</p>'
+				+'		<a href="#chatroomModal" data-toggle="modal">'
+				+'			<button type="button" id="chatroomModalbtn">對話</button>'
+				+'		</a>'
+				+'</div>'
+				);
+				
+				return this;
+			},
+			openChatroomModal: function(){
+				var chatroom = new ChatroomModalView(this.model);
+			}
+		});		
+		
+		var ChatListView = Backbone.View.extend({
+			el: '#chat-test',
+			initialize: function(){
+				this.collection = new ChatList();
+				this.collection.fetch({reset: true});
+				
+				this.listenTo(this.collection, 'reset', this.render);
+			},
+			render: function(){
+				this.collection.each(function(item){
+					this.renderChat(item);
+				}, this);
+			},
+			renderChat: function(item){
+				var chatView = new ChatView({
+					model: item
+				});
+				
+				this.$el.append(chatView.render().el);
+			},
+		});
+		//////////Chat system Test (backbone) end//////////
+
+		var AppView = Backbone.View.extend({
+			el: 'body',
+			events: {
+			},
+			initialize: function(){
+				this.navBar = new NavBarView();	
+				this.loginModal = new LoginModalView();
+				this.regModal = new RegModalView();
+				this.settingModal = new SettingView();
+				this.infoEmailModal = new InfoEmailView();
+				
+				//Chat system Test
+				this.chatList = new ChatListView();
+				
+				this.sellerPanel = new SellerPanelView();
+				this.mapPanel = new MapPanelView();
+				this.userPanel = new UserPanelView();
+				
+				itemCategorys.fetch()
+				loginUser.fetch().pipe(function(){
+					var dfd = $.Deferred();
+					if(loginUser.isNew()){
+						dfd.reject();
+					}else if(loginUser.get('shops').length == 0){
+						loginUser.trigger('login');
+						dfd.reject();
+					}else{
+						loginUser.trigger('login');
+						dfd.resolve();
+					}
+					return dfd;
+				}).pipe(function(){
+					var shopID = loginUser.get('shops')[0];
+					myShop.set('id',shopID);
+					return myShop.fetch();
+				}).pipe(function(){
+					return myShopItems.fetch({reset:true});
+				}).done(function(){
+					console.log('done');
+				}).fail(function(){
+					console.log('fail');
+				});
+			}
+		});
+		
 			$(function(){
-				function initialize() {
-					var initlatlng = new google.maps.LatLng(25.056220142845, 121.54178450802);
-					var mapOptions = {
-						center: initlatlng,
-						zoom: 14,
-						mapTypeId: google.maps.MapTypeId.ROADMAP
-					};
-					var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-					var noPoi = [{
-						featureType: "poi",
-						stylers: [{ visibility: "off" }]
-					}];
-					map.setOptions({styles: noPoi});
-				}
-				//initialize();
-				
-				var navBar = new navBarView();
-				var loginModal = new loginModalView({navBar:navBar});
-				var regModal = new regModalView({navBar:navBar});
-				var settingModal = new settingView();
-				var sellerPanel = new sellerPanelView();
-				
-				loginUser.fetch();
-				
+				new AppView();
 			});
 		</script>
 	</body>

@@ -132,7 +132,9 @@ INSTALLED_APPS = (
 	# 'django.contrib.admindocs',
 	'accounts',
 	'shops',
-	'rest_framework'
+	'items',
+	'rest_framework',
+	'chats',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -166,3 +168,10 @@ LOGGING = {
 
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',
 							'accounts.backends.EmailAuthBackend',)
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mark.humanwell@gmail.com'
+EMAIL_HOST_PASSWORD = 'squall0032'
+EMAIL_PORT = 587
