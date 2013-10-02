@@ -247,14 +247,27 @@
 },
 {
     "pk": 1, 
+    "model": "shops.shop", 
+    "fields": {
+        "description": "\u5546\u5e97\u4ecb\u7d39", 
+        "latitute": 25.091075, 
+        "items": [], 
+        "address": "114\u53f0\u7063\u53f0\u5317\u5e02\u5167\u6e56\u5340\u6587\u6e56\u885721\u5df7112\u5f046-12\u865f", 
+        "owner": 2, 
+        "open": false, 
+        "longtitute": 121.55983449999997, 
+        "name": "123"
+    }
+},
+{
+    "pk": 1, 
     "model": "chats.chat", 
     "fields": {
         "seller_seen": true, 
-        "date": "2013-09-27", 
-        "seller": 2, 
+        "datetime": "2013-10-01T20:21:27.603Z", 
         "item": 1, 
-        "time": "05:21:42", 
         "buyer": 3, 
+        "seller": 2, 
         "buyer_seen": true
     }
 },
@@ -263,12 +276,34 @@
     "model": "chats.chat", 
     "fields": {
         "seller_seen": true, 
-        "date": "2013-09-27", 
-        "seller": 2, 
+        "datetime": "2013-10-01T20:21:47.536Z", 
         "item": 1, 
-        "time": "05:22:00", 
         "buyer": 4, 
+        "seller": 2, 
         "buyer_seen": true
+    }
+},
+{
+    "pk": 3, 
+    "model": "chats.chat", 
+    "fields": {
+        "seller_seen": true, 
+        "datetime": "2013-10-01T20:21:58.159Z", 
+        "item": 2, 
+        "buyer": 3, 
+        "seller": 2, 
+        "buyer_seen": true
+    }
+},
+{
+    "pk": 1, 
+    "model": "chats.reply", 
+    "fields": {
+        "reply": "User1 speak to User2 in user1_item1 chat box", 
+        "datetime": "2013-10-01T20:24:25.254Z", 
+        "speaker": 2, 
+        "chat": 1, 
+        "ip": "111.111.111.111"
     }
 }
 ]
