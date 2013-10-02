@@ -1,0 +1,309 @@
+[
+{
+    "pk": 1, 
+    "model": "items.category", 
+    "fields": {
+        "name": "3C\u7522\u54c1\u53ca\u5bb6\u96fb", 
+        "parent": null
+    }
+},
+{
+    "pk": 2, 
+    "model": "items.category", 
+    "fields": {
+        "name": "\u65e5\u5e38\u7528\u54c1", 
+        "parent": null
+    }
+},
+{
+    "pk": 3, 
+    "model": "items.category", 
+    "fields": {
+        "name": "\u6905\u5b50", 
+        "parent": 2
+    }
+},
+{
+    "pk": 4, 
+    "model": "items.category", 
+    "fields": {
+        "name": "\u76f8\u6a5f", 
+        "parent": 1
+    }
+},
+{
+    "pk": 5, 
+    "model": "items.category", 
+    "fields": {
+        "name": "\u5851\u81a0\u6905", 
+        "parent": 3
+    }
+},
+{
+    "pk": 6, 
+    "model": "items.category", 
+    "fields": {
+        "name": "\u6728\u982d\u6905", 
+        "parent": 3
+    }
+},
+{
+    "pk": 1, 
+    "model": "items.attribute", 
+    "fields": {
+        "name": "\u5168\u65b0\u54c1"
+    }
+},
+{
+    "pk": 2, 
+    "model": "items.attribute", 
+    "fields": {
+        "name": "\u4e8c\u624b\u54c1"
+    }
+},
+{
+    "pk": 3, 
+    "model": "items.attribute", 
+    "fields": {
+        "name": "\u53e3\u888b\u5c0f\u7269"
+    }
+},
+{
+    "pk": 4, 
+    "model": "items.attribute", 
+    "fields": {
+        "name": "\u80cc\u5305\u53ef\u88dd"
+    }
+},
+{
+    "pk": 5, 
+    "model": "items.attribute", 
+    "fields": {
+        "name": "\u6a5f\u8eca\u53ef\u8f09"
+    }
+},
+{
+    "pk": 6, 
+    "model": "items.attribute", 
+    "fields": {
+        "name": "\u9808\u958b\u8eca"
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Lv0", 
+        "permissions": []
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Lv1", 
+        "permissions": []
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Lv2", 
+        "permissions": []
+    }
+},
+{
+    "pk": 4, 
+    "model": "auth.group", 
+    "fields": {
+        "name": "Lv3", 
+        "permissions": []
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-08-30T07:17:05.430Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$YbrjqPSglBbo$xvfYxDXjn+Th/BAn505GUkIb6Du8SwpzzvaSUAAfwD8=", 
+        "email": "", 
+        "date_joined": "2013-08-30T07:16:40.674Z"
+    }
+},
+{
+    "pk": 2, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user1", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-09-26T21:18:33.894Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$EYMgxOtzitpz$0BiBH8iAkyUmUF6GRf/bOecSneHANK0yl4sfQN0vc6M=", 
+        "email": "", 
+        "date_joined": "2013-09-26T21:18:33.894Z"
+    }
+},
+{
+    "pk": 3, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user2", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-09-26T21:18:47.298Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$Zhh0dqzmC3Cr$cCvsiIbVMQJCjvKgzaHGFMc2LGIREr6o/7ES8kSVTOA=", 
+        "email": "", 
+        "date_joined": "2013-09-26T21:18:47.298Z"
+    }
+},
+{
+    "pk": 4, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user3", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-09-26T21:20:29.364Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$ZZQ3wH4K9XG0$DDiZRyCRzgZq0wbHyPmBn2laTK/pV1TRq1betH6kkhk=", 
+        "email": "", 
+        "date_joined": "2013-09-26T21:20:29.364Z"
+    }
+},
+{
+    "pk": 5, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "user4", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2013-09-26T21:21:27.905Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$wJd7QeWafdSd$o8Oxti2vRNw5rtqyX2C0jhAUs7u6bnrKDw/4LoWMFnk=", 
+        "email": "", 
+        "date_joined": "2013-09-26T21:21:27.905Z"
+    }
+},
+{
+    "pk": 1, 
+    "model": "items.item", 
+    "fields": {
+        "category": 5, 
+        "name": "user1_item1", 
+        "price": 100, 
+        "pic": "", 
+        "attrs": [
+            2
+        ], 
+        "owner": 2, 
+        "rid": "1", 
+        "pub_date": "2013-09-26T21:19:23.980Z", 
+        "description": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "items.item", 
+    "fields": {
+        "category": 3, 
+        "name": "user1_item2", 
+        "price": 500, 
+        "pic": "", 
+        "attrs": [
+            1
+        ], 
+        "owner": 2, 
+        "rid": "2", 
+        "pub_date": "2013-09-26T21:19:47.622Z", 
+        "description": ""
+    }
+},
+{
+    "pk": 1, 
+    "model": "shops.shop", 
+    "fields": {
+        "description": "\u5546\u5e97\u4ecb\u7d39", 
+        "latitute": 25.091075, 
+        "items": [], 
+        "address": "114\u53f0\u7063\u53f0\u5317\u5e02\u5167\u6e56\u5340\u6587\u6e56\u885721\u5df7112\u5f046-12\u865f", 
+        "owner": 2, 
+        "open": false, 
+        "longtitute": 121.55983449999997, 
+        "name": "123"
+    }
+},
+{
+    "pk": 1, 
+    "model": "chats.chat", 
+    "fields": {
+        "seller_seen": true, 
+        "datetime": "2013-10-01T20:21:27.603Z", 
+        "item": 1, 
+        "buyer": 3, 
+        "seller": 2, 
+        "buyer_seen": true
+    }
+},
+{
+    "pk": 2, 
+    "model": "chats.chat", 
+    "fields": {
+        "seller_seen": true, 
+        "datetime": "2013-10-01T20:21:47.536Z", 
+        "item": 1, 
+        "buyer": 4, 
+        "seller": 2, 
+        "buyer_seen": true
+    }
+},
+{
+    "pk": 3, 
+    "model": "chats.chat", 
+    "fields": {
+        "seller_seen": true, 
+        "datetime": "2013-10-01T20:21:58.159Z", 
+        "item": 2, 
+        "buyer": 3, 
+        "seller": 2, 
+        "buyer_seen": true
+    }
+},
+{
+    "pk": 1, 
+    "model": "chats.reply", 
+    "fields": {
+        "reply": "User1 speak to User2 in user1_item1 chat box", 
+        "datetime": "2013-10-01T20:24:25.254Z", 
+        "speaker": 2, 
+        "chat": 1, 
+        "ip": "111.111.111.111"
+    }
+}
+]
