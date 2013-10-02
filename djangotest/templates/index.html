@@ -88,6 +88,8 @@
 		.msglist{
 			padding: 0px;
 			list-style-type: none;
+			overflow-y: scroll;
+			max-height: 400px;
 		}
 		
 		.msglist .msgbox{
@@ -609,7 +611,7 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 		
-		<!-- Chat Modal -->
+		<!-- Chatroom Modal -->
 		<div id="chatroomModal" class="modal fade" tabindex="-1">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -619,38 +621,6 @@
 					</div>
 					<div class="modal-body" style="background-color: #E8E8E8">
 						<ul class="msglist">
-						<!--
-							<li>
-								<div class="pull-left msgbox msg-other">
-									<div class="speaker">阿超</div>
-									<div class="">好好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天晚上來那個好好不好?今天晚上來那個好?不好?不好?不好?今天晚上來那個好不好?</div>
-									<div class="time" style="width:100%">
-										<div class="pull-right">11:42pm</div>
-									</div>
-								</div>
-								<div style="clear:both;"></div>
-							</li>
-							<li>
-								<div class="pull-right msgbox msg-me">
-									<div class="speaker">老黎</div>
-									<div class="">哪個?</div>
-									<div class="time" style="width:100%">
-										<div class="pull-left">11:42pm</div>
-									</div>
-								</div>
-								<div style="clear:both;"></div>
-							</li>
-							<li>
-								<div class="pull-left msgbox msg-other">
-									<div class="speaker">阿超</div>
-									<div class="">Message #3</div>
-									<div class="time" style="width:100%">
-										<div class="pull-right">11:59pm</div>
-									</div>
-								</div>
-							<div style="clear:both;"></div>
-							</li>
-						-->
 						</ul>
 					</div>
 					<div class="modal-footer" style="margin-top:0px">
@@ -1728,10 +1698,9 @@
 		//////////Chat system Test (backbone) start//////////
 		var Reply = Backbone.Model.extend({
 			default:{
-				reply: 'None',
-				speaker: 'Unknown',
-				date: 'None',
-				time: 'None'
+				reply: null,
+				speaker: null,
+				datetime: null,
 			}
 		});
 		
@@ -1758,23 +1727,35 @@
 				'click .close':'close'
 			},
 			sendReply:function(){
-				alert("send reply");
-				replys.create()
+				if($("#massage").val()){
+					var Data={};
+					Data['reply'] = $("#massage").val();
+					this.replys.create(Data);
+					$("#massage").val('');
+				}
 			},
 			renderBody:function(){
 				console.log(this.replys.length);
 				this.replys.each(function(reply){
 					this.renderReply(reply);
-				}, this);				
+				}, this);
+				//$('.msglist').scrollTop($('.msglist')[0].scrollHeight);
 			},
 			renderReply:function(reply){
 				var $msgli = $("<li>");
+				if(reply.get('speaker')==loginUser.get('name')){
+					var div = '	<div class="pull-right msgbox msg-me">'
+				}
+				else{
+					var div = '	<div class="pull-left msgbox msg-other">'
+				}
+
 				$msgli.html(
-				'	<div class="pull-left msgbox msg-other">'
+					div
 				+'		<div class="speaker">'+reply.get('speaker')+'</div>'
 				+'		<div class="">'+reply.get('reply')+'</div>'
 				+'		<div class="time" style="width:100%">'
-				+'			<div class="pull-right">11:42pm</div>'
+				+'			<div class="pull-right">'+reply.get('datetime')+'</div>'
 				+'		</div>'
 				+'	</div>'
 				+'	<div style="clear:both;"></div>'					
@@ -1782,7 +1763,7 @@
 				$('.msglist').append($msgli);	
 			},
 			renderHead:function(){
-				$('.modal-title').html(this.chatinfo.get('item').name);		
+				$('.modal-title').html(this.chatinfo.get('item'));		
 			},
 			close:function(){
 				$('.msglist').html('');
@@ -1791,22 +1772,23 @@
 		
 		var Chat = Backbone.Model.extend({
 			default:{
-				id: 'None',
-				buyer: 'USER1',
-				seller: 'USER2',
-				item: 'ITEM',
-				time: 'None',
-				date: 'None',
+				id: null,
+				buyer: null,
+				seller: null,
+				item: null,
+				time: null,
+				date: null,
 				seller_seen: true,
 				buyer_seen: true,
 			}
 		});
 		
-		var ChatList = Backbone.Collection.extend({
+		var Chats = Backbone.Collection.extend({
 			model: Chat,
+			url: 'chats/list'
 		});
 		
-		var ItemChatList = ChatList.extend({
+		var ItemChats = Chats.extend({
 			initialize: function(item){
 			},
 			url: function(){
@@ -1820,9 +1802,9 @@
 				'click #chatroomModalbtn': 'openChatroomModal'
 			},
 			render: function(){
-				var buyername = this.model.get('buyer').username;
-				var sellername = this.model.get('seller').username;
-				var item = this.model.get('item').name;
+				var buyername = this.model.get('buyer');
+				var sellername = this.model.get('seller');
+				var item = this.model.get('item');
 				
 				this.$el.html(
 				'<div style="border:solid 1px red">'
@@ -1842,11 +1824,12 @@
 			}
 		});		
 		
-		var ChatListView = Backbone.View.extend({
+		var ChatsView = Backbone.View.extend({
 			el: '#chat-test',
 			initialize: function(){
-				this.collection = new ChatList();
+				this.collection = new Chats();
 				this.collection.fetch({reset: true});
+				this.render();
 				
 				this.listenTo(this.collection, 'reset', this.render);
 			},
@@ -1877,7 +1860,7 @@
 				this.infoEmailModal = new InfoEmailView();
 				
 				//Chat system Test
-				this.chatList = new ChatListView();
+				this.Chats = new ChatsView();
 				
 				this.sellerPanel = new SellerPanelView();
 				this.mapPanel = new MapPanelView();
