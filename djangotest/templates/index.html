@@ -101,6 +101,8 @@
 			border: 1px solid;
 			margin-bottom: 10px;
 			padding: 5px;
+			word-wrap: break-word;
+			max-width: 400px;
 		}
 		
 		.msglist .msg-me{
@@ -113,7 +115,7 @@
 		
 		div.speaker:after{
 			content:" 說:"
-		}		
+		}
 		
 		@media (min-width: 1200px) {
 			.modal-dialog-large {
@@ -614,27 +616,7 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
-		
-		<!-- Chatroom Modal -->
-		<div id="chatroomModal" class="modal fade" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Modal title</h4>
-					</div>
-					<div class="modal-body" style="background-color: #E8E8E8">
-						<ul class="msglist">
-						</ul>
-					</div>
-					<div class="modal-footer" style="margin-top:0px">
-						<input type="text" class="form-control pull-left" id="massage" placeholder="Enter message">
-						<button type="button" class="btn btn-default" id="sendBtn">送出</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->	
-		
+
 		<!-- Main Panels -->
 		<div class="main-panels tab-content">
 			<div class="tab-pane active fade in" id="mapPanel"> <!-- Map Panels -->
@@ -708,7 +690,6 @@
 		</div>
 		
 		
-		
 		{% csrf_token %}
 		<!--<script src="js/less-1.3.3.min.js"></script>-->
 		<script src="http://code.jquery.com/jquery.js"></script>
@@ -722,7 +703,7 @@
 		<script src="js/jquery.fileupload-image.js"></script>
 		
 		<script src="js/bootstrap.js"></script>
-		<!-- <script src="js/bootstrap.min.js"></script> -->
+		<!--<script src="js/bootstrap.min.js"></script>-->
 		<script src="js/underscore-min.js"></script>
 		<!--<script src="js/backbone-min.js"></script>-->
 		<script src="js/backbone.js"></script>
@@ -813,6 +794,13 @@
 				date: null,
 				seller_seen: true,
 				buyer_seen: true,
+			},
+			initialize: function(){
+				var that = this;
+				this.replys = new Replys();
+				this.replys.url = 	function(){
+					return 'chats/'+that.id;
+				};
 			}
 		});
 		
@@ -820,6 +808,18 @@
 			model: Chat,
 		});
 		
+		var Reply = Backbone.Model.extend({
+			default:{
+				reply: null,
+				speaker: null,
+				datetime: null,
+			}
+		});
+		
+		var Replys = Backbone.Collection.extend({
+			model: Reply,
+			url: '/chats/chat_id',
+		});
 		
 		//全域變數
 		var loginUser = new LoginUser();
@@ -861,7 +861,8 @@
 		var SellerItemBoxView = Backbone.View.extend({
 			className: "seller-item-box",
 			events: {
-				"click .item-delete":'deleteItem'
+				"click .item-delete":'deleteItem',
+				'click .chatroom-btn': 'openChatroom'
 			},
 			initialize: function() {
 				this.item = this.model;
@@ -880,14 +881,23 @@
 					that.item.destroy();
 				});
 			},
+			openChatroom:function(event){
+				var $btn = $(event.currentTarget);
+				var chatID = $btn.attr('data-chat-id');
+				var chat = this.item.chats.find(function(chat){
+					return (chat.get('id') == chatID);
+				});
+				var chatroom = new ChatroomModalView({model:chat});
+				chatroom.open();
+			},
 			render: function(){
 				var that = this;
 				
 				this.$el.empty();
 				
 				var $chatList = $('<div class="chat-list"></div>')
-				this.item.chats.each(function(chat){
-					$chatList.append($('<div>buyer_name:'+chat.get('buyer')+'<button>chat room</button></div>'));
+				this.item.chats.each(function(chat, index){
+					$chatList.append($('<div>buyer_name:'+chat.get('buyer')+'<button class="chatroom-btn" data-chat-id='+chat.get('id')+'>chat room</button></div>'));
 				});
 				
 				this.$el.append('<button class="item-delete">刪除</button>').append(this.itemBox.el).append($chatList);
@@ -1641,6 +1651,148 @@
 				});
 			}
 		});
+
+		//ChatroomModalView
+		var ChatroomModalView = Backbone.View.extend({
+			className:'modal fade',
+			initialize: function(){
+				this.chat = this.model;
+
+			
+				this.initChat();
+				
+				this.listenTo( this.chat.replys, 'reset', this.renderBody);
+				this.listenTo( this.chat.replys, 'add', this.addReply);
+			},
+			events:{
+				'click .modal-footer>button':'sendReply',
+				'click .close':'close',
+				'click .open':'open'
+			},
+			initChat:function(){
+				//Chatroom Modal
+				this.$el.html(
+					'<div class="modal-dialog">\
+						<div class="modal-content">\
+							<div class="modal-header">\
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
+								<h4 class="modal-title">'+this.chat.get('itme')+'</h4>\
+							</div>\
+							<div class="modal-body" style="background-color: #E8E8E8">\
+								<ul class="msglist">\
+								</ul>\
+							</div>\
+							<div class="modal-footer" style="margin-top:0px">\
+								<input type="text" class="form-control pull-left" placeholder="Enter message">\
+								<button type="button" class="btn btn-default">送出</button>\
+							</div>\
+						</div>\
+					</div>'
+				);
+			},
+			renderBody:function(){
+				console.log(this.chat.replys.length);
+				$('.msglist').html('');
+				this.chat.replys.each(function(reply){
+					this.renderReply(reply);
+				}, this);
+				$('.msglist').scrollTop(8000);	//scroll bar位置還要修改
+			},
+			renderReply:function(reply){
+				var replyView = new ReplyView({model:reply});
+				replyView.chat = this.chat;
+				this.$('.msglist').append(replyView.renderReply().el);
+			},
+			sendReply:function(){
+				if($(".modal-footer>input").val()){
+					var data={
+						reply:$(".modal-footer>input").val(),
+						speaker : this.chat.get('seller'),
+						receiver : this.chat.get('buyer'),
+					};
+					
+					var reply = new Reply(data);
+					reply.chat = this.chat;
+					reply.url = 'chats/'+this.chat.get('id');
+					this.chat.replys.add(reply);
+					$(".modal-footer>input").val('');
+				}
+			},
+			addReply:function(reply){
+				var replyView = new ReplyView({model:reply});
+				replyView.chat = this.chat;
+				this.$('.msglist').append(replyView.renderReply().el);
+				
+				reply.save().fail(function(){
+					reply.trigger('fail');
+				});
+			},
+			close:function(){
+				this.remove();
+			},
+			open:function(){
+				this.chat.replys.fetch({reset:true});
+				this.$el.modal('show');
+			}
+		});
+		
+		var ReplyView = Backbone.View.extend({
+			tagName: 'li',
+			initialize: function(){
+				this.reply = this.model;
+
+				this.listenTo( this.reply, 'sync', this.renderTime);
+				this.listenTo( this.reply, 'fail', this.renderError);
+			},
+			events:{
+				'click .btn-xs':'resend'
+			},
+			renderReply:function(){
+				if(this.reply.get('speaker')==this.chat.get('seller')){
+					var div = '	<div class="pull-right msgbox msg-me">'
+				}
+				else{
+					var div = '	<div class="pull-left msgbox msg-other">'
+				}
+				
+				if(typeof this.reply.get('datetime')==='undefined'){
+					var time = '傳送中…';
+				}
+				else{
+					var time = this.reply.get('datetime');
+				}
+				
+				this.$el.html(
+					div
+				+'		<div class="speaker">'+this.reply.get('speaker')+'</div>'
+				+'		<div class="">'+this.reply.get('reply')+'</div>'
+				+'		<div class="" style="width:100%">'
+				+'			<div class="pull-right time">'+time+'</div>'
+				+'		</div>'
+				+'	</div>'
+				+'	<div style="clear:both;"></div>'					
+				);
+				
+				return this;
+			},
+			renderTime: function(){
+				this.$('.time').html(this.reply.get('datetime'));
+			},
+			renderError: function(){
+				this.$('.time').html(
+					'傳送失敗<button type="button" class="btn btn-default btn-xs">重新傳送</button>'				
+				);
+			},
+			resend: function(){
+				this.$('.time').html('傳送中…');
+				console.log(this);
+				var reply = this.reply;
+				reply.save().fail(function(){
+					reply.trigger('fail');
+				});
+			}
+		});
+		
 		
 		function confirm(message,func){
 			var $modal= $(
@@ -1718,132 +1870,6 @@
 		new myRouter();
 		Backbone.history.start();
 		
-		//////////Chat system Test (backbone) start//////////
-		var Reply = Backbone.Model.extend({
-			default:{
-				reply: null,
-				speaker: null,
-				datetime: null,
-			}
-		});
-		
-		var Replys = Backbone.Collection.extend({
-			model: Reply,
-			url: '/chats/chat_id',
-		});
-		
-		var ChatroomModalView = Backbone.View.extend({
-			el: '#chatroomModal',
-			initialize: function(chatinfo){
-				this.chatinfo = chatinfo
-				this.replys = new Replys();
-				this.replys.url = '/chats/'+this.chatinfo.get('id');
-				this.replys.fetch({reset: true});
-			
-				this.renderHead();
-				this.renderBody();
-				
-				this.listenTo( this.replys, 'reset', this.renderBody);
-			},
-			events:{
-				'click #sendBtn':'sendReply',
-				'click .close':'close'
-			},
-			sendReply:function(){
-				if($("#massage").val()){
-					var Data={};
-					Data['reply'] = $("#massage").val();
-					this.replys.create(Data);
-					$("#massage").val('');
-				}
-			},
-			renderBody:function(){
-				console.log(this.replys.length);
-				this.replys.each(function(reply){
-					this.renderReply(reply);
-				}, this);
-				//$('.msglist').scrollTop($('.msglist')[0].scrollHeight);
-			},
-			renderReply:function(reply){
-				var $msgli = $("<li>");
-				if(reply.get('speaker')==loginUser.get('name')){
-					var div = '	<div class="pull-right msgbox msg-me">'
-				}
-				else{
-					var div = '	<div class="pull-left msgbox msg-other">'
-				}
-
-				$msgli.html(
-					div
-				+'		<div class="speaker">'+reply.get('speaker')+'</div>'
-				+'		<div class="">'+reply.get('reply')+'</div>'
-				+'		<div class="time" style="width:100%">'
-				+'			<div class="pull-right">'+reply.get('datetime')+'</div>'
-				+'		</div>'
-				+'	</div>'
-				+'	<div style="clear:both;"></div>'					
-				);
-				$('.msglist').append($msgli);	
-			},
-			renderHead:function(){
-				$('.modal-title').html(this.chatinfo.get('item'));		
-			},
-			close:function(){
-				$('.msglist').html('');
-			}
-		});
-		
-		var ChatView = Backbone.View.extend({
-			tagName: 'div',
-			events:{
-				'click #chatroomModalbtn': 'openChatroomModal'
-			},
-			render: function(){
-				var buyername = this.model.get('buyer');
-				var sellername = this.model.get('seller');
-				var item = this.model.get('item');
-				
-				this.$el.html(
-				'<div style="border:solid 1px red">'
-				+'	<p>item: '+item+'</p>'
-				+'	<p>seller: '+sellername+'</p>'
-				+'	<p>buyer: '+buyername+'</p>'
-				+'		<a href="#chatroomModal" data-toggle="modal">'
-				+'			<button type="button" id="chatroomModalbtn">對話</button>'
-				+'		</a>'
-				+'</div>'
-				);
-				
-				return this;
-			},
-			openChatroomModal: function(){
-				var chatroom = new ChatroomModalView(this.model);
-			}
-		});		
-		
-		var ChatsView = Backbone.View.extend({
-			el: '#chat-test',
-			initialize: function(){
-				this.collection = new Chats();
-				this.collection.fetch({reset: true});
-				this.render();
-				
-				this.listenTo(this.collection, 'reset', this.render);
-			},
-			render: function(){
-				this.collection.each(function(item){
-					this.renderChat(item);
-				}, this);
-			},
-			renderChat: function(item){
-				var chatView = new ChatView({
-					model: item
-				});
-				
-				this.$el.append(chatView.render().el);
-			},
-		});
-		//////////Chat system Test (backbone) end//////////
 
 		var AppView = Backbone.View.extend({
 			el: 'body',
@@ -1872,6 +1898,7 @@
 						loginUser.trigger('login');
 						dfd.reject();
 					}else{
+						hEvent();
 						loginUser.trigger('login');
 						dfd.resolve();
 					}
@@ -1890,8 +1917,42 @@
 			}
 		});
 		
+		
+		////////////////Global Events start////////////////
+		var globalEvents = {
+			reply:function(data){
+				var reply = data;
+				myShop.items.each(function(itme){
+					item.chats.each(function(chat){
+						if(caht.get('id') == reply.chat){
+							reply = new Reply(reply);
+							chat.replays.add(reply);
+						}	
+					})
+				});
+			},
+			shopUpdate:function(){
+			}
+		};
+			
+		//e = {events:[{},{}],time:time};
+		function hEvent(e){
+			//_.each(e.events,funciton(event){
+			//	globalEvents[event.eventType](event.eventData);
+			//});
+			
+			//$.post('url',{time:e.time}).done(function(e){
+			//	hEvent(e);
+			//}).fail();
+		};
+		////////////////Global Events end////////////////
+		
 			$(function(){
 				new AppView();
+				
+				
+				//reply {chat, speaker}
+				//chat {item, buyer, seller}
 			});
 		</script>
 	</body>

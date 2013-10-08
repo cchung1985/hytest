@@ -16,7 +16,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
 from accounts.serializers import UserSerializer
-from accounts.models import EmailVerification, Verification
+from accounts.models import EmailVerification, Verification, Event
+from django.contrib.sessions.models import Session
 
 #圖形驗證碼
 from PIL import Image, ImageFont, ImageDraw
@@ -286,6 +287,7 @@ def changePassword(request):
 	user.save()
 	print 'change passowrd'
 	return HttpResponse()
+
 
 	
 '''
