@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
+from accounts.models import *
 
 from rest_framework import serializers
-from rest_framework.serializers import PrimaryKeyRelatedField
+from rest_framework.serializers import PrimaryKeyRelatedField, RelatedField
 from shops.serializers import ShopSerializer
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,7 +17,14 @@ class UserSerializer(serializers.ModelSerializer):
 			raise serializers.ValidationError("Blog post is not about Django")
 		return attrs
 	'''
-	
 	class Meta:
 		model = User
 		fields = ('id', 'name', 'email', 'shops')
+
+class EventSerializer(serializers.ModelSerializer):
+	event = RelatedField()
+	
+	class Meta:
+		model = Event
+		fields = ('event', 'datetime')
+	

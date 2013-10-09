@@ -305,5 +305,26 @@
         "chat": 1, 
         "ip": "111.111.111.111"
     }
+},
+{
+    "pk": 1, 
+    "model": "accounts.eventtype", 
+    "fields": {
+        "type": "newmsg"
+    }
+},
+{
+    "pk": 2, 
+    "model": "accounts.eventtype", 
+    "fields": {
+        "type": "announcement"
+    }
+},
+{
+    "pk": 3, 
+    "model": "accounts.eventtype", 
+    "fields": {
+        "type": "test"
+    }
 }
 ]

@@ -12,7 +12,7 @@ from rest_framework.decorators import api_view
 
 from chats.serializer import ChatSerializer, ReplySerializer
 from chats.models import Chat, Reply
-
+from accounts.models import EventType, Event
 from items.models import Item
 
 
@@ -28,11 +28,22 @@ def getList(request):
 def reply(request, chat_id):
 	if request.method == 'POST':
 		name = request.user.username
-		user = User.objects.get(username=name)
+		speaker = User.objects.get(username=name)
 		chat = Chat.objects.get(id=chat_id)
-		reply = request.DATA.get('reply')
-		Reply.objects.create(chat=chat, speaker=user, ip='123.123.123.123', reply=reply)
-		return HttpResponse('chat_id='+chat_id)
+		reply = Reply.objects.create(chat	=chat, 
+									speaker	=speaker, 
+									ip		='123.123.123.123', 
+									reply	=request.DATA.get('reply'))
+		
+		
+		receiver = User.objects.get(username=request.DATA.get('receiver'))
+		event = EventType.objects.get(type='newmsg')
+		Event.objects.create(user=receiver, event=event)
+		
+		serializer = ReplySerializer(reply)
+		json = JSONRenderer().render(serializer.data)
+		print(json)
+		return HttpResponse(json)
 	
 	elif request.method == 'GET':
 		reply = Reply.objects.filter(chat__id=chat_id)

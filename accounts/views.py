@@ -15,8 +15,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
-from accounts.serializers import UserSerializer
-from accounts.models import EmailVerification, Verification
+from accounts.serializers import *
+from accounts.models import *
+from django.contrib.sessions.models import Session
 
 #圖形驗證碼
 from PIL import Image, ImageFont, ImageDraw
@@ -287,7 +288,43 @@ def changePassword(request):
 	print 'change passowrd'
 	return HttpResponse()
 
+import time
+import json
+from django.utils import timezone
+def events(request):
+	try:
+		begin = request.POST['time']
+	except KeyError:
+		begin = timezone.now()
+
+	has_event = False
+	while has_event != True:
+		time.sleep(5)
+		end = timezone.now()
+		models = Event.objects.filter(user__username=request.user.username, datetime__range=[begin, end])
+		if models:
+			has_event = True
+
+	events = {"events":[],"time":str(end)}
+	count = 0
+	for event in models:
+		seri = EventSerializer(event)
+		type = seri.data['event']
+		if type == 'test':
+			data = testEvent()
+			events['events'].append({"type":type, "data":data})
+		
+	return HttpResponse(json.dumps(events),mimetype="application/json")
 	
+def addEvents(request):
+	eventType = EventType.objects.get(type = 'test')
+	event = Event.objects.create(user=request.user, event=eventType)
+	
+	return HttpResponse('addEvent')
+
+def testEvent():
+	return 'Test Event'
+
 '''
 class userDetail(APIView):
 	def get(self, request, user_id):
