@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<style>
-		
 		.main-panels .tab-pane{
 			position: absolute;
 			top: 71px;
@@ -115,6 +114,10 @@
 		
 		div.speaker:after{
 			content:" 說:"
+		}
+		
+		.chatroom-btn.newmsg{
+			background-color: red;
 		}
 		
 		@media (min-width: 1200px) {
@@ -696,7 +699,7 @@
 		
 		<script src="js/vendor/jquery.ui.widget.js"></script>
 		
-		<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
+
 		<script src="js/jquery.iframe-transport.js"></script>
 		<script src="js/jquery.fileupload.js"></script>
 		<script src="js/jquery.fileupload-process.js"></script>
@@ -863,11 +866,7 @@
 			className: "seller-item-box",
 			events: {
 				"click .item-delete":'deleteItem',
-<<<<<<< HEAD
 				"click .chatroom-btn":"openChatroom"
-=======
-				'click .chatroom-btn': 'openChatroom'
->>>>>>> refs/heads/W15B-2
 			},
 			initialize: function() {
 				this.item = this.model;
@@ -886,11 +885,6 @@
 					that.item.destroy();
 				});
 			},
-			openChatroom: function(event){
-				var $btn = $(event.currentTarget);
-				
-				alert($btn.attr('data-chat-id'))
-			},
 			openChatroom:function(event){
 				var $btn = $(event.currentTarget);
 				var chatID = $btn.attr('data-chat-id');
@@ -899,6 +893,7 @@
 				});
 				var chatroom = new ChatroomModalView({model:chat});
 				chatroom.open();
+				$btn.removeClass('newmsg');
 			},
 			render: function(){
 				var that = this;
@@ -906,12 +901,19 @@
 				this.$el.empty();
 				
 				var $chatList = $('<div class="chat-list"></div>')
-<<<<<<< HEAD
 				this.item.chats.each(function(chat){
-=======
-				this.item.chats.each(function(chat, index){
->>>>>>> refs/heads/W15B-2
-					$chatList.append($('<div>buyer_name:'+chat.get('buyer')+'<button class="chatroom-btn" data-chat-id='+chat.get('id')+'>chat room</button></div>'));
+					var buyer = chat.get('buyer');
+					var id = chat.get('id');
+					var img = "./img/chat.png";
+					var seen = chat.get('seller_seen');
+					console.log('chat '+id+' seller_seen='+seen);
+					$chatList.append($(
+						'<div>buyer_name:'+buyer
+						+'	<button class="chatroom-btn '+(seen?'':'newmsg')+'" data-chat-id='+id+'>\
+								<img src='+img+'>\
+							</button>\
+						</div>'
+						));
 				});
 				
 				this.$el.append('<button class="item-delete">刪除</button>').append(this.itemBox.el).append($chatList);
@@ -1684,7 +1686,7 @@
 				this.initChat();
 				
 				this.listenTo( this.chat.replys, 'reset', this.renderBody);
-				this.listenTo( this.chat.replys, 'add', this.addReply);
+				this.listenTo( this.chat.replys, 'add', this.renderReply);
 			},
 			events:{
 				'click .modal-footer>button':'sendReply',
@@ -1698,7 +1700,7 @@
 						<div class="modal-content">\
 							<div class="modal-header">\
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
-								<h4 class="modal-title">'+this.chat.get('itme')+'</h4>\
+								<h4 class="modal-title">'+this.chat.get('item')+'</h4>\
 							</div>\
 							<div class="modal-body" style="background-color: #E8E8E8">\
 								<ul class="msglist">\
@@ -1718,12 +1720,18 @@
 				this.chat.replys.each(function(reply){
 					this.renderReply(reply);
 				}, this);
-				$('.msglist').scrollTop(8000);	//scroll bar位置還要修改
+				$('.msglist').scrollTop(8000);	//scroll bar位置還要修改 #BW15B
 			},
 			renderReply:function(reply){
 				var replyView = new ReplyView({model:reply});
 				replyView.chat = this.chat;
 				this.$('.msglist').append(replyView.renderReply().el);
+			
+				if(typeof reply.get('datetime')=='undefined'){
+					reply.save().fail(function(){
+						reply.trigger('fail');
+					});					
+				}
 			},
 			sendReply:function(){
 				if($(".modal-footer>input").val()){
@@ -1740,16 +1748,9 @@
 					$(".modal-footer>input").val('');
 				}
 			},
-			addReply:function(reply){
-				var replyView = new ReplyView({model:reply});
-				replyView.chat = this.chat;
-				this.$('.msglist').append(replyView.renderReply().el);
-				
-				reply.save().fail(function(){
-					reply.trigger('fail');
-				});
-			},
+
 			close:function(){
+				this.chat.replys.reset();
 				this.remove();
 			},
 			open:function(){
@@ -1777,28 +1778,43 @@
 					var div = '	<div class="pull-left msgbox msg-other">'
 				}
 				
-				if(typeof this.reply.get('datetime')==='undefined'){
-					var time = '傳送中…';
-				}
-				else{
-					var time = this.reply.get('datetime');
-				}
-				
 				this.$el.html(
 					div
 				+'		<div class="speaker">'+this.reply.get('speaker')+'</div>'
 				+'		<div class="">'+this.reply.get('reply')+'</div>'
 				+'		<div class="" style="width:100%">'
-				+'			<div class="pull-right time">'+time+'</div>'
+				+'			<div class="pull-right time"></div>'
 				+'		</div>'
 				+'	</div>'
 				+'	<div style="clear:both;"></div>'					
 				);
 				
+				this.renderTime();
+				
 				return this;
 			},
 			renderTime: function(){
-				this.$('.time').html(this.reply.get('datetime'));
+				var time;
+				if(typeof this.reply.get('datetime')==='undefined'){
+					time = '傳送中…';
+				}
+				else{
+					var now = new Date();
+					var d = new Date(this.reply.get('datetime'));
+					var M = d.getMonth()+1;
+					var D = d.getDate();
+					var HH = d.getHours();
+					var MM = d.getMinutes();
+					
+					if(now.getDate()==d.getDate()){
+						time = HH+':'+MM;
+					}
+					else{
+						time = M+'/'+D+' '+HH+':'+MM;
+					}
+				}
+				
+				this.$('.time').html(time);
 			},
 			renderError: function(){
 				this.$('.time').html(
@@ -1902,11 +1918,7 @@
 				this.loginModal = new LoginModalView();
 				this.regModal = new RegModalView();
 				this.settingModal = new SettingView();
-				this.infoEmailModal = new InfoEmailView();
-				
-				//Chat system Test
-				this.Chats = new ChatsView();
-				
+				this.infoEmailModal = new InfoEmailView();				
 				this.sellerPanel = new SellerPanelView();
 				this.mapPanel = new MapPanelView();
 				this.userPanel = new UserPanelView();
@@ -1946,17 +1958,35 @@
 		
 		////////////////Global Events start////////////////
 		var globalEvents = {
-			reply:function(data){
+			newmsg:function(data){
 				var reply = data;
-				myShop.items.each(function(itme){
+				myShop.items.each(function(item){
+					console.log(item.get('name'));
 					item.chats.each(function(chat){
-						if(caht.get('id') == reply.chat){
-							reply = new Reply(reply);
-							chat.replays.add(reply);
+					//console.log("chat.get('id'): "+chat.get('id'));
+					//console.log("reply.chat: "+reply.chat);
+						if(chat.get('id') == reply.chat){
+							if(chat.replys.length==0){
+								$("button.chatroom-btn[data-chat-id="+chat.get('id')+"]").addClass('newmsg');
+							}
+							else{
+								chat.replys.each(function(existReply){
+									existReply.get('id') == reply.id;
+									return;
+								});
+								reply = new Reply(reply);
+								chat.replys.add(reply);
+							}
 						}
-					})
+					});
 				});
+				//console.log('receive a new messgae')
 			},
+			//sendMessage:function(data){
+			//	myShop.items.each(function(item){
+			//		//item.
+			//	});
+			//},
 			shopUpdate:function(){
 				//do something
 			},

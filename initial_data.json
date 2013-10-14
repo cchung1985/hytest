@@ -297,17 +297,6 @@
 },
 {
     "pk": 1, 
-    "model": "chats.reply", 
-    "fields": {
-        "reply": "User1 speak to User2 in user1_item1 chat box", 
-        "datetime": "2013-10-01T20:24:25.254Z", 
-        "speaker": 2, 
-        "chat": 1, 
-        "ip": "111.111.111.111"
-    }
-},
-{
-    "pk": 1, 
     "model": "accounts.eventtype", 
     "fields": {
         "type": "newmsg"

@@ -28,6 +28,7 @@ class EventType(models.Model):
 class Event(models.Model):
 	user = models.ForeignKey(User)
 	event = models.ForeignKey(EventType)
+	data_id = models.CharField(max_length=10)
 	datetime = models.DateTimeField(auto_now_add=True)
 	
 	def __unicode__(self):

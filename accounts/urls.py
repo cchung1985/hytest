@@ -16,7 +16,6 @@ urlpatterns = patterns('',
 	url(r'^password$', views.changePassword),
 	url(r'^verify$', views.verifyEmail),
 	url(r'^events$', views.events),
-	url(r'^addevents$', views.addEvents),
 	#url(r'^users/(?P<user_id>\d+)$', views.userDetail.as_view()),
 	
 	
