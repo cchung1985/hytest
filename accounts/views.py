@@ -17,6 +17,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from accounts.serializers import *
 from accounts.models import *
+from shops.models import Shop
 from django.contrib.sessions.models import Session
 
 #圖形驗證碼
@@ -291,39 +292,101 @@ def changePassword(request):
 import time
 import json
 from django.utils import timezone
+from django.utils.timezone import utc
+@login_required
 def events(request):
+	#Check datetime
 	try:
-		begin = request.POST['time']
+		begin = timezone.now().strptime(request.POST['time'], "%Y-%m-%dT%H:%M:%S.%fZ")
+		begin = begin.replace(tzinfo=utc)
 	except KeyError:
 		begin = timezone.now()
 
+	#Query for new events
 	has_event = False
 	while has_event != True:
+		print('event')
 		time.sleep(5)
 		end = timezone.now()
 		models = Event.objects.filter(user__username=request.user.username, datetime__range=[begin, end])
 		if models:
 			has_event = True
 
-	events = {"events":[],"time":str(end)}
+	#Retrieve event data as json
+	events = {"events":[],"time":end}
 	count = 0
 	for event in models:
 		seri = EventSerializer(event)
 		type = seri.data['event']
-		if type == 'test':
-			data = testEvent()
+		if type == 'newmsg':
+			data = msgEvent(event)
 			events['events'].append({"type":type, "data":data})
-		
-	return HttpResponse(json.dumps(events),mimetype="application/json")
 	
-def addEvents(request):
-	eventType = EventType.objects.get(type = 'test')
-	event = Event.objects.create(user=request.user, event=eventType)
+	events = JSONRenderer().render(events)
 	
-	return HttpResponse('addEvent')
+	return HttpResponse(events, mimetype="application/json")
 
-def testEvent():
-	return 'Test Event'
+
+from chats.models import Reply
+from chats.serializer import ReplySerializer
+def msgEvent(event):
+	reply = Reply.objects.get(id = event.data_id)
+	seri = ReplySerializer(reply)
+	return seri.data
+	
+import hashlib
+def users(request):
+	i = 0
+	while(i<100):
+		if i<10:
+			num = '00%s'%(i)
+		elif i<100:
+			num = '0%s'%(i)
+		elif i==100:
+			num = '100'
+		name = 'user'+num
+		i+=1
+		
+		try:
+			user = User.objects.get(username=name)
+			#user.set_password(str(name))
+			#user.save()
+		except:
+			user = User(username=name)
+			#user.set_password(name)
+			#user.save()
+			
+		#lat = 25.092595, 25.018884;
+		#lon = 121.458809, 121.595108
+		
+		lat = random.uniform(25.092595, 25.018884)
+		lon = random.uniform(121.458809, 121.595108)
+		descri = '這裡是'+name+'的商店'
+		
+		road = random.sample(['和平東路','和平東路','信義路','仁愛路','忠孝東路','忠孝西路'], 1)
+		num = random.randint(1,100)
+		address = '台北市'+road[0]+str(num)+'號'
+		print '(%s,%s)'%(lat,lon)
+		
+		try:
+			shop = Shop.objects.get(owner = user)
+			shop.latitude 	= lat
+			shop.longitude 	= lon
+			shop.description = descri
+			shop.address 	= address
+			shop.save()
+		except:
+			shop = Shop(name 		= name+'\'s shop',
+						latitude 	= lat,
+						longitude	= lon,
+						owner		= user,
+						description = descri,
+						address		= address)
+			print shop.name
+			shop.save()
+
+	return HttpResponse()
+
 
 '''
 class userDetail(APIView):

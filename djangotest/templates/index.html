@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
 		<style>
-		
 		.main-panels .tab-pane{
 			position: absolute;
 			top: 71px;
@@ -36,44 +35,39 @@
 			border: 1px solid #DDDDDD;
 		}
 		
-		.item-box-showcase {
-			border: 1px solid #DDDDDD;
-		}
-		
 		.item-box {
 			border: 1px solid #DDDDDD;
 		}
 		
 		.seller-item-box {
 			border: 1px solid #DDDDDD;
-			margin-bottom:10px;
+			margin-bottom:5px;
 		}
 		.seller-item-box .item-box {
 			border-width:0;
 		}
 		
 		#sellerShopBox {
-			position:absolute;
-			top:70px;
-			right:15px;
-			left:15px;
+			position:relative;
+			/*
+			top:0px;
+			right:0px;
+			left:0px;
+			*/
 		}
 		
 		#sellerShowCase {
-			position:absolute;
-			top:140px;
-			right:15px;
-			left:15px;
-			bottom:10px;
+
 		}
 		
 		#sellerItemsList {
-			overflow:auto;
-			position:absolute;
-			top:40px;
-			right:10px;
-			left:10px;
+			overflow-y:	auto;
+			overflow-x:	hidden;
+			/*position:absolute;
 			bottom:10px;
+			top:40px;*/
+			right:0px;
+			left:0px;
 		}
 		
 		#settingModal {
@@ -117,6 +111,157 @@
 			content:" 說:"
 		}
 		
+		.panel-title img[src="./img/notification.png"]{
+			width:	20px;
+			height: 20px;
+		}
+		
+		/************************/
+		/* 		            	*/
+		/*	  seller-item-box	*/
+		/* 		 | item-box		*/
+		/* 		             	*/
+		/************************/		
+		.seller-item-box .item-box-price:before{
+			content: "價格:";
+			float:	left;
+		}
+		
+		.seller-item-box .item-box-price:after{
+			content: " 元";
+			
+		}
+		
+		.seller-item-box .item-box-attrs span{
+			border-radius:		5px; 
+			background-color:	#0c0; 
+			color:				white;
+			width:				80px;
+		}
+
+		.seller-item-box .item-box-description{
+			position:		absolute; 
+			right:			0px;
+			margin-top:		14px;
+			padding-top:	6px;
+			padding-right:	20px;
+			left:			50%				
+		}
+		
+		.seller-item-box .item-box-description .item-box-vertical{
+			display:	none;
+		}
+		.seller-item-box .item-box-description .item-box-horizontal{
+			display:	block;
+		}
+		
+		.seller-item-box .item-box-description:before{
+			font-weight:	bold;
+			content:		"商品描述:";
+		}
+	
+		/**********************/
+		/* 		              */
+		/*	seller-item-box	  */
+		/* 		| chat-list   */
+		/* 		              */
+		/**********************/
+		.seller-item-box .chat-list div{
+			border-bottom: 1px solid #ccc;
+			background-image: linear-gradient(-45deg, rgb(255,255,255) 25%, rgb(255,255,0) 90%);
+			padding: 5px;
+		}
+		
+		.seller-item-box .chat-list button,
+		.seller-item-box .chat-list img{
+			position: 	relative;
+			float:		right;
+		}
+		
+		.seller-item-box .chat-list img{
+			width:		20px; 
+			height:		20px;
+			right:		-31px;
+			top:		-5px;
+			display:	none;
+		}			
+		
+		.seller-item-box .chat-list img.newmsg{
+			display:	inline;
+		}
+
+		.seller-item-box .chat-list button{
+			border:1px solid;
+			border-radius: 5px;
+			background-color: white;
+			background-image: url("./img/chat.png");	
+			background-size: contain;
+			width: 30px;
+			height: 25px;
+			top: 2px;
+			right: 5px;
+		}
+		
+		.seller-item-box .chats-order{
+			line-height: 25px;
+			font-size: 1.75em;
+			font-weight: bold;
+			font-style: italic;
+			text-align: center;
+			color: white;
+			background-image: linear-gradient(-45deg, rgb(100,100,100) 30%, rgb(0,0,0) 70%);
+			display: inline-block;
+			width: 40px;
+			height: 25px;
+		}
+
+		/**********************/
+		/* 		              */
+		/*	   shop-box	      */
+		/* 		              */
+		/**********************/
+		.seller-item-box .chat-to{
+			display: inline-block;
+			font-size: 1.2em;
+		}
+
+		.shop-box{
+			position: relative;
+		}
+
+		.shop-box-status{
+		}			
+		
+		.shop-box .shop-box-name{
+			white-space:	nowrap;
+		}
+		
+		.shop-box .shop-box-item-num{
+			color:			#505050;
+			font-size:		small;
+		}
+		
+		.shop-box .shop-box-item-num:after{
+			content:		" 件商品正在出售中";
+		}
+
+		.shop-box .shop-box-detail{
+			position:		absolute;
+			top:			0px;
+			left:			100px;
+			overflow:		hidden;
+			height:			60px;
+			right:			70px;
+		}
+		
+		.shop-box .shop-box-button{
+			float:			right; 
+			width:			50px; 
+			height:			50px;
+			margin-top:		5px; 
+			margin-right:	5px;
+		}
+			
 		@media (min-width: 1200px) {
 			.modal-dialog-large {
 				width: 1170px;
@@ -626,36 +771,40 @@
 			</div>
 			<div class="tab-pane fade" id="sellerPanel"> <!-- Seller Panel -->
 				<div class="container" style="position:relative;height:100%">
-					<div id="sellerShopPanel" sytle="text-align:center;">
-						<div class="btn-group">
-							<button type="button" class="btn btn-default"> <!-- 開始營業 -->
+					<div id="sellerShopPanel">
+						<div class="btn-group btn-group-justified" style="text-align:center; position:fixed; bottom:0px; z-index:1000">
+							<a href="#" class="btn btn-default"> <!-- 開始營業 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-play"></span>
 								開始營業
-							</button>
-							<button type="button" class="btn btn-default" href="#shopModal" data-toggle="modal"> <!-- 編輯店面 -->
+							</a>
+							<a href="#" class="btn btn-default" href="#shopModal" data-toggle="modal"> <!-- 編輯店面 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-edit"></span>
 								編輯店面
-							</button>
-							<button type="button" class="btn btn-default" id="itemModalBtn"> <!-- 商品上架 -->
+							</a>
+							<a href="#" class="btn btn-default" id="itemModalBtn"> <!-- 商品上架 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-cloud-upload"></span>
 								商品上架
-							</button>
-							<button type="button" class="btn btn-default" id="test"> <!-- 最新消息 -->
+							</a>
+							<a href="#" class="btn btn-default" id="test"> <!-- 最新消息 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-exclamation-sign"></span>
 								最新消息
-							</button>
+							</a>
 						</div>
 						<div id="sellerShopBox">
 							
 						</div>
 						<div id="sellerShowCase" class="item-box-showcase">
-							<div>
-								tool bar
+							<div style="text-align:center; background-color:#ccc; margin:auto">
+								商品列表
 							</div>
 							<div id="sellerItemsList">
 								
 							</div>
+							
 						</div>
+						
+						<!-- 畫面底部要墊高 -->
+						<div style="height: 60px; width:100px"></div>
 					</div>
 				</div>
 			</div>
@@ -691,12 +840,15 @@
 		
 		
 		{% csrf_token %}
-		<!--<script src="js/less-1.3.3.min.js"></script>-->
+		<!--
+		<script src="js/less-1.3.3.min.js"></script>
+		<script src="js/jquery-1.10.2.min.js"></script>		
+		-->
 		<script src="http://code.jquery.com/jquery.js"></script>
 		
 		<script src="js/vendor/jquery.ui.widget.js"></script>
 		
-		<script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script>
+
 		<script src="js/jquery.iframe-transport.js"></script>
 		<script src="js/jquery.fileupload.js"></script>
 		<script src="js/jquery.fileupload-process.js"></script>
@@ -833,7 +985,6 @@
 			},
 			initialize: function() {
 				this.item = this.model;
-				this.listenTo(this.item, "destroy", this.remove);
 				this.listenTo(this.item, "change", this.render);
 				this.render();
 			},
@@ -844,17 +995,25 @@
 				var description = this.item.get('description');
 				var attrs = this.item.get('attrs');
 				var categoryID = this.item.get('category');
+				var img = './img/goods.jpg';
+				//var img = '../media/image/items/'+this.item.get('rid')+'-s.png';
 				this.$el.html(
-					'<div class="item-box-name"></div>\
-					<div class="item-box-price"></div>\
-					<div class="item-box-description"></div>\
-					<div class="item-box-attrs"></div>\
-					<div class="item-box-category"></div>');
-				this.$('.item-box-name').text(name);
-				this.$('.item-box-price').text(price);
-				this.$('.item-box-description').text(description);
-				this.$('.item-box-attrs').text(attrs);
-				this.$('.item-box-category').text(itemCategorys.getByID(categoryID).get('name'));
+					'<div class="media">\
+						<a class="pull-left" href="#">\
+							<img class="media-object" data-src="holder.js/64x64" src="'+img+'" alt="..." style="width:64px; height:64px">\
+						</a>\
+						<div class="item-box-description">'+(description==''?'無內容':description)+'</div>\
+						<div class="media-body">\
+						<h4 class="media-heading" style="white-space:nowrap">'+name+'</h4>\
+						<div class="item-box-price">'+price+'</div>\
+						<div class="item-box-attrs">\
+							<span>背包可裝</span>\
+							<span>二手品</span>\
+							<span>可議價</span>\
+						</div>\
+					</div>');
+						
+				//this.$('.item-box-attrs div').text(attrs);
 				return this;
 			}
 		});
@@ -863,11 +1022,7 @@
 			className: "seller-item-box",
 			events: {
 				"click .item-delete":'deleteItem',
-<<<<<<< HEAD
 				"click .chatroom-btn":"openChatroom"
-=======
-				'click .chatroom-btn': 'openChatroom'
->>>>>>> refs/heads/W15B-2
 			},
 			initialize: function() {
 				this.item = this.model;
@@ -886,11 +1041,6 @@
 					that.item.destroy();
 				});
 			},
-			openChatroom: function(event){
-				var $btn = $(event.currentTarget);
-				
-				alert($btn.attr('data-chat-id'))
-			},
 			openChatroom:function(event){
 				var $btn = $(event.currentTarget);
 				var chatID = $btn.attr('data-chat-id');
@@ -899,22 +1049,68 @@
 				});
 				var chatroom = new ChatroomModalView({model:chat});
 				chatroom.open();
+				$btn.next().removeClass('newmsg');
+				
+				
+				
+				
+				//var chats_seen;
+				//this.item.chats.each(function(chat){
+				//	if(chat.get('seller_seen') == false){chats_seen = false}
+				//});
+				//alert(chats_seen);
+				//if(chats_seen == false){
+				//	$el.find("a").attr("style","color:red");
+				//	alert('chats_seen = false');
+				//}else{
+				//	$el.find("a").removeAttr("style");
+				//	alert('chats_seen = true');
+				//}
+				
 			},
 			render: function(){
 				var that = this;
 				
 				this.$el.empty();
 				
-				var $chatList = $('<div class="chat-list"></div>')
-<<<<<<< HEAD
-				this.item.chats.each(function(chat){
-=======
+				var num = this.item.chats.length;
+				var item_id = this.item.get('id');
+				var notification_img = "./img/notification.png";
+				var $chatList = $(
+					'<div class="panel-group" id="chats'+item_id+'">\
+						<div class="panel panel-default">\
+							<div class="panel-heading">\
+								<h4 class="panel-title">\
+									<span class="glyphicon glyphicon-collapse-down"></span>\
+									<a class="accordion-toggle" data-toggle="collapse" href="#item'+item_id+'">有 '+num+' 人找你</a>\
+									<img class="pull-right" data-item-id="'+item_id+'" src='+notification_img+'>\
+								</h4>\
+							</div>\
+							<div id="item'+item_id+'" class="panel-collapse collapse in">\
+								<div class="chat-list">\
+								</div>\
+							</div>\
+						</div>\
+					</div>'					
+				);
+
 				this.item.chats.each(function(chat, index){
->>>>>>> refs/heads/W15B-2
-					$chatList.append($('<div>buyer_name:'+chat.get('buyer')+'<button class="chatroom-btn" data-chat-id='+chat.get('id')+'>chat room</button></div>'));
+					var buyer = chat.get('buyer');
+					var id = chat.get('id');
+					var seen = chat.get('seller_seen');
+					if(seen == false){chats_seen = false}
+					console.log('chat '+id+' seller_seen='+seen);
+					$chatList.find(".chat-list").append($(
+						'<div>\
+							<span class="chats-order">'+(index+1)+'</span>\
+							<span class="chat-to">'+buyer+'</span>\
+							<button class="chatroom-btn" data-chat-id='+id+'></button>\
+							<img class="'+(seen?'':'newmsg')+'" data-chat-id='+id+' src='+notification_img+'>\
+						</div>'
+					));
 				});
-				
-				this.$el.append('<button class="item-delete">刪除</button>').append(this.itemBox.el).append($chatList);
+	
+				this.$el.append('<button class="item-delete glyphicon glyphicon-remove pull-right" style="border:none; background-color:white; color:red"></button>').append(this.itemBox.el).append($chatList);
 				return this;
 			}
 		});
@@ -932,10 +1128,19 @@
 				var address = this.model.get('address');
 				var description = this.model.get('description');
 				var isOpen = this.model.get('open');
-				this.$el.html('<div class="shop-box-name"></div><div class="shop-box-address"></div><div class="shop-box-description"></div>');
-				this.$('.shop-box-name').text(name+(isOpen?'(open)':'(close)'));
-				this.$('.shop-box-address').text(address);
-				this.$('.shop-box-description').text(description);
+				var shopimg = './img/Shop.png';
+				this.$el.html(
+					'<div class="media">\
+						<a class="pull-left" href="#">\
+						<img class="media-object" data-src="holder.js/64x64" src="img/Shop.png" alt="'+name+'" style="width:64px; height:64px">\
+						</a>\
+						<div class="media-body">\
+							<h4 class="media-heading shop-box-name">'+name+'</h4>\
+							<div class="shop-box-subtitle">十七字簡單解說商店性質拍賣商品為何</div>\
+							<div class="shop-box-item-num">12</div>\
+						</div>\
+					</div>'
+				);
 			}
 		});
 		
@@ -1684,7 +1889,7 @@
 				this.initChat();
 				
 				this.listenTo( this.chat.replys, 'reset', this.renderBody);
-				this.listenTo( this.chat.replys, 'add', this.addReply);
+				this.listenTo( this.chat.replys, 'add', this.renderReply);
 			},
 			events:{
 				'click .modal-footer>button':'sendReply',
@@ -1698,7 +1903,7 @@
 						<div class="modal-content">\
 							<div class="modal-header">\
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
-								<h4 class="modal-title">'+this.chat.get('itme')+'</h4>\
+								<h4 class="modal-title">'+this.chat.get('item')+'</h4>\
 							</div>\
 							<div class="modal-body" style="background-color: #E8E8E8">\
 								<ul class="msglist">\
@@ -1718,12 +1923,18 @@
 				this.chat.replys.each(function(reply){
 					this.renderReply(reply);
 				}, this);
-				$('.msglist').scrollTop(8000);	//scroll bar位置還要修改
+				$('.msglist').scrollTop(8000);	//scroll bar位置還要修改 #BW15B
 			},
 			renderReply:function(reply){
 				var replyView = new ReplyView({model:reply});
 				replyView.chat = this.chat;
 				this.$('.msglist').append(replyView.renderReply().el);
+			
+				if(typeof reply.get('datetime')=='undefined'){
+					reply.save().fail(function(){
+						reply.trigger('fail');
+					});					
+				}
 			},
 			sendReply:function(){
 				if($(".modal-footer>input").val()){
@@ -1740,16 +1951,9 @@
 					$(".modal-footer>input").val('');
 				}
 			},
-			addReply:function(reply){
-				var replyView = new ReplyView({model:reply});
-				replyView.chat = this.chat;
-				this.$('.msglist').append(replyView.renderReply().el);
-				
-				reply.save().fail(function(){
-					reply.trigger('fail');
-				});
-			},
+
 			close:function(){
+				this.chat.replys.reset();
 				this.remove();
 			},
 			open:function(){
@@ -1777,28 +1981,43 @@
 					var div = '	<div class="pull-left msgbox msg-other">'
 				}
 				
-				if(typeof this.reply.get('datetime')==='undefined'){
-					var time = '傳送中…';
-				}
-				else{
-					var time = this.reply.get('datetime');
-				}
-				
 				this.$el.html(
 					div
 				+'		<div class="speaker">'+this.reply.get('speaker')+'</div>'
 				+'		<div class="">'+this.reply.get('reply')+'</div>'
 				+'		<div class="" style="width:100%">'
-				+'			<div class="pull-right time">'+time+'</div>'
+				+'			<div class="pull-right time"></div>'
 				+'		</div>'
 				+'	</div>'
 				+'	<div style="clear:both;"></div>'					
 				);
 				
+				this.renderTime();
+				
 				return this;
 			},
 			renderTime: function(){
-				this.$('.time').html(this.reply.get('datetime'));
+				var time;
+				if(typeof this.reply.get('datetime')==='undefined'){
+					time = '傳送中…';
+				}
+				else{
+					var now = new Date();
+					var d = new Date(this.reply.get('datetime'));
+					var M = d.getMonth()+1;
+					var D = d.getDate();
+					var HH = d.getHours();
+					var MM = d.getMinutes();
+					
+					if(now.getDate()==d.getDate()){
+						time = HH+':'+MM;
+					}
+					else{
+						time = M+'/'+D+' '+HH+':'+MM;
+					}
+				}
+				
+				this.$('.time').html(time);
 			},
 			renderError: function(){
 				this.$('.time').html(
@@ -1902,11 +2121,7 @@
 				this.loginModal = new LoginModalView();
 				this.regModal = new RegModalView();
 				this.settingModal = new SettingView();
-				this.infoEmailModal = new InfoEmailView();
-				
-				//Chat system Test
-				this.Chats = new ChatsView();
-				
+				this.infoEmailModal = new InfoEmailView();				
 				this.sellerPanel = new SellerPanelView();
 				this.mapPanel = new MapPanelView();
 				this.userPanel = new UserPanelView();
@@ -1944,19 +2159,45 @@
 		});
 		
 		
+		//var myEvents = new Events();
+		
 		////////////////Global Events start////////////////
 		var globalEvents = {
-			reply:function(data){
+			newmsg:function(data){
 				var reply = data;
-				myShop.items.each(function(itme){
+				myShop.items.each(function(item){
+					console.log(item.get('name'));
 					item.chats.each(function(chat){
-						if(caht.get('id') == reply.chat){
-							reply = new Reply(reply);
-							chat.replays.add(reply);
+					//console.log("chat.get('id'): "+chat.get('id'));
+					//console.log("reply.chat: "+reply.chat);
+						if(chat.get('id') == reply.chat){
+							if(chat.replys.length==0){
+								$("img[data-chat-id="+chat.get('id')+"]").addClass('newmsg');
+								$("img[data-item-id="+item.get('id')+"]").addClass('newmsg');
+							}
+							else{
+								chat.replys.each(function(existReply){
+									existReply.get('id') == reply.id;
+									return;
+								});
+								reply = new Reply(reply);
+								//reply.trigger('seen');
+								//reply.once('seen',funciton(){
+									//remove event
+								//	event.destroy();
+								//});
+								chat.replys.add(reply);
+							}
 						}
-					})
+					});
 				});
+				//console.log('receive a new messgae')
 			},
+			//sendMessage:function(data){
+			//	myShop.items.each(function(item){
+			//		//item.
+			//	});
+			//},
 			shopUpdate:function(){
 				//do something
 			},
@@ -1983,6 +2224,13 @@
 			$(function(){
 				new AppView();
 
+				window.onresize = function(event) {
+					if(window.innerWidth>window.innerHeight){
+						this.$(".item-box-description").css("display","block");
+					}else{
+						this.$(".item-box-description").css("display","none");
+					}					
+				}
 				//reply {chat, speaker}
 				//chat {item, buyer, seller}
 			});
