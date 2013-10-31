@@ -138,21 +138,24 @@
 		}
 		
 		/************************/
-		/* 		            	*/
-		/*	  seller-item-box	*/
-		/*            item-box      */
-		/*                                         */
-		/************************/		
+		/*		shop-modal,		*/
+		/*		seller-item-box	*/
+		/*		 | item-box		*/
+		/*						*/
+		/************************/
+		.shop-modal-showcase .item-box-price:before,
 		.seller-item-box .item-box-price:before{
 			content: "價格:";
 			float:	left;
 		}
 		
+		.shop-modal-showcase .item-box-price:after,
 		.seller-item-box .item-box-price:after{
 			content: " 元";
 			
 		}
 		
+		.shop-modal-showcase .item-box-attrs span,
 		.seller-item-box .item-box-attrs span{
 			border-radius:		5px; 
 			background-color:	#0c0; 
@@ -160,6 +163,7 @@
 			width:				80px;
 		}
 
+		.shop-modal-showcase .item-box-description,
 		.seller-item-box .item-box-description{
 			position:		absolute; 
 			right:			0px;
@@ -169,24 +173,31 @@
 			left:			50%				
 		}
 		
+		.shop-modal-showcase .item-box-description .item-box-vertical,
 		.seller-item-box .item-box-description .item-box-vertical{
 			display:	none;
 		}
+		.shop-modal-showcase .item-box-description .item-box-horizontal,
 		.seller-item-box .item-box-description .item-box-horizontal{
 			display:	block;
 		}
 		
+		.shop-modal-showcase .item-box-description:before,
 		.seller-item-box .item-box-description:before{
 			font-weight:	bold;
 			content:		"商品描述:";
 		}
+
+		.shop-modal .shop-modal-board h4{
+			font-size: 1.5em;
+		}
 	
-		/**********************/
-		/* 		              */
-		/*	seller-item-box	  */
-		/* 		| chat-list   */
-		/* 		              */
-		/**********************/
+		/************************/
+		/*						*/
+		/*	seller-item-box		*/
+		/*		| chat-list		*/
+		/*						*/
+		/************************/
 		.seller-item-box .chat-list div{
 			border-bottom: 1px solid #ccc;
 			background-image: linear-gradient(-45deg, rgb(255,255,255) 25%, rgb(255,255,0) 90%);
@@ -195,7 +206,7 @@
 		
 		.seller-item-box .chat-list button,
 		.seller-item-box .chat-list img{
-			position: 	relative;
+			position:	relative;
 			float:		right;
 		}
 		
@@ -236,11 +247,11 @@
 			height: 25px;
 		}
 
-		/**********************/
-		/* 		              */
-		/*	   shop-box	      */
-		/* 		              */
-		/**********************/
+		/************************/
+		/*						*/
+		/*		shop-box		*/
+		/*						*/
+		/************************/
 		.seller-item-box .chat-to{
 			display: inline-block;
 			font-size: 1.2em;
@@ -521,9 +532,9 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
-
-		<!--Item Modal-->
-		<div id="itemModal" class="modal fade" tabindex="-1">
+	
+		<!--Edit Item Modal-->
+		<div id="itemEditModal" class="modal fade" tabindex="-1">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -615,9 +626,80 @@
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+
+		<!--Item Modal-->
+		<div id="itemModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">ITEM</h4>
+					</div>
+					<div class="modal-body" style="min-height:300px; padding:0px">
+						<div class="modal-board">
+							<div style="position:relative; border-bottom:1px solid; padding:10px;">
+								<h4 style="margin-right:50px">這裡放商品的名稱這裡放商店的名稱這裡放商品的名稱</h4>
+								<button type="submit" style="position:absolute; right:0px; top:0px; margin:10px">
+									<span class="glyphicon glyphicon-star-empty" style="font-size:2em;"></span>
+								</button>
+							</div>
+						</div>
+						<div class="item-modal-photos" style="white-space:nowrap; padding:5px; border:1px solid; overflow:auto">
+							<span style=""><img src="img/first-slide.png" width="100%"></span>
+							<span style=""><img src="img/second-slide.png" width="100%"></span>
+							<span style=""><img src="img/third-slide.png" width="100%"></span>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<div class="item-modal-detail" style="text-align: center; margin:10px">
+									<div class="item-modal-price">100000</div>
+									<div class="item-modal-add-time"></div>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<div class="item-modal-attrs" style="margin:10px">
+									<div class="row" style="text-align:center">
+										<div class="col-xs-4">尺寸<br><span>背包可裝</span></div>
+										<div class="col-xs-4">新舊<br><span>全新品</span></div>
+										<div class="col-xs-4">談價空間<br><span>不二價</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="item-modal-description" style="margin:10px; text-align:center">
+							<h4>商品描述</h4>
+							<p style="text-align:left">商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述</p>
+						</div>
+						<div class="item-modal-map" style="margin:10px; text-align:center; height:100px;">
+							<h4>位置</h4>
+							<div>
+								<!--Googole Map-->
+							</div>
+						</div>
+						<div class="item-modal-chat" style="margin:10px; text-align:center">
+							<h4>想要買?有問題?</h4>
+							<button class="btn btn-primary" type="button">聯絡賣家</button>
+						</div>
+					</div>
+					<div class="modal-footer" style="text-align:center">
+						<div class="row">
+							<div class="col-xs-6">
+								<button type="button" class="btn btn-primary" style="margin:auto">瀏覽商店</button>
+							</div>
+							<div class="col-xs-6">
+								<button type="button" class="btn btn-primary" style="margin:auto">關於本店</button>
+							</div>
+						</div>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 		
-		<!--Shop Modal-->
-		<div id="shopModal" class="modal fade" tabindex="-1">
+		
+		
+		
+		<!--Edit Shop Modal-->
+		<div id="shopEditModal" class="modal fade" tabindex="-1">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -662,6 +744,43 @@
 				</div>
 			</div>
 		</div>
+
+		<!--Shop Modal -->
+		<div id="shopModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+					<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">SHOP</h4>
+					</div>
+					<div class="modal-body" style="min-height:300px; padding:0px">
+						<div id="shopModalBoard" class="shop-modal-board" style="position:relative; padding:10px;">
+							<h4 style="margin-right:50px"></h4>
+							<button type="submit" style="position:absolute; right:0px; top:0px; margin:10px">
+								<span class="glyphicon glyphicon-star-empty" style="font-size:2em;"></span>
+							</button>
+						</div>
+						<div id="shopModalShowcase" class="shop-modal-showcase">
+							<div class="showcase-toolbar" style="padding:5px 10px; border-bottom:1px solid">
+								<div class="showcase-toolbar-sort">
+									排序依
+									<select>
+									  <option value="上架日期">上架日期</option>
+									  <option value="價格">價格</option>
+									</select>
+								</div>
+							</div>
+							<div id="shopModalItemList" class="showcase-item-list" style="">
+								
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer" style="text-align:center">
+						<button type="button" class="btn btn-primary" style="margin:auto">關於本店</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 		
 		<!--Setting modal -->
 		<div id="settingModal" class="modal fade" tabindex="-1">
@@ -817,7 +936,7 @@
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-play"></span>
 								開始營業
 							</button>
-							<button class="btn btn-default" style="width:25%" href="#shopModal" data-toggle="modal"> <!-- 編輯店面 -->
+							<button class="btn btn-default" style="width:25%" data-target="#shopEditModal" data-toggle="modal"> <!-- 編輯店面 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-edit"></span>
 								編輯店面
 							</button>
@@ -832,12 +951,25 @@
 						</div>
 						<div style="overflow:auto;position:absolute;top:0;left:0;right:0;bottom:60px">
 							<div id="sellerShopBox">
+							
+							</div>
+							<div class="sellerShopBtn" style="margin:5px; text-align:center">
+								<button id="shopModalBtn" type="button" class="btn btn-primary">檢視商店內容</button>
+								<button id="aboutMeModalBtn" type="button" class="btn btn-primary">檢視關於本店</button>
 							</div>
 							<div id="sellerShowCase" class="item-box-showcase">
-								<div style="text-align:center; background-color:#ccc; margin:auto">
-									商品列表
+								<div class="showcase-toolbar" style="padding:5px 10px; border-bottom:1px solid; border-top:1px solid">
+									<div class="showcase-toolbar-sort">
+										商品排序依
+										<select>
+										  <option value="上架日期">上架日期</option>
+										  <option value="價格">價格</option>
+										</select>
+									</div>
+
 								</div>
 								<div id="sellerItemsList">
+									
 								</div>
 							</div>
 						</div>
@@ -871,1780 +1003,70 @@
 					</div>
 					<!-- Chat system test end -->
 				</div>
-			</div>	
+			</div>
 		</div>
 		
 		
 		{% csrf_token %}
-		<!--
-		<script src="js/less-1.3.3.min.js"></script>
-		<script src="js/jquery-1.10.2.min.js"></script>
-		-->
-		<script src="http://code.jquery.com/jquery.js"></script>
-		
-		<script src="js/vendor/jquery.ui.widget.js"></script>
-		
 
-		<script src="js/jquery.iframe-transport.js"></script>
-		<script src="js/jquery.fileupload.js"></script>
-		<script src="js/jquery.fileupload-process.js"></script>
-		<script src="js/jquery.fileupload-image.js"></script>
-		
-		<script src="js/bootstrap.js"></script>
-		<!--<script src="js/bootstrap.min.js"></script>-->
-		<script src="js/underscore-min.js"></script>
-		<!--<script src="js/backbone-min.js"></script>-->
-		<script src="js/backbone.js"></script>
-		<script src="js/main.js"></script>
-		<script type="text/javascript">
+		<!--Load 3rd party libraries-->
+		<script src="js/lib/jquery-1.10.2.min.js"></script>
+		<script src="js/lib/jquery.ui.widget.js"></script>
+		<script src="js/lib/jquery.iframe-transport.js"></script>
+		<script src="js/lib/jquery.fileupload.js"></script>
+		<script src="js/lib/jquery.fileupload-process.js"></script>
+		<script src="js/lib/jquery.fileupload-image.js"></script>
+		<script src="js/lib/bootstrap.js"></script>
+		<script src="js/lib/underscore-min.js"></script>
+		<script src="js/lib/backbone.js"></script>
 
-		var User = Backbone.Model.extend({
-			urlRoot:'accounts/users/'
-		});
-		
-		var LoginUser = User.extend({
-			url: 'accounts/users/i',
-			login: function(email, password){
-				var dfd = $.Deferred();
-				$.get('accounts/login',{email:email,password:password}).done(function(){
-					loginUser.fetch().done(function(){
-						dfd.resolve();
-						loginUser.trigger('login');
-					}).fail(function(){
-						dfd.reject();
-					});
-				}).fail(function(){
-					dfd.reject();
-				});
-				return dfd.promise();
-			}
-		});
-		
-		var Item = Backbone.Model.extend({
-			urlRoot:'items/',
-			initialize: function(){
-				var that = this;
-				this.chats = new Chats();
-				this.chats.url = function(){
-					return 'items/'+that.id+'/chat/';
-				}
-			}
-		});
-		
-		var Items = Backbone.Collection.extend({
-			model:Item
-		});
-		
-		var ItemCategory = Backbone.Model.extend({
-		});
-		
-		var ItemCategorys = Backbone.Collection.extend({
-			model:ItemCategory,
-			url:'item-categorys',
-			getByID: function(id){
-				return this.find(function(category){
-					return (category.get('id') == id);
-				});
-			},
-			getByIDs: function(ids){
-				return this.filter(function(category){
-					return $.inArray(category.get('id'), ids) > -1;
-				});
-			},
-			getByParentID: function(id){
-				return this.filter(function(category){
-					return (category.get('parent') == id);
-				});
-			}
-		});
-		
-		var Shop = Backbone.Model.extend({
-			urlRoot: 'shops/',
-			initialize: function(){
-				var that = this;
-				this.items = new Items();
-				this.items.url = function(){
-					return 'shops/'+that.id+'/items/';
-				}
-				//this.on('change:id',this.resetItems)
-			},
-			resetItems: function(){
-				this.items.fetch({reset:true});
-			}
-		});
-		
-		var Shops = Backbone.Collection.extend({
-			model:Shop,
-			url:'shops/',
-			initialize:function(options){
-				var that = this;
-				this.url = function(){ 
-					if (that.bounds){
-						return 'shops/?'+$.param(that.bounds);
-					}
-					return 'shops/';
-				}
-			},
-			fetchByBounds:function(bounds){
-				/*var that = this;
-				var dfd = $.get('shops/',bounds);
-				dfd.done(function(shops){
-					that.set(shops);
-				});
-				return dfd;*/
-				this.setBounds(bounds);
-				return this.fetch();
-			},
-			setBounds:function(bounds){
-				this.bounds = bounds
-				return this;
-			}
-		})
-		
-		var Chat = Backbone.Model.extend({
-			default:{
-				buyer: null,
-				seller: null,
-				item: null,
-				time: null,
-				date: null,
-				seller_seen: true,
-				buyer_seen: true,
-			},
-			initialize: function(){
-				var that = this;
-				this.replys = new Replys();
-				this.replys.url = 	function(){
-					return 'chats/'+that.id;
-				};
-			}
-		});
-		
-		var Chats = Backbone.Collection.extend({
-			model: Chat,
-			url: 'chats/list'
-		});
-		
-		var Reply = Backbone.Model.extend({
-			default:{
-				reply: null,
-				speaker: null,
-				datetime: null,
-			}
-		});
-		
-		var Replys = Backbone.Collection.extend({
-			model: Reply,
-			url: '/chats/chat_id',
-		});
-		
-		//全域變數
-		var loginUser = new LoginUser();
-		var itemCategorys = new ItemCategorys();
-		var myShop = new Shop();
-		console.log(myShop);
-		
-		var ItemBoxView = Backbone.View.extend({
-			className: "item-box",
-			events: {
-			},
-			initialize: function() {
-				this.item = this.model;
-				this.listenTo(this.item, "destroy", this.remove);
-				this.listenTo(this.item, "change", this.render);
-				this.render();
-			},
-			render: function() {
-				var that = this;
-				var name = this.item.get('name');
-				var price = this.item.get('price');
-				var description = this.item.get('description');
-				var attrs = this.item.get('attrs');
-				var categoryID = this.item.get('category');
-				var img = './img/goods.jpg';
-				//var img = '../media/image/items/'+this.item.get('rid')+'-s.png';
-				this.$el.html(
-					'<div class="media">\
-						<a class="pull-left" href="#">\
-							<img class="media-object" data-src="holder.js/64x64" src="'+img+'" alt="..." style="width:64px; height:64px">\
-						</a>\
-						<div class="item-box-description">'+(description==''?'無內容':description)+'</div>\
-						<div class="media-body">\
-						<h4 class="media-heading" style="white-space:nowrap">'+name+'</h4>\
-						<div class="item-box-price">'+price+'</div>\
-						<div class="item-box-attrs">\
-							<span>背包可裝</span>\
-							<span>二手品</span>\
-							<span>可議價</span>\
-						</div>\
-					</div>');
-						
-				//this.$('.item-box-attrs div').text(attrs);
-				return this;
-			}
-		});
-		
-		var SellerItemBoxView = Backbone.View.extend({
-			className: "seller-item-box",
-			events: {
-				"click .item-delete":"deleteItem",
-				"click .chatroom-btn":"openChatroom"
-			},
-			initialize: function() {
-				this.item = this.model;
-				
-				this.itemBox = new ItemBoxView({model:this.item});
-				
-				this.listenTo(this.item, "destroy", this.remove);
-				this.listenTo(this.item.chats, "reset", this.render);
-				
-				this.render();
-			},
-			deleteItem: function(){
-				var that = this;
-				confirm('確定要刪除"'+this.item.get('name')+'"?',function(result){
-					if(!result){return;}
-					that.item.destroy();
-				});
-			},
-			openChatroom:function(event){
-				var $btn = $(event.currentTarget);
-				var chatID = $btn.attr('data-chat-id');
-				var chat = this.item.chats.find(function(chat){
-					return (chat.get('id') == chatID);
-				});
-				var chatroom = new ChatroomModalView({model:chat});
-				chatroom.open();
-				$btn.next().removeClass('newmsg');
-				
-			},
-			render: function(){
-				var that = this;
-				
-				this.$el.empty();
-				var num = this.item.chats.length;
-				var item_id = this.item.get('id');
-				var notification_img = "./img/notification.png";
-				var $chatList = $(
-					'<div class="panel-group" id="chats'+item_id+'">\
-						<div class="panel panel-default">\
-							<div class="panel-heading">\
-								<h4 class="panel-title">\
-									<span class="glyphicon glyphicon-collapse-down"></span>\
-									<a class="accordion-toggle" data-toggle="collapse" href="#item'+item_id+'">有 '+num+' 人找你</a>\
-									<img class="pull-right" data-item-id="'+item_id+'" src='+notification_img+'>\
-								</h4>\
-							</div>\
-							<div id="item'+item_id+'" class="panel-collapse collapse in">\
-								<div class="chat-list">\
-								</div>\
-							</div>\
-						</div>\
-					</div>'					
-				);
+		<!--Load Models&Collections-->
+		<script src="js/model/User.js"></script>
+		<script src="js/model/LoginUser.js"></script>
+		<script src="js/model/Item.js"></script>
+		<script src="js/model/ItemCategory.js"></script>
+		<script src="js/model/Chat.js"></script>
+		<script src="js/model/Reply.js"></script>
+		<script src="js/model/Shop.js"></script>
 
-				this.item.chats.each(function(chat, index){
-					var buyer = chat.get('buyer');
-					var id = chat.get('id');
-					var seen = chat.get('seller_seen');
-					if(seen == false){chats_seen = false}
-					console.log('chat '+id+' seller_seen='+seen);
-					$chatList.find(".chat-list").append($(
-						'<div>\
-							<span class="chats-order">'+(index+1)+'</span>\
-							<span class="chat-to">'+buyer+'</span>\
-							<button class="chatroom-btn" data-chat-id='+id+'></button>\
-							<img class="'+(seen?'':'newmsg')+'" data-chat-id='+id+' src='+notification_img+'>\
-						</div>'
-					));
-				});
-	
-				this.$el.append('<button class="item-delete glyphicon glyphicon-remove pull-right" style="border:none; background-color:white; color:red"></button>').append(this.itemBox.el).append($chatList);
-				return this;
-			}
-		});
-		
-		var ShopBoxView = Backbone.View.extend({
-			className: "shop-box",
-			events: {
-			},
-			initialize: function() {
-				this.listenTo(this.model, "change", this.render);
-				this.render();
-			},
-			render: function() {
-				var name = this.model.get('name');
-				var address = this.model.get('address');
-				var description = this.model.get('description');
-				var isOpen = this.model.get('open');
-				var shopimg = './img/Shop.png';
-				this.$el.html(
-					'<div class="media">\
-						<a class="pull-left" href="#">\
-						<img class="media-object" data-src="holder.js/64x64" src="img/Shop.png" alt="'+name+'" style="width:64px; height:64px">\
-						</a>\
-						<div class="media-body">\
-							<h4 class="media-heading shop-box-name">'+name+'</h4>\
-							<div class="shop-box-subtitle">十七字簡單解說商店性質拍賣商品為何</div>\
-							<div class="shop-box-item-num">12</div>\
-						</div>\
-					</div>'
-				);
-			}
-		});
-		
-		var ShopModalView = Backbone.View.extend({
-			el: "#shopModal",
-			events: {
-				"shown.bs.modal": "shown",
-				"show.bs.modal": "show",
-				"keyup #shopAddress": "getLatLng",
-				"click #shopSubmitBtn": "submit"
-			},
-			initialize: function(){
-				var $shopName = this.$shopName = this.$("#shopName");
-				var $shopAddress = this.$shopAddress = this.$("#shopAddress");
-				var $shopDesc = this.$shopDesc = this.$("#shopDesc");
-				
-				var geocoder = this.geocoder = new google.maps.Geocoder();
-			
-				var latlng = new google.maps.LatLng(23.973875,120.982024);
-				var mapOptions = {
-					zoom: 14,
-					center: latlng,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				};
-				
-				this.map = new google.maps.Map(this.$('#shopMap')[0],mapOptions);
-				
-				var marker = this.marker = new google.maps.Marker({
-					draggable:true,
-					position: latlng,
-					title:"台灣",
-					map:this.map
-				});
-				
-				google.maps.event.addListener(this.marker, 'mouseup', function() {
-					var latlng = marker.getPosition(); 
-					geocoder.geocode(
-						{latLng:latlng},
-						function (results,status) {
-							if(status==google.maps.GeocoderStatus.OK) {
-								$shopAddress.val(results[0].formatted_address);
-							}
-						}
-					);
-				});
-			},
-			submit:function(){
-				var that = this;
-				var name = this.$shopName.val();
-				var address = this.$shopAddress.val();
-				var description = this.$shopDesc.val();
-				var latlng = this.marker.getPosition();
-				var latitude = latlng.lat();
-				var longitude = latlng.lng();
-				myShop.set({
-					name:name,
-					address:address,
-					description:description,
-					latitude:latitude,
-					longitude:longitude
-				});
-				myShop.save().done(function(){
-					alert('修改成功');
-					that.$el.modal('hide');
-				}).fail(function(){
-					myShop.fetch();
-					alert('資料錯誤');
-				});
-			},
-			getLatLng:function(){
-				var address = this.$shopAddress.val();
-				if(this.address && (this.address == address)){
-					return;
-				}
-				this.address = address;
-				
-				var that = this;
-				if(this.timer){
-					clearTimeout(this.timer);
-				}
-				this.timer = setTimeout(function(){
-					that.geocoder.geocode(
-						{address:address},
-						function (results,status) {
-							if(status==google.maps.GeocoderStatus.OK) {
-								var LatLng = results[0].geometry.location;
-								that.map.setCenter(LatLng);
-								that.marker.setPosition(LatLng);
-								that.marker.setTitle(address);
-							}
-						}
-					);
-					that.timer = null;
-				},1000);
-			},
-			show:function(){
-				var that = this;
-				if(myShop.isNew()){
-					var latlng = new google.maps.LatLng(23.973875,120.982024);
-					this.marker.setPosition(latlng);
-				}else{
-					myShop.fetch().done(function(){
-						that.$shopName.val(myShop.get('name'));
-						that.$shopAddress.val(myShop.get('address'));
-						that.$shopDesc.val(myShop.get('description'));
-						var latlng = new google.maps.LatLng(myShop.get('latitude'),myShop.get('longitude'));
-						that.marker.setPosition(latlng);
-					});
-				}
-			},
-			shown:function(){
-				google.maps.event.trigger(this.map, "resize");
-				var latlng = this.marker.getPosition();
-				this.map.setCenter(latlng);
-			}
-		});
-		
-		var FormFieldView = Backbone.View.extend({
-			initialize: function(){
-				this.val = function(){
-					var $input = this.$('input');
-					return $input.val.apply($input, arguments);
-				}
-			},
-			showError: function(msg){
-				this.$el.addClass('has-error');
-				if(msg){
-					this.$('.msg-error').text(msg);
-				}
-			},
-			clearError: function(){
-				this.$el.removeClass('has-error');
-				this.$('.msg-error').text('');
-			}
-		});
-		
-		var ItemModalView = Backbone.View.extend({
-			el: "#itemModal",
-			events: {
-				"click #itemSubmit": "submit",
-				"change #itemName": "checkItemName",
-				"change #itemPrice": "checkItemPrice",
-				"change #itemDesc": "checkItemDesc",
-				"change #itemCategory": "changeItemCategory",
-				"keydown #itemPrice": "checkKeyNumber",
-			},
-			initialize: function() {
-				var that = this;
-				
-				this.nameField = new FormFieldView({el:this.$('#itemNameField')});
-				this.priceField = new FormFieldView({el:this.$('#itemPriceField')});
-				this.descriptionField = new FormFieldView({el:this.$('#itemDescField')});
-				
-				this.name = this.$('#itemName');
-				this.price = this.$('#itemPrice');
-				this.description = this.$('#itemDesc');
-				this.conditionAttr = this.$('input:radio[name=conditionAttr]');
-				this.sizeAttr = this.$('input:radio[name=sizeAttr]');
-				this.category = this.$('#itemCategory');
-				
-				//uploadfile
-				this.files = {};
-				this.itemImages = this.$("#newItemImages");
-				this.itemImages.find('input:file').fileupload({
-					autoUpload: false,
-					singleFileUploads:true,
-					previewMaxWidth: 100,
-					previewMaxHeight: 75,
-				}).on('fileuploadadd',function(e, data){
-					var index = $(this).attr('name');
-					that.files[index] = data;
-					console.log(that.files);
-				}).on('fileuploadprocessalways',function(e,data){
-					var index = data.index,
-						file = data.files[index];
-					$(this).parent().find(".preview-image").empty().append(file.preview);
-				});
-				
-			},
-			checkItemName: function(){
-				var name = this.name.val();
-				if(name.length==0){
-					this.nameField.showError('名稱不可空白');
-				}else{
-					this.nameField.clearError();
-				}
-			},
-			checkItemPrice:	function(){
-				var price = this.price.val();
-				if(price.length==0){
-					this.priceField.showError('價錢不可空白');
-				}else{
-					this.priceField.clearError();
-				}
-			},
-			checkKeyNumber: function(event){
-				 // Allow: backspace, delete, tab, escape, and enter
-				 console.log(event.keyCode);
-				if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 || 
-					 // Allow: Ctrl+A
-					(event.keyCode == 65 && event.ctrlKey === true) || 
-					 // Allow: home, end, left, right
-					(event.keyCode >= 35 && event.keyCode <= 39)) {
-						 // let it happen, don't do anything
-						 return;
-				} else {
-					// Ensure that it is a number and stop the keypress
-					if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
-						event.preventDefault(); 
-					}
-				}
-			},
-			checkItemDesc: function(){
-				var description = this.description.val();
-				if(description.length>100){
-					this.descriptionField.showError('敘述文字不可超過100字');
-				}else{
-					this.descriptionField.clearError();
-				}
-			},
-			changeItemCategory: function(event){
-				var $target = $(event.target);
-				var categoryID = parseInt($target.val());
-				
-				if(itemCategorys.getByID(categoryID).get('child').length == 0){
-					this.category.val(categoryID);
-					return;
-				}
-				
-				$target.parent().nextAll().remove();
-				this.category.val(null);
-				
-				var $select = $('<select>').attr('size','5').addClass('form-control');
-				_.each(itemCategorys.getByParentID(categoryID),function(category){
-					$('<option>').attr('value',category.get('id')).html(category.get('name')).appendTo($select);
-				});
-				$('<div>').addClass("col-sm-4").css('margin','10px 0 0 0').append($select).appendTo(this.category);
-			},
-			submit: function(){
-				var that = this;
-				var name = this.name.val();
-				var price = parseInt(this.price.val());
-				var description = this.description.val();
-				var conditionAttr = this.conditionAttr.filter(':checked').val();
-				var sizeAttr = this.sizeAttr.filter(':checked').val();
-				var attrs = [parseInt(conditionAttr),parseInt(sizeAttr)];
-				var category = this.category.val();
+		<!--Load Router-->
+		<script src="js/router.js"></script>
 
-				this.item.set({
-					name:name,
-					price:price,
-					description:description,
-					attrs:attrs,
-					category:category,
-					shops:[myShop.get('id')]
-				});
-				
-				this.item.save().done(function(){
-					that.$el.modal('hide');
-					/*
-					var item_id = newItem.get('id');
-					var dfs = []
-					for(var i in that.files){
-						that.files[i].url = 'shops/upload/items/'+item_id+'/image/'+i;
-						console.log(that.files[i]);
-						dfs.push(that.files[i].submit())
-					}
-					console.log(dfs);
-					that.files = {};
-					that.$el.modal('hide');
-					newItem.set({'name':newItem.get('name')+"(上傳圖片中)"});
-					myItems.add(newItem);
-					$.when.apply($, dfs).done(function(){
-						myItems.fetch();
-					});
-					*/
-				});
-			},
-			clearField: function(){
-				this.name.val('');
-				this.price.val('');
-				this.description.val('');
-				this.conditionAttr.parent().removeClass('active');
-				this.conditionAttr.filter('[value=1]').prop('checked', true).parent().addClass('active');
-				this.sizeAttr.parent().removeClass('active');
-				this.sizeAttr.filter('[value=3]').prop('checked', true).parent().addClass('active');
-				this.category.empty().val(null);
-				
-				//產生category選單
-				var $select = $('<select>').attr('size','5').addClass('form-control');
-				_.each(itemCategorys.getByParentID(null),function(category){
-					$('<option>').attr('value',category.get('id')).html(category.get('name')).appendTo($select);
-				});
-				$('<div>').addClass("col-sm-4").css('margin','10px 0 0 0').append($select).appendTo(this.category);
-				
-				
-				this.itemImages.find(".preview-image").empty();
-			},
-			initField:function(item){
-				//初始化(未完成)
-				this.clearField();
-			},
-			open: function(item){
-				this.item = item?item:(new Item());
-				if(this.item.isNew()){
-					this.clearField();
-					this.$el.modal('show');
-				}else{
-					this.initField(this.item);
-				}
-			}
-		});
+		<!--Set Global Variables-->
+		<script src="js/main.js"></script> 
 
-RINGOverlay.prototype = new google.maps.OverlayView();
-function RINGOverlay(center,outerRadial,innerRadial, map) {
-	this.center_ = center;
-	this.outerRadial_ = outerRadial;
-	this.innerRadial_ = innerRadial;
-	this.div_ = null;
-	this.setMap(map);
-}
+		<!--Load 1st-level Views-->
+		<script src="js/view/item/ItemBoxView.js"></script>
+		<script src="js/view/shop/ShopBoxView.js"></script>
+		<script src="js/view/shop/ShopMarkerView.js"></script>
+		<script src="js/view/chat/ReplyView.js"></script>
 
-RINGOverlay.prototype.setCenter = function(center){
-	this.center_ = center;
-	this.draw();
-}
+		<!--Load 2nd-level Views-->
+		<script src="js/view/item/ItemBoxSellerView.js"></script>
+		<script src="js/view/shop/ShopBoxListView.js"></script>
 
-RINGOverlay.prototype.setRadial = function(outerRadial,innerRadial){
-	this.outerRadial_ = outerRadial;
-	this.innerRadial_ = innerRadial;
-	this.draw();
-}
+		<!--Load main-level Views-->
+		<script src="js/view/main/NavBarView.js"></script>
+		<script src="js/view/main/MapPanelView.js"></script>
+		<script src="js/view/main/UserPanelView.js"></script>
+		<script src="js/view/main/SellerPanelView.js"></script>
 
-RINGOverlay.prototype.onAdd = function() {
-	var div = document.createElement('div');
-	div.style.borderStyle = 'solid';
-	div.style.borderWidth = '10px';
-	div.style.borderColor = 'rgba(66, 139, 202, 0.5)';
-	div.style.position = 'absolute';
-	this.div_ = div;
-	$(div).css('border-radius','100% 100% 100% 100%').css('transition','width 0.5s,height 0.5s,left 0.5s,top 0.5s,border 0.5s');
-	var panes = this.getPanes();
-	panes.overlayLayer.appendChild(div);
-};
+		<!--Load Modal Views-->
+		<script src="js/view/item/ItemEditModalView.js"></script>
+		<script src="js/view/item/ItemModalView.js"></script>
+		<script src="js/view/shop/ShopEditModalView.js"></script>
+		<script src="js/view/shop/ShopModalView.js"></script>
+		<script src="js/view/chat/ChatroomModalView.js"></script>
+		<script src="js/view/user/LoginModalView.js"></script>
+		<script src="js/view/user/RegModalView.js"></script>
+		<script src="js/view/user/SettingModalView.js"></script>
 
-RINGOverlay.prototype.draw = function() {
-	var overlayProjection = this.getProjection();
-	var center = this.center_;
-	var outerRadial = this.outerRadial_;
-	var innerRadial = this.innerRadial_;
-	var computeOffset = google.maps.geometry.spherical.computeOffset;
-	
-	var ni_latlng = computeOffset(center,innerRadial,0);
-	var no_latlng = computeOffset(center,outerRadial,0);
-	var ni = overlayProjection.fromLatLngToDivPixel(ni_latlng);
-	var no = overlayProjection.fromLatLngToDivPixel(no_latlng);
-	
-	var sw_latlng = computeOffset(center,outerRadial*1.41421,225);
-	var ne_latlng = computeOffset(center,outerRadial*1.41421,45);
-	var sw = overlayProjection.fromLatLngToDivPixel(sw_latlng);
-	var ne = overlayProjection.fromLatLngToDivPixel(ne_latlng);
-	var div = this.div_;
-	//console.log('gg',overlayProjection.getWorldWidth(),outerRadial,innerRadial);
-	//div.style.borderWidth = overlayProjection.getWorldWidth()/4007.57/(outerRadial-innerRadial) + 'px';
-	console.log(ni,no,outerRadial,innerRadial)
-	div.style.borderWidth = Math.abs(no.y-ni.y) +'px';
-	div.style.left = sw.x + 'px';
-	div.style.top = ne.y + 'px';
-	div.style.width = (ne.x - sw.x) + 'px';
-	div.style.height = (sw.y - ne.y) + 'px';
-};
+		<!--Load other Views-->
+		<script src="js/view/others/FormFieldView.js"></script>
+		<script src="js/view/others/InfoEmailView.js"></script>
 
-RINGOverlay.prototype.onRemove = function() {
-  this.div_.parentNode.removeChild(this.div_);
-  this.div_ = null;
-};
+		<!--Load app View-->
+		<script src="js/view/app.js"></script>
 
-		var MapPanelView = Backbone.View.extend({
-			el: "#mapPanel",
-			events:{
-				'shown': "shown",
-				//'scroll #mapBoxList':"scrollBoxList"
-			},
-			initialize:function(){
-				var that = this;
-				var center = new google.maps.LatLng(25.056220142845, 121.54178450802);
-				var mapOptions = {
-					center: center,
-					zoom: 14,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				};
-				
-				var map = this.map = new google.maps.Map(this.$('#mainMap')[0], mapOptions);
-				var noPoi = [{
-					featureType: "poi",
-					stylers: [{ visibility: "off" }]
-				}];
-				this.map.setOptions({styles: noPoi});
-				
-				var ring = new RINGOverlay(center,0,0,map);
-				
-				var centerMarker = new google.maps.Marker({
-					map:map,
-					draggable:true,
-					position: map.getCenter()
-				});
-				centerMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
-				
-				google.maps.event.addListener(centerMarker, 'position_changed', function(){
-					if(!this.markerTimer){this.markerTimer=null;}
-					clearTimeout(this.markerTimer);
-					this.markerTimer = setTimeout(function(){
-						ring.setCenter(centerMarker.getPosition());
-						shopsCache.sort();
-					},200);
-				});
-				
-				var shopsCache = new Shops();
-				shopsCache.comparator = function(shop1,shop2){
-					var center = centerMarker.getPosition();
-					var latlng1 = new google.maps.LatLng(shop1.get('latitude'), shop1.get('longitude'));
-					var latlng2 = new google.maps.LatLng(shop2.get('latitude'), shop2.get('longitude'));
-					var d1 = google.maps.geometry.spherical.computeDistanceBetween(center,latlng1)
-					var d2 = google.maps.geometry.spherical.computeDistanceBetween(center,latlng2)
-					if(d1>d2){return 1;}
-					else if(d1=d2){return 0;}
-					else{return -1}
-				}
-				
-				var shopMarkers = {};
-				var displayShopMarkers = {};
-				
-				var shopBoxList = new ShopBoxListView({
-					shops:shopsCache,
-					el:'#mapBoxList',
-					display:function(shops){
-						_.each(displayShopMarkers,function(marker){
-							marker.setMap(null);
-							delete marker;
-						});
-						_.each(shops,function(shop){
-							var latlng = new google.maps.LatLng(shop.get('latitude'),shop.get('longitude'));
-							var marker = new google.maps.Marker({
-								position:latlng,
-								map:map,
-								title:shop.get('name')
-							});
-							displayShopMarkers[shop.id] = marker;
-							displayShopMarkers[shop.id].setAnimation(google.maps.Animation.BOUNCE);
-						});
-					}
-				});
-				
-				this.listenTo(shopsCache,'display_changed',function(shownShops,hiddenShops){
-					//console.log('showshoplist',shop);
-					var center = centerMarker.getPosition();
-					var maxR = 0;
-					var minR = 10000;
-					_.each(shownShops,function(shop){
-						var latlng = new google.maps.LatLng(shop.get('latitude'), shop.get('longitude'));
-						var R = google.maps.geometry.spherical.computeDistanceBetween(center,latlng);
-						if(R>maxR){maxR = R;}
-						if(R<minR || R==0){minR = R;}
-						shopMarkers[shop.id].setAnimation(google.maps.Animation.BOUNCE);
-					});
-					ring.setRadial(maxR,minR);
-					
-					_.each(hiddenShops,function(shop){
-						shopMarkers[shop.id].setAnimation(null);
-					});
-				});
-				
-				this.listenTo(shopsCache,'reset',function(){
-					_.each(shopMarkers,function(marker){
-						marker.setMap(null);
-						delete marker;
-					});
-					shopsCache.each(function(shop){
-						var latlng = new google.maps.LatLng(shop.get('latitude'),shop.get('longitude'));
-						shopMarkers[shop.id] = new google.maps.Marker({
-							position:latlng,
-							map:map,
-							icon: {
-								path: google.maps.SymbolPath.CIRCLE,
-								strokeColor:'#428bca',
-								strokeWeight:2,
-								fillColor:'#ffffff',
-								fillOpacity:1,
-								scale: 4
-							},
-							title:shop.get('name')
-						});
-						//console.log(shopMarkers[shop.id].getShape());
-					});
-				});
-				
-				google.maps.event.addListener(map, 'bounds_changed', function() {
-					if(!this.timer){this.timer=null;}
-					clearTimeout(this.timer);
-					this.timer = setTimeout(function(){
-						var bounds = map.getBounds();
-						//console.log(bounds.getNorthEast(),bounds.getSouthWest());
-						var n_lat = bounds.getNorthEast().lat();
-						var e_lng = bounds.getNorthEast().lng();
-						var s_lat = bounds.getSouthWest().lat();
-						var w_lng = bounds.getSouthWest().lng();
-						var bounds = {n_lat:n_lat,s_lat:s_lat,e_lng:e_lng,w_lng:w_lng};
-						shopsCache.setBounds(bounds).fetch({reset:true});
-						//shopsCache.fetchByBounds(bounds);
-						/*.done(function(){
-							var center = map.getCenter();
-							var c_lat = center.lat();
-							var c_lng = center.lng();
-							shopsCache.each(function(shop){
-								var d = Math.pow(c_lat-shop.get('latitude'),2)+Math.pow(c_lng-shop.get('longitude'),2)
-								console.log(shop.get('name'),d)
-							});
-						});*/
-						//console.log(shopsCache);
-					},500);
-				});
-			},
-			shown:function(){
-				google.maps.event.trigger(this.map, "resize");
-			}
-		});
-		
-		var ShopBoxListView = Backbone.View.extend({
-			events:{
-				'scroll': "changeDisplay"
-			},
-			changeDisplay: function(){
-				var that = this;
-				if(!this.changeDisplayTimer){this.changeDisplayTimer = null;}
-				clearTimeout(this.changeDisplayTimer);
-				this.changeDisplayTimer = setTimeout(function(){
-					var height = that.$el.height();
-					var shownShops = [];
-					var hiddenShops = [];
-					that.shops.each(function(shop){
-						var shopBox = that.shopBoxs[shop.id];
-						var position = shopBox.$el.position();
-						var top = position.top;
-						var bottom = top + shopBox.$el.height();
-						if((top>=0 && top<height)||(bottom>=0 && bottom<height)){
-							that.shopBoxs[shop.id].$el.css('color','red');
-							shownShops.push(shop);
-						}else{
-							that.shopBoxs[shop.id].$el.css('color','black');
-							hiddenShops.push(shop);
-						}
-					});
-					that.shownShops = shownShops;
-					that.hiddenShops = hiddenShops;
-					that.shops.trigger('display_changed',that.shownShops,that.hiddenShops);
-				},100);
-			},
-			initialize: function(options){
-				var that = this;
-				this.shownShops = [];
-				this.hiddenShops = [];
-				var shops = this.shops = options.shops;
-				this.display = options.display;
-				this.listenTo(shops, 'add',this.add);
-				this.listenTo(shops, 'remove',this.remove);
-				this.listenTo(shops, 'reset',this.reset);
-				this.listenTo(shops, 'sort',this.reset);
-				this.shopBoxs = {};
-				$(window).resize(function(){that.changeDisplay()});
-			},
-			reset: function(shops){
-				var that = this;
-				this.$el.empty();
-				shops.each(function(shop){
-					var shopBox = new ShopBoxView({model:shop});
-					that.shopBoxs[shop.id] = shopBox;
-					that.$el.append(shopBox.el);
-				});
-				this.$el.scrollTop(0);
-				this.changeDisplay();
-			},
-			add: function(shop){
-				console.log('add',shop.get('description'));
-			},
-			remove:function(shop){
-				console.log('remove',shop.get('description'));
-			}
-		});
-		
-		var ShopMarkerView = Backbone.View.extend({
-			initialize: function(options){
-			
-			}
-		});
-		
-		var SellerPanelView = Backbone.View.extend({
-			el: "#sellerPanel",
-			events: {
-				"click #itemModalBtn": "newItemModal"
-			},
-			newItemModal:function(){
-				this.itemModal.open();
-			},
-			initialize: function() {
-				this.itemModal = new ItemModalView();
-				this.shopModal = new ShopModalView();
-				
-				//this.listenTo(myItems, 'sync', this.updateItems);
-				//this.listenTo(myItems, 'add', this.addOneItem);
-				this.listenTo(myShop.items, 'reset', this.resetItems);
-				
-				this.$sellerItemsList = this.$('#sellerItemsList');
-				this.$sellerShopBox = this.$('#sellerShopBox');
-				
-				this.shopBox = new ShopBoxView({model:myShop});
-				this.$sellerShopBox.append(this.shopBox.$el);
-			},
-			resetItems:function(){
-				var that = this;
-				this.$sellerItemsList.empty();
-				myShop.items.each(function(item){
-					item.chats.fetch({reset:true});
-					if(item.get('state') != 'on'){return;}
-					var itemBox = new SellerItemBoxView({model:item})
-					that.$sellerItemsList.append(itemBox.el);
-				});
-			}
-		});
-		
-		var UserPanelView = Backbone.View.extend({
-			el: $("#userPanel"),
-			events:{
-				"click #settingModalbtn": "openSettingModal",
-				"click #logoutBtn":	"logout",
-			},
-			openSettingModal:function(){
-				//do something
-			},
-			logout: function(){
-				$.get('accounts/logout').done(function(data) {
-					//重新整理
-					location.reload();
-				}).fail(function(){
-					alert('登出失敗!');
-				});
-			}
-		});
-		
-		var LoginModalView = Backbone.View.extend({
-			el: $("#loginModal"),
-			events: {
-				"show": "showModal",
-				"click #loginBtn": "login",
-			},
-			initialize: function() {
-				this.$('#loginEmail').val("");
-				this.$('#loginPassword').val("");
-			},
-			showModal: function() {
-				this.$('#loginPassword').val("");
-			},
-			login: function() {
-				var that = this;
-				var email = this.$("#loginEmail").val();
-				var password = this.$("#loginPassword").val();
-				loginUser.login(email,password)
-				.done(function(){
-					that.$el.modal('hide');
-				}).fail(function(jqXHR, textStatus, errorThrown){
-					alert('帳號或密碼錯誤!');
-				});
-				this.$('#loginPassword').val("");
-			}
-		});
-		
-		var RegModalView = Backbone.View.extend({
-			el: "#regModal",
-			events: {
-				"show.bs.modal": "showModal",
-				"click #registerBtn": "register",
-				"click #refreshCaptcha": "getCaptcha",
-				"change #regEmail": "checkEmail",
-				"change #regUsername": "checkUsername",
-				"keyup #regPassword": "checkPassword",
-				"keyup #regPasswordConfirm": "checkPasswordConfirm",
-				"keyup #regCaptcha": "clearCaptcha",
-				"click #regAgree": "clearAgree",
-			},
-			initialize: function() {
-				this.field = {
-					name: this.$('#regUsernameField'),
-					email: this.$('#regEmailField'),
-					password: this.$('#regPasswordField'),
-					passwordConfirm: this.$('#regPasswordConfirmField'),
-					captcha: this.$('#regCaptchaField'),
-					agree: this.$('#regAgreeField')
-				}
-				
-				this.input = {
-					name: this.$('#regUsername'),
-					email: this.$('#regEmail'),
-					password: this.$('#regPassword'),
-					passwordConfirm: this.$('#regPasswordConfirm'),
-					captcha: this.$('#regCaptcha'),
-					agree: this.$('#regAgree')
-				}
-				
-				this.$regBtn = this.$('#registerBtn');
-			},
-			showError: function(fieldName, msg){
-				var $field = this.field[fieldName];
-				if(!$field){return;}
-				$field.addClass('has-error');
-				if(msg){$field.find('.msg-error').text(msg);}
-			},
-			clearError: function(fieldName){
-				var $field = this.field[fieldName];
-				$field.removeClass('has-error');
-				$field.find('.msg-error').text('');
-			},
-			clearAgree: function(){
-				this.clearError('agree');
-			},
-			clearCaptcha: function(){
-				this.clearError('captcha');
-			},
-			checkEmail: function(){
-				var view = this;
-				var email = this.input.email.val();
-				if(email.length == 0){
-					this.clearError('email');
-					return;
-				}
-				$.getJSON('accounts/check-email', {email: email})
-				.done(function(data){
-					if(data.status == 'ERROR'){
-						view.showError('email',data.msg);
-					}else{
-						view.clearError('email');
-					}
-				});
-			},
-			checkUsername:function(){
-				var view = this;
-				var name = this.input.name.val();
-				var $nameField = this.$nameField;
-				if(name.length == 0){
-					this.clearError('name');
-					return;
-				}else if(name.length > 20){
-					view.showError('name', '名稱太長');
-					return;
-				}
-				$.getJSON('accounts/check-name', {name:name}).done(function(data){
-					if(data.status == 'ERROR'){
-						view.showError('name', data.msg);
-					}else{
-						view.clearError('name');
-					}
-				});
-			},
-			checkPassword:function(){
-				var password = this.input.password.val();
-				var length = password.length;
-				if(length > 0 && length < 8){
-					this.showError('password', '密碼長度太短');
-				}else if(length > 16){
-					this.showError('password', '密碼長度太長');
-				}else{
-					this.clearError('password');
-				}
-			},
-			checkPasswordConfirm:function(){
-				var password = this.input.password.val();
-				var passwordConfirm = this.input.passwordConfirm.val();
-				
-				if(password != passwordConfirm){
-					this.showError('passwordConfirm', '密碼不符');
-				}else{
-					this.clearError('passwordConfirm');
-				}
-			},
-			showModal: function() {
-				this.getCaptcha();
-				this.input.name.val("");
-				this.input.email.val("");
-				this.input.password.val("");
-				this.input.passwordConfirm.val("");
-				this.input.captcha.val();
-				this.input.agree.prop("checked",false);
-				this.$('.error').removeClass('error');
-				this.$('.msg-error').text('');
-			},
-			getCaptcha: function(){
-				var d = new Date();
-				$("#regCaptchaImage").attr("src", "accounts/captcha?"+d.getTime());
-				this.input.captcha.val('');
-			},
-			register: function() {
-				var view = this;
-				var name = this.input.name.val();
-				var email = this.input.email.val();
-				var password = this.input.password.val();
-				var captcha = this.input.captcha.val();
-				var agree = this.input.agree.prop("checked");
-				
-				if(this.$('.error').length != 0){
-					return;
-				}else if(email.length == 0){
-					this.showError('email', '請輸入帳號');
-					return;
-				}else if(name.length == 0){
-					this.showError('name', '請輸入名稱');
-					return;
-				}else if(password.length == 0){
-					this.showError('password', '請輸入密碼');
-					return;
-				}else if(captcha.length == 0){
-					this.showError('captcha', '請輸入驗證碼');
-					return;
-				}else if(!agree){
-					this.showError('agree');
-					return;
-				}
-				
-				var $regBtn = this.$regBtn;
-				$regBtn.button('loading');
-				
-				$regBtn.prop('disabled', true);
-				$.post('accounts/create-user',{name:name,email:email,password:password,captcha:captcha},'json')
-				.done(function(data){
-					$regBtn.prop('disabled', false);
-					$regBtn.button('reset');
-					console.log(data);
-					if(data.status == 'OK'){
-						view.$el.modal('hide');
-						loginUser.fetch();
-						msgbox('註冊成功!! 認證信已發送至'+email);
-						return;
-					}
-					
-					for(var fieldName in data){
-						if(fieldName == 'captcha'){
-							view.getCaptcha();
-						}
-						view.showError(fieldName, data[fieldName]);
-					}
-					
-				}).fail(function(){
-					$regBtn.prop('disabled', false);
-					$regBtn.button('reset');
-					alert('註冊失敗!');
-				});
-			},
-			render: function() {
-				
-			}
-		});
-		
-		var SettingView = Backbone.View.extend({
-			el:$('#settingModal'),
-			events:{
-				'click #photo-edit':'openPhotoPage',
-				'click #email-edit':'openEmailPage',
-				'click #name-edit':'openNamePage',
-				'click #password-edit':'openPasswordPage',
-				'click #newphoto-panel .btn':'changePhoto',
-				'click #newpass-panel .btn':'changePassword'
-			},
-			initialize: function() {
-				this.listenTo(loginUser, 'change', this.updateUser);
-			},
-			openPhotoPage: function(){
-				$("#newphoto-panel").toggle();
-			},
-			openEmailPage: function(){
-				$("#oldemail-panel").toggle();
-				$("#newemail-panel").toggle();
-			},
-			openNamePage: function(){
-				$("#oldname-panel").toggle();
-				$("#newname-panel").toggle();
-			},
-			openPasswordPage: function(){
-				$("#oldpass-panel").toggle();
-				$("#newpass-panel").toggle();
-			},
-			changePassword: function(){
-				var thisView = this;
-				var password = this.$('#settingPassword').val();
-				var newPassword = this.$('#settingNewPassword').val();
-				var newPassword2 = this.$('#settingNewPassword2').val();
-				if (newPassword !== newPassword2){
-					alert('新密碼不相符!');
-					return
-				}
-				$.post('accounts/password',{password:password,newpassword:newPassword})
-				.done(function(data){
-					alert('修改完成!')
-					thisView.$('#settingPassword').val('');
-					thisView.$('#settingNewPassword').val('');
-					thisView.$('#settingNewPassword2').val('');
-				}).fail(function(a,b){
-					console.log(a)
-					console.log(b)
-					alert('密碼錯誤!');
-				});
-			},
-			sendVerifyEmail: function(){
-				$.post('accounts/send-verify-email',{})
-				.done(function(){
-					alert('認證信已發送');
-				}).fail(function(){
-					alert('認證信發送失敗 請稍後再試');
-				});
-			},
-			changePhoto: function(){
-				alert('change photo');
-			},
-			updateUser: function(){
-				var email = loginUser.get('email');
-				var name = loginUser.get('name');
-				this.$('#oldemail').text(email);
-				this.$('#oldname').text(name);
-			}
-		})
-		
-		var NavBarView = Backbone.View.extend({
-			el: '#navBar',
-			events: {
-				"click #logoutBtn": "logout",
-				'show.bs.tab #userNav a[href="#sellerPanel"]': "showSellerPanel",
-				'shown.bs.tab #userNav a[href="#mapPanel"]': "shownMapPanel"
-			},
-			initialize: function() {
-				this.$userNav = this.$("#userNav");
-				this.$guestNav = this.$("#guestNav");
-				this.guestMode();
-				this.listenTo(loginUser, 'login', this.loginMode);
-			},
-			guestMode: function(){
-				this.$userNav.hide();
-				this.$guestNav.show();
-			},
-			loginMode: function(){
-				this.$userNav.show().find('#navUsername').text(loginUser.get('name'));
-				this.$guestNav.hide();
-			},
-			showSellerPanel: function(){
-				$("#sellerPanel").trigger('show');
-			},
-			shownMapPanel:function(){
-				$("#mapPanel").trigger('shown');
-			}
-		});
-		
-		var InfoEmailView = Backbone.View.extend({
-			el:$('#infoEmailModal'),
-			initialize: function() {
-			},
-			events: {
-				"click #sendVerifyEmail": "sendVerifyEmail",
-			},
-			sendVerifyEmail: function(){
-				$.post('accounts/send-verify-email',{})
-				.done(function(){
-					alert('認證信已發送');
-				}).fail(function(){
-					alert('認證信發送失敗 請稍後再試');
-				});
-			}
-		});
-
-		//ChatroomModalView
-		var ChatroomModalView = Backbone.View.extend({
-			className:'modal fade',
-			initialize: function(){
-				this.chat = this.model;
-
-			
-				this.initChat();
-				
-				this.listenTo( this.chat.replys, 'reset', this.renderBody);
-				this.listenTo( this.chat.replys, 'add', this.renderReply);
-			},
-			events:{
-				'click .modal-footer>button':'sendReply',
-				'click .close':'close',
-				'click .open':'open'
-			},
-			initChat:function(){
-				//Chatroom Modal
-				this.$el.html(
-					'<div class="modal-dialog">\
-						<div class="modal-content">\
-							<div class="modal-header">\
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
-								<h4 class="modal-title">'+this.chat.get('item')+'</h4>\
-							</div>\
-							<div class="modal-body" style="background-color: #E8E8E8">\
-								<ul class="msglist">\
-								</ul>\
-							</div>\
-							<div class="modal-footer" style="margin-top:0px">\
-								<input type="text" class="form-control pull-left" placeholder="Enter message">\
-								<button type="button" class="btn btn-default">送出</button>\
-							</div>\
-						</div>\
-					</div>'
-				);
-			},
-			renderBody:function(){
-				console.log(this.chat.replys.length);
-				$('.msglist').html('');
-				this.chat.replys.each(function(reply){
-					this.renderReply(reply);
-				}, this);
-				$('.msglist').scrollTop(8000);	//scroll bar位置還要修改 #BW15B
-			},
-			renderReply:function(reply){
-				var replyView = new ReplyView({model:reply});
-				replyView.chat = this.chat;
-				this.$('.msglist').append(replyView.renderReply().el);
-			
-				if(typeof reply.get('datetime')=='undefined'){
-					reply.save().fail(function(){
-						reply.trigger('fail');
-					});					
-				}
-			},
-			sendReply:function(){
-				if($(".modal-footer>input").val()){
-					var data={
-						reply:$(".modal-footer>input").val(),
-						speaker : this.chat.get('seller'),
-						receiver : this.chat.get('buyer'),
-					};
-					
-					var reply = new Reply(data);
-					reply.chat = this.chat;
-					reply.url = 'chats/'+this.chat.get('id');
-					this.chat.replys.add(reply);
-					$(".modal-footer>input").val('');
-				}
-			},
-
-			close:function(){
-				this.chat.replys.reset();
-				this.remove();
-			},
-			open:function(){
-				this.chat.replys.fetch({reset:true});
-				this.$el.modal('show');
-			}
-		});
-		
-		var ReplyView = Backbone.View.extend({
-			tagName: 'li',
-			initialize: function(){
-				this.reply = this.model;
-
-				this.listenTo( this.reply, 'sync', this.renderTime);
-				this.listenTo( this.reply, 'fail', this.renderError);
-			},
-			events:{
-				'click .btn-xs':'resend'
-			},
-			renderReply:function(){
-				if(this.reply.get('speaker')==this.chat.get('seller')){
-					var div = '	<div class="pull-right msgbox msg-me">'
-				}
-				else{
-					var div = '	<div class="pull-left msgbox msg-other">'
-				}
-				
-				this.$el.html(
-					div
-				+'		<div class="speaker">'+this.reply.get('speaker')+'</div>'
-				+'		<div class="">'+this.reply.get('reply')+'</div>'
-				+'		<div class="" style="width:100%">'
-				+'			<div class="pull-right time"></div>'
-				+'		</div>'
-				+'	</div>'
-				+'	<div style="clear:both;"></div>'					
-				);
-				
-				this.renderTime();
-				
-				return this;
-			},
-			renderTime: function(){
-				var time;
-				if(typeof this.reply.get('datetime')==='undefined'){
-					time = '傳送中…';
-				}
-				else{
-					var now = new Date();
-					var d = new Date(this.reply.get('datetime'));
-					var M = d.getMonth()+1;
-					var D = d.getDate();
-					var HH = d.getHours();
-					var MM = d.getMinutes();
-					
-					if(now.getDate()==d.getDate()){
-						time = HH+':'+MM;
-					}
-					else{
-						time = M+'/'+D+' '+HH+':'+MM;
-					}
-				}
-				
-				this.$('.time').html(time);
-			},
-			renderError: function(){
-				this.$('.time').html(
-					'傳送失敗<button type="button" class="btn btn-default btn-xs">重新傳送</button>'				
-				);
-			},
-			resend: function(){
-				this.$('.time').html('傳送中…');
-				console.log(this);
-				var reply = this.reply;
-				reply.save().fail(function(){
-					reply.trigger('fail');
-				});
-			}
-		});
-		
-		
-		function confirm(message,func){
-			var $modal= $(
-				'<div class="modal fade" tabindex="-1">\
-					<div class="modal-dialog">\
-						<div class="modal-content">\
-							<div class="modal-header">\
-								<h4 class="modal-title">確認</h4>\
-							</div>\
-							<div class="modal-body">\
-								<div class="btn-confirm-message"></div>\
-							</div>\
-							<div class="modal-footer">\
-								<button class="btn btn-default btn-confirm-cancel">取消</button>\
-								<button class="btn btn-primary btn-confirm-ok">確定</button>\
-							</div>\
-						</div>\
-					</div>\
-				</div>').modal('show');
-			console.log($modal);
-			var $msg = $modal.find('.btn-confirm-message').text(message);
-			var $ok = $modal.find('.btn-confirm-ok').click(function(){
-				$modal.on('hidden.bs.modal',function(){
-					$modal.remove();
-					$modal = null;
-				}).modal('hide');
-				func(true);
-			});
-			
-			var $cancel = $modal.find('.btn-confirm-cancel').click(function(){
-				$modal.on('hidden.bs.modal',function(){
-					$modal.remove();
-					$modal = null;
-				}).modal('hide');
-				func(false);
-			});
-		}
-		
-		function msgbox(message){
-			var $modal= $(
-				'<div class="modal fade" tabindex="-1">\
-					<div class="modal-dialog">\
-						<div class="modal-content">\
-							<div class="modal-header">\
-								<h4 class="modal-title">確認</h4>\
-							</div>\
-							<div class="modal-body">\
-								<div class="btn-confirm-message"></div>\
-							</div>\
-							<div class="modal-footer">\
-								<button class="btn btn-primary btn-confirm-ok">確定</button>\
-							</div>\
-						</div>\
-					</div>\
-				</div>').modal('show');
-			console.log($modal);
-			var $msg = $modal.find('.btn-confirm-message').text(message);
-			var $ok = $modal.find('.btn-confirm-ok').click(function(){
-				$modal.on('hidden.bs.modal',function(){
-					$modal.remove();
-					$modal = null;
-				}).modal('hide');
-			});
-		}
-		
-		var myRouter = Backbone.Router.extend({
-			routes: {
-				":test": "testfunc",
-			},
-			testfunc: function(p1) {
-				alert('testfunc: '+p1);
-				console.log('testfunc: '+p1);
-			}
-		});
-		new myRouter();
-		Backbone.history.start();
-		
-		//////////Chat system Test (backbone) start//////////
-		var Reply = Backbone.Model.extend({
-			default:{
-				reply: null,
-				speaker: null,
-				datetime: null,
-			}
-		});
-		
-		var Replys = Backbone.Collection.extend({
-			model: Reply,
-			url: '/chats/chat_id',
-		});
-		
-		var ChatroomModalView = Backbone.View.extend({
-			el: '#chatroomModal',
-			initialize: function(chatinfo){
-				this.chatinfo = chatinfo
-				this.replys = new Replys();
-				this.replys.url = '/chats/'+this.chatinfo.get('id');
-				this.replys.fetch({reset: true});
-			
-				this.renderHead();
-				this.renderBody();
-				
-				this.listenTo( this.replys, 'reset', this.renderBody);
-			},
-			events:{
-				'click #sendBtn':'sendReply',
-				'click .close':'close'
-			},
-			sendReply:function(){
-				if($("#massage").val()){
-					var Data={};
-					Data['reply'] = $("#massage").val();
-					this.replys.create(Data);
-					$("#massage").val('');
-				}
-			},
-			renderBody:function(){
-				console.log(this.replys.length);
-				this.replys.each(function(reply){
-					this.renderReply(reply);
-				}, this);
-				//$('.msglist').scrollTop($('.msglist')[0].scrollHeight);
-			},
-			renderReply:function(reply){
-				var $msgli = $("<li>");
-				if(reply.get('speaker')==loginUser.get('name')){
-					var div = '	<div class="pull-right msgbox msg-me">'
-				}
-				else{
-					var div = '	<div class="pull-left msgbox msg-other">'
-				}
-
-				$msgli.html(
-					div
-				+'		<div class="speaker">'+reply.get('speaker')+'</div>'
-				+'		<div class="">'+reply.get('reply')+'</div>'
-				+'		<div class="time" style="width:100%">'
-				+'			<div class="pull-right">'+reply.get('datetime')+'</div>'
-				+'		</div>'
-				+'	</div>'
-				+'	<div style="clear:both;"></div>'					
-				);
-				$('.msglist').append($msgli);	
-			},
-			renderHead:function(){
-				$('.modal-title').html(this.chatinfo.get('item'));		
-			},
-			close:function(){
-				$('.msglist').html('');
-			}
-		});
-		
-		var ChatView = Backbone.View.extend({
-			tagName: 'div',
-			events:{
-				'click #chatroomModalbtn': 'openChatroomModal'
-			},
-			render: function(){
-				var buyername = this.model.get('buyer');
-				var sellername = this.model.get('seller');
-				var item = this.model.get('item');
-				
-				this.$el.html(
-				'<div style="border:solid 1px red">'
-				+'	<p>item: '+item+'</p>'
-				+'	<p>seller: '+sellername+'</p>'
-				+'	<p>buyer: '+buyername+'</p>'
-				+'		<a href="#chatroomModal" data-toggle="modal">'
-				+'			<button type="button" id="chatroomModalbtn">對話</button>'
-				+'		</a>'
-				+'</div>'
-				);
-				
-				return this;
-			},
-			openChatroomModal: function(){
-				var chatroom = new ChatroomModalView(this.model);
-			}
-		});		
-		
-		var ChatsView = Backbone.View.extend({
-			el: '#chat-test',
-			initialize: function(){
-				this.collection = new Chats();
-				this.collection.fetch({reset: true});
-				this.render();
-				
-				this.listenTo(this.collection, 'reset', this.render);
-			},
-			render: function(){
-				this.collection.each(function(item){
-					this.renderChat(item);
-				}, this);
-			},
-			renderChat: function(item){
-				var chatView = new ChatView({
-					model: item
-				});
-				
-				this.$el.append(chatView.render().el);
-			},
-		});
-		//////////Chat system Test (backbone) end//////////
-
-		var AppView = Backbone.View.extend({
-			el: 'body',
-			events: {
-			},
-			initialize: function(){
-				this.navBar = new NavBarView();	
-				this.loginModal = new LoginModalView();
-				this.regModal = new RegModalView();
-				this.settingModal = new SettingView();
-				this.infoEmailModal = new InfoEmailView();
-				this.sellerPanel = new SellerPanelView();
-				this.mapPanel = new MapPanelView();
-				this.userPanel = new UserPanelView();
-				
-				itemCategorys.fetch()
-				
-				//e = {events:[{},{}],time:time};
-				var e = {events:[]};
-				loginUser.fetch().pipe(function(){
-					var dfd = $.Deferred();
-					if(loginUser.isNew()){
-						dfd.reject();
-					}else if(loginUser.get('shops').length == 0){
-						loginUser.trigger('login');
-						dfd.reject();
-					}else{
-					
-						hEvent(e);
-						loginUser.trigger('login');
-						dfd.resolve();
-					}
-					return dfd;
-				}).pipe(function(){
-					var shopID = loginUser.get('shops')[0];
-					myShop.set('id',shopID);
-					return myShop.fetch();
-				}).pipe(function(){
-					return myShop.items.fetch({reset:true});
-				}).done(function(){
-					console.log('done');
-				}).fail(function(){
-					console.log('fail');
-				});
-			}
-		});
-		
-		
-		//var myEvents = new Events();
-		
-		////////////////Global Events start////////////////
-		var globalEvents = {
-			newmsg:function(data){
-				var reply = data;
-				myShop.items.each(function(item){
-					console.log(item.get('name'));
-					item.chats.each(function(chat){
-					//console.log("chat.get('id'): "+chat.get('id'));
-					//console.log("reply.chat: "+reply.chat);
-						if(chat.get('id') == reply.chat){
-							if(chat.replys.length==0){
-								$("img[data-chat-id="+chat.get('id')+"]").addClass('newmsg');
-								$("img[data-item-id="+item.get('id')+"]").addClass('newmsg');
-							}
-							else{
-								chat.replys.each(function(existReply){
-									existReply.get('id') == reply.id;
-									return;
-								});
-								reply = new Reply(reply);
-								//reply.trigger('seen');
-								//reply.once('seen',funciton(){
-									//remove event
-								//	event.destroy();
-								//});
-								chat.replys.add(reply);
-							}
-						}
-					});
-				});
-				//console.log('receive a new messgae')
-			},
-			//sendMessage:function(data){
-			//	myShop.items.each(function(item){
-			//		//item.
-			//	});
-			//},
-			shopUpdate:function(){
-				//do something
-			},
-			test:function(data){
-				console.log(data);
-			}
-		};
-			
-
-		function hEvent(e){
-			console.log(e);
-			_.each(e.events,function(event){
-				this[event.type](event.data);
-			}, globalEvents);
-			
-			$.post('accounts/events', {time:e.time}).done(function(e){
-				hEvent(e);
-			}).fail(function(){
-				console.log('connection error');
-			});
-		};
-		////////////////Global Events end////////////////
-		
-			$(function(){
-				new AppView();
-
-
-				window.onresize = function(event) {
-					if(window.innerWidth>window.innerHeight){
-						this.$(".item-box-description").css("display","block");
-					}else{
-						this.$(".item-box-description").css("display","none");
-					}					
-				}
-				//reply {chat, speaker}
-				//chat {item, buyer, seller}
-			});
-		</script>
 	</body>
 </html>
