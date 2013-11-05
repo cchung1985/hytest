@@ -3,25 +3,71 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Project name</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 		<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-		<!--
-		<link href="less/bootstrap.less" rel="stylesheet/less">
-		-->
 		<style>
-		body {
-			padding-top: 40px; /* 60px to make the container go all the way to the bottom of the topbar */
-		}
-		#map_canvas {
+		.main-panels .tab-pane{
 			position: absolute;
-			top: 40px;
+			top: 71px;
 			left: 0px;
 			right: 0px;
 			bottom: 0px;
 			z-index: -1;
 		}
-		#loginModal {
+		
+		.main-nav > li > a {
+			border-radius: 0;
+			font-size: 16px;
+			padding:15px 0 15px 0;
+			width:90px;
+			text-align:center;
+		}
+		
+		#navBar {
+			border-bottom: 1px solid #428BCA;
+		}
+		
+		#shopMap {
+			height:300px;
+		}
+		
+		.shop-box {
+			border: 1px solid #DDDDDD;
+		}
+		
+		.item-box {
+			border: 1px solid #DDDDDD;
+		}
+		
+		.seller-item-box {
+			border: 1px solid #DDDDDD;
+			margin-bottom:5px;
+		}
+		.seller-item-box .item-box {
+			border-width:0;
+		}
+		
+		#sellerShopBox {
+			position:relative;
+			/*
+			top:0px;
+			right:0px;
+			left:0px;
+			*/
+		}
+		
+		#sellerShowCase {
+
+		}
+		
+		#sellerItemsList {
+			overflow-y:	auto;
+			overflow-x:	hidden;
+			/*position:absolute;
+			bottom:10px;
+			top:40px;*/
+			right:0px;
+			left:0px;
 		}
 		
 		#settingModal {
@@ -32,767 +78,965 @@
 			*min-height:500px;
 		}
 		
+		#mainMap {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			right: 200px;
+			bottom: 0px;
+		}
+		
+		#mapBoxList {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			width: 200px;
+			overflow: auto;
+		}
+		
 		.list {
 			list-style: none outside none;
 			margin: 0;
 		}
 		
-		</style>
-		<link href="css/bootstrap-responsive.css" rel="stylesheet">
-		<style>
-		
-		.modal {
-			outline: none;
-			position: absolute;
-			margin-top: 0;
-			top: 50%;
-			overflow: visible; /* allow content to popup out (i.e tooltips) */
+		.msglist{
+			padding: 0px;
+			list-style-type: none;
+			overflow-y: scroll;
+			max-height: 400px;
 		}
 		
-		.modal.fade {
-			top: -100%;
-			-webkit-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;	
-			   -moz-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
-			     -o-transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
-			        transition: opacity 0.3s linear, top 0.3s ease-out, bottom 0.3s ease-out, margin-top 0.3s ease-out;
+		.msglist .msgbox{
+			border-radius: 5px;
+			border: 1px solid;
+			margin-bottom: 10px;
+			padding: 5px;
+			word-wrap: break-word;
+			max-width: 400px;
+		}
+		
+		.msglist .msg-me{
+			background-color: #FFCCFF;
+		}
+		
+		.msglist .msg-other{
+			background-color: #CCFFFF;
+		}
+		
+		div.speaker:after{
+			content:" 說:"
+		}
+		
+		.panel-title img[src="./img/notification.png"]{
+			width:	20px;
+			height: 20px;
+		}
+		
+		.container{
+			padding:0;
+		}
+		
+		/************************/
+		/*						*/
+		/*		item-modal		*/
+		/*						*/
+		/************************/
+		.item-modal-container{
+			margin:		20px;
+			text-align:	center;
+		}
+		
+		#item-modal-price:before{
+			content: "價格:";
+			float:	left;
+		}
+		
+		#item-modal-price:after{
+			content: " 元";
+		}
+		
+		#item-modal-add-time:before{
+			content: "上架日期:";
+			float:	left;
+		}
+		
+		#item-modal-price-attr span,
+		#item-modal-condition-attr span,
+		#item-modal-size-attr span{
+			border-radius:		5px; 
+			background-color:	#0c0; 
+			color:				white;
+			width:				80%;
 		}
 		
 		
-		.modal-body {
-			max-height: none;
-			overflow: visible;
+		/************************/
+		/*		shop-modal,		*/
+		/*		seller-item-box	*/
+		/*		 | item-box		*/
+		/*						*/
+		/************************/
+		.item-favor-list .item-box-price:before,
+		.shop-modal-showcase .item-box-price:before,
+		.seller-item-box .item-box-price:before{
+			content: "價格:";
+			float:	left;
 		}
 		
-		.modal.container {
-			width: 940px;
-			margin-left: -470px;
+		.item-favor-list .item-box-price:after,
+		.shop-modal-showcase .item-box-price:after,
+		.seller-item-box .item-box-price:after{
+			content: " 元";
+			
 		}
 		
-		/* Large desktop */
+		.item-favor-list .item-box-attrs span,
+		.shop-modal-showcase .item-box-attrs span,
+		.seller-item-box .item-box-attrs span{
+			border-radius:		5px; 
+			background-color:	#0c0; 
+			color:				white;
+			width:				80px;
+		}
+
+		.item-favor-list .item-box-description,
+		.shop-modal-showcase .item-box-description,
+		.seller-item-box .item-box-description{
+			position:		absolute; 
+			right:			0px;
+			margin-top:		14px;
+			padding-top:	6px;
+			padding-right:	20px;
+			left:			50%;
+		}
+		
+		.item-favor-list .item-box-description .item-box-vertical,
+		.shop-modal-showcase .item-box-description .item-box-vertical,
+		.seller-item-box .item-box-description .item-box-vertical{
+			display:	none;
+		}
+		
+		.item-favor-list .item-box-description .item-box-horizontal,
+		.shop-modal-showcase .item-box-description .item-box-horizontal,
+		.seller-item-box .item-box-description .item-box-horizontal{
+			display:	block;
+		}
+		
+		.item-favor-list .item-box-description:before,
+		.shop-modal-showcase .item-box-description:before,
+		.seller-item-box .item-box-description:before{
+			font-weight:	bold;
+			content:		"商品描述:";
+		}
+
+		.shop-modal .shop-modal-board h4{
+			font-size: 1.5em;
+		}
+	
+		/************************/
+		/*						*/
+		/*	seller-item-box		*/
+		/*		| chat-list		*/
+		/*						*/
+		/************************/
+		.seller-item-box .chat-list div{
+			border-bottom: 1px solid #ccc;
+			background-image: linear-gradient(-45deg, rgb(255,255,255) 25%, rgb(255,255,0) 90%);
+			padding: 5px;
+		}
+		
+		.seller-item-box .chat-list button,
+		.seller-item-box .chat-list img{
+			position:	relative;
+			float:		right;
+		}
+		
+		.seller-item-box .chat-list img{
+			width:		20px; 
+			height:		20px;
+			right:		-31px;
+			top:		-5px;
+			display:	none;
+		}			
+		
+		.seller-item-box .chat-list img.newmsg{
+			display:	inline;
+		}
+
+		.seller-item-box .chat-list button{
+			border:1px solid;
+			border-radius: 5px;
+			background-color: white;
+			background-image: url("./img/chat.png");	
+			background-size: contain;
+			width: 30px;
+			height: 25px;
+			top: 2px;
+			right: 5px;
+		}
+		
+		.seller-item-box .chats-order{
+			line-height: 25px;
+			font-size: 1.75em;
+			font-weight: bold;
+			font-style: italic;
+			text-align: center;
+			color: white;
+			background-image: linear-gradient(-45deg, rgb(100,100,100) 30%, rgb(0,0,0) 70%);
+			display: inline-block;
+			width: 40px;
+			height: 25px;
+		}
+
+		/************************/
+		/*						*/
+		/*		shop-box		*/
+		/*						*/
+		/************************/
+		.seller-item-box .chat-to{
+			display: inline-block;
+			font-size: 1.2em;
+		}
+
+		.shop-box{
+			position: relative;
+		}
+
+		.shop-box-status{
+		}			
+		
+		.shop-box .shop-box-name{
+			white-space:	nowrap;
+		}
+		
+		.shop-box .shop-box-item-num{
+			color:			#505050;
+			font-size:		small;
+		}
+		
+		.shop-box .shop-box-item-num:after{
+			content:		" 件商品正在出售中";
+		}
+
+		.shop-box .shop-box-detail{
+			position:		absolute;
+			top:			0px;
+			left:			100px;
+			overflow:		hidden;
+			height:			60px;
+			right:			70px;
+		}
+		
+		.shop-box .shop-box-button{
+			float:			right; 
+			width:			50px; 
+			height:			50px;
+			margin-top:		5px; 
+			margin-right:	5px;
+		}
+			
 		@media (min-width: 1200px) {
-			.modal.container {
+			.modal-dialog-large {
 				width: 1170px;
-				margin-left: -585px;
 			}
 		}
-		 
-		/* Portrait tablet to landscape and desktop */
+		@media (min-width: 980px) and (max-width: 1199px) {
+			.modal-dialog-large {
+				width: 940px;
+			}
+		}
+		
 		@media (min-width: 768px) and (max-width: 979px) {
-			.modal.container {
+			.modal-dialog-large {
 				width: 728px;
-				margin-left: -362px;
 			}
 		}
-		 
-		/* Landscape phone to portrait tablet */
+		
 		@media (max-width: 767px) {
-			.modal, 
-			.modal.container {
-				top: 1%;
-				right: 1%;
-				left: 1%;
-				bottom: auto;
-				width: auto !important;
-				height: auto !important;
-				margin: 0 !important;
-				padding: 0 !important;
+			.main-panels .tab-pane{
+				top: 51px;
+				z-index: -1;
 			}
+			
+			.main-nav > li > a {
+				padding:10px 0 10px 0;
+				font-size: 18px;
+				line-height: 30px;
+				width:50px;
+			}
+			
+			.container {
+				padding-left: 0;
+				padding-right: 0;
+			}
+			
+			.navbar-nav > li {
+				float: left;
+			}
+			
+			.navbar-nav {
+				margin: 0;
+			}
+			
+			.close {
+				font-size:40px;
+			}
+			
+			#shopMap {
+				width:80%;
+				height:200px;
+			}
+			
+			#mainMap {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				bottom: 25%;
+			}
+			
+			#mapBoxList {
+				position: absolute;
+				top: 75%;
+				right: 0px;
+				left: 0px;
+				bottom: 0px;
+				width: auto;
+			}
+			
+		}
 		</style>
-		<!--
-		<link href="css/bootstrap-modal.css" rel="stylesheet">
-		<link href="less/responsive.less" rel="stylesheet/less">
-		-->
-	<script type="text/javascript"
-		src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDVe-jIXFr-OWQknSaDsjLyogR6Lm9goB8&sensor=false">
-	</script>
+	<link href="css/main.css" rel="stylesheet">
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
 	</head>
 	<body>
-		<div id="navBar" class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="brand" href="#">Project name</a>
-					<form class="navbar-search">
-						<input type="text" class="search-query" placeholder="搜尋">
-					</form>
-
-					<div class="nav-collapse collapse">
-						<ul id="guestNav" class="nav pull-right">
-							<li><a class="btn-loginModal" href="#loginModal" data-toggle="modal">登入</a></li>
-							<li><a class="btn-regModal" href="#regModal" data-toggle="modal">註冊</a></li>
-						</ul>
-						<ul id="userNav" class="nav pull-right">
-							<li><a class="btn-myCart" href="#" data-toggle="modal">購物車<i class="icon-shopping-cart"></i></a></li>
-							<li><a class="btn-myShop" href="#sellerPanel" data-toggle="modal">我的商店<i class="icon-home"></i></a></li>
-							<li><a class="btn-settingModal" href="#settingModal" data-toggle="modal">設定<i class="icon-wrench"></i></a></li>
-							<li><a class="userInfo" href="#"><i class="icon-user"></i><span class="username"></span></a></li>
-							<li><a id="logoutBtn" href="#">登出</a></li>
-						</ul>
-					</div><!--/.nav-collapse -->
+		<!--NavBar-->
+		<div id="navBar" style="background-color:#FFFFFF" class="navbar navbar-fixed-top">
+			<div class="container">
+				<div>
+					<a class="navbar-brand" style="position:absolute;" href="#">YOUCON</a>
+					<ul id="userNav" class="main-nav nav nav-pills navbar-nav pull-right" style="display:none;">
+						<li class="active"> <!-- Map Tab -->
+							<a href="#mapPanel" data-toggle="tab">
+								<span class="glyphicon glyphicon-map-marker"></span>
+								<span class="hidden-xs">地圖</span>
+							</a>
+						</li>
+						<li> <!-- Trace Panel Tab -->
+							<a href="#buyerPanel" data-toggle="tab">
+								<span class="glyphicon glyphicon-list-alt"></span>
+								<span class="hidden-xs">追蹤清單</span>
+							</a>
+						</li>
+						<li> <!-- Seller Panel Tab -->
+							<a href="#sellerPanel" data-toggle="tab">
+								<span class="glyphicon glyphicon-home"></span>
+								<span class="hidden-xs">我的商店</span>
+							</a>
+						</li>
+						<li> <!-- User Panel Tab -->
+							<a href="#userPanel" data-toggle="tab">
+								<span class="glyphicon glyphicon-user"></span>
+								<span id="navUsername" class="hidden-xs"></span>
+							</a>
+						</li>
+					</ul>
+					<ul id="guestNav" class="main-nav nav navbar-nav pull-right">
+						<li>
+							<a href="#regModal" data-toggle="modal">
+								<div class="hidden-xs">
+									<span class="glyphicon glyphicon-user"></span>
+									<div>註冊</div>
+								</div>
+								<div class="visible-xs">註冊</div>
+							</a>
+						</li>
+						<li>
+							<a href="#loginModal" data-toggle="modal">
+								<div class="hidden-xs">
+									<span class="glyphicon glyphicon-log-in"></span>
+									<div>登入</div>
+								</div>
+								<div class="visible-xs">登入</div>
+							</a>
+						</li>
+					</ul>
+					<div style="clear:both"></div>
 				</div>
 			</div>
 		</div>
 		
 		<!--Login modal -->
-		<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3>會員登入</h3>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div class="control-group">
-						<label class="control-label" for="loginEmail">Email</label>
-						<div class="controls">
-							<input type="text" id="loginEmail" placeholder="Email">
+		<div id="loginModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">會員登入</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Email</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="loginEmail" placeholder="Email">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">密碼</label>
+								<div class="col-sm-7">
+									<input type="password" class="form-control" id="loginPassword" placeholder="Password">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox"> 記得我
+										</label>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="loginPassword">密碼</label>
-						<div class="controls">
-							<input type="password" id="loginPassword" placeholder="Password">
-						</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">關閉</button>
+						<button class="btn btn-primary" id="loginBtn">登入</button>
 					</div>
-					<div class="control-group">
-						<div class="controls">
-							<label class="checkbox">
-								<input type="checkbox"> 記得我
-							</label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
-				<button class="btn btn-primary btn-login">登入</button>
-			</div>
-		</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 		
 		<!--Registration modal -->
-		<div id="regModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3>會員註冊</h3>
-			</div>
-			<div class="modal-body">
-				<div class="form-horizontal">
-					<div id="regEmailField" class="control-group">
-						<label class="control-label" for="regEmail">帳號/Email</label>
-						<div class="controls">
-							<input type="text" id="regEmail" placeholder="使用E-mail作為您的帳號">
-							<span class="help-inline msg-error"></span>
+		<div id="regModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">會員註冊</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div id="regEmailField" class="form-group">
+								<label class="col-sm-3 control-label">帳號/Email</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="regEmail" placeholder="使用E-mail作為您的帳號">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div id="regUsernameField" class="form-group">
+								<label class="col-sm-3 control-label">名稱</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="regUsername" placeholder="最多填入20個字元">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div id="regPasswordField" class="form-group">
+								<label class="col-sm-3 control-label">密碼</label>
+								<div class="col-sm-6">
+									<input type="password" class="form-control" id="regPassword" placeholder="請輸入8到16個字元">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div id="regPasswordConfirmField" class="form-group">
+								<label class="col-sm-3 control-label">確認密碼</label>
+								<div class="col-sm-6">
+									<input type="password" class="form-control" id="regPasswordConfirm" placeholder="">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-3 col-sm-offset-3">
+									<img id="regCaptchaImage">
+								</div>
+								<div class="col-sm-3">
+									<button class="btn btn-default" id="refreshCaptcha"><i class="glyphicon glyphicon-refresh"></i></button>
+								</div>
+							</div>
+							<div id="regCaptchaField" class="form-group">
+								<label class="col-sm-3 control-label">驗證碼</label>
+								<div class="col-sm-6">
+									<input class="form-control" type="text" id="regCaptcha" placeholder="">
+								</div>
+								<span class="col-sm-3 help-block msg-error"></span>
+							</div>
+							<div id="regAgreeField" class="form-group">
+								<label class="col-sm-3 control-label" for="regCaptcha"></label>
+								<div class="col-sm-9">
+									<label class="checkbox">
+										<input id="regAgree" type="checkbox">
+										<span class="help-block">我已經詳細閱讀並同意xxx服務條款</span>
+									</label>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div id="regUsernameField" class="control-group">
-						<label class="control-label" for="regUsername">名稱</label>
-						<div class="controls">
-							<input type="text" id="regUsername" placeholder="最多填入20個字元">
-							<span class="help-inline msg-error"></span>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">關閉</button>
+						<button class="btn btn-primary" id="registerBtn" data-loading-text="註冊中...">註冊</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	
+		<!--Edit Item Modal-->
+		<div id="itemEditModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">新增商品</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-2 control-label">圖片</label>
+								<div class="col-sm-8">
+									<div id="itemImages">
+										<div class="" style="float:left;width:100px;height:100px">
+											<input class="single" type="file" name="0">
+											<div class="preview-image"></div>
+										</div>
+										<div style="float:left;width:100px;height:100px;">
+											<input type="file" name="1">
+											<div class="preview-image"></div>
+										</div>
+										<div style="float:left;width:100px;height:100px;">
+											<input type="file" name="2">
+											<div class="preview-image"></div>
+										</div>
+										<div style="clear:both;"></div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group" id="itemNameField">
+								<label class="col-sm-2 control-label" for="itemName">品名*</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="itemName" placeholder="">
+								</div>
+								<span class="col-sm-2 help-block msg-error"></span>
+							</div>
+							<div class="form-group" id="itemPriceField">
+								<label class="col-sm-2 control-label" for="itemPrice">價格*</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control num-only" id="itemPrice" placeholder="">
+								</div>
+								<span class="col-sm-2 help-block msg-error"></span>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">新舊</label>
+								<div class="col-sm-8 btn-group" data-toggle="buttons">
+									<label class="btn btn-info active">
+										<input type="radio" name="conditionAttr" value="1">全新
+									</label>
+									<label class="btn btn-info">
+										<input type="radio" name="conditionAttr" value="2">二手品
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">尺寸</label>
+								<div class="col-sm-8 btn-group" data-toggle="buttons">
+									<label class="btn btn-info active">
+										<input type="radio" name="sizeAttr" value="3">口袋小物
+									</label>
+									<label class="btn btn-info">
+										<input type="radio" name="sizeAttr" value="4">背包可裝
+									</label>
+									<label class="btn btn-info">
+										<input type="radio" name="sizeAttr" value="5">機車可載
+									</label>
+									<label class="btn btn-info">
+										<input type="radio" name="sizeAttr" value="6">須開車
+									</label>
+								</div>
+							</div>
+							<div class="form-group" id="itemDescField">
+								<label class="col-sm-2 control-label">商品描述</label>
+								<div class="col-sm-8">
+									<textarea id="itemDesc" class="form-control" rows="3"></textarea>
+								</div>
+								<span class="col-sm-2 help-block msg-error"></span>
+							</div>
+							<div class="form-group" id="itemCategoryField">
+								<label class="col-sm-2 control-label">商品分類</label>
+							</div>
+							<div class="form-group" id="itemCategory">
+							</div>
+						</div>
+					</div><!-- /.modal-body -->
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</button>
+						<button class="btn btn-primary" id="itemSubmit">確定</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+		
+		
+		<!--Edit Shop Modal-->
+		<div id="shopEditModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4><span class="glyphicon glyphicon-edit"></span>編輯店面資訊</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">商店名稱</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="shopName" placeholder="" autocomplete="off">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">商店地址</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="shopAddress" placeholder="" autocomplete="off">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-7 col-sm-offset-3">
+									<div id="shopMap">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">商店介紹</label>
+								<div class="col-sm-7">
+									<textarea class="form-control" rows="3" id="shopDesc"></textarea>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div id="regPasswordField" class="control-group">
-						<label class="control-label" for="regPassword">密碼</label>
-						<div class="controls">
-							<input type="password" id="regPassword" placeholder="請輸入8到16個字元">
-							<span class="help-inline msg-error"></span>
-						</div>
-					</div>
-					<div id="regPasswordConfirmField" class="control-group">
-						<label class="control-label" for="regPasswordConfirm">確認密碼</label>
-						<div class="controls">
-							<input type="password" id="regPasswordConfirm" placeholder="">
-							<span class="help-inline msg-error"></span>
-						</div>
-					</div>
-					<div id="regCaptchaField" class="control-group">
-						<label class="control-label" for="regCaptcha">驗證碼</label>
-						<div class="controls">
-							<p class="captcha"></p>
-							<button class="btn btn-small btn-captcha-refresh"><i class="icon-refresh"></i></button>
-							<input class="input-small" type="text" id="regCaptcha" placeholder="">
-							<span class="help-inline msg-error"></span>
-						</div>
-					</div>
-					<div id="regAgreeField" class="control-group">
-						<div class="controls">
-							<label class="checkbox">
-								<input id="regAgree" type="checkbox">
-								<span class="help-inline">我已經詳細閱讀並同意xxx服務條款</span>
-							</label>
-						</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">
+							取消
+						</button>
+						<button id="shopSubmitBtn" type="button" class="btn btn-primary">
+							確認
+						</button>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
-				<button id="registerBtn" data-loading-text="註冊中..." class="btn btn-primary">註冊</button>
 			</div>
 		</div>
 		
 		<!--Setting modal -->
-		<div id="settingModal" class="modal hide fade container" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3><img src="img/setting.png" style="vertical-align:bottom;width:130px;height:130px;">帳號設定</h3>
-			</div>
-			<div class="row">
-				<div class="span3">
-					<ul class="nav nav-list">
-						<li class="active"><a href="#">會員設定</a></li>
-						<li><a href="#">Privacy</a></li>
-					</ul>
-				</div>
-				<div class="span6 modal-body">
-					<div id="accountSetting">
-						<div class="accordion">
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" href="#collapsePhoto">照片</a>
+		<div id="settingModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog modal-dialog-large">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">帳號設定</h4>
+					</div>
+					<div class="modal-body">
+						<div class="panel panel-default">	<!-- photo -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">照片</h3>
+								<button id="photo-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
 							</div>
-							<div id="collapsePhoto" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<img src="img/setting.png" style="width: 130px; height: 130px;">
-									<button class="btn btn-primary">上傳照片</button>
+							<div class="panel-body"> 
+								<div class="col-sm-10" id="oldphoto-panel">	<!-- old photo -->
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAAB9CAYAAACPgGwlAAACCklEQVR4nO3XMW7EIBQA0dz/KHR0bujoXLr3EbgCqT5yNl4lhSWbnSmmQdoviyew96u11o3V190PYKKb6Ca6iW6im+gmuolOTnRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkObDr0WmtPKf1a37atp5R6rXWs5Zx7SqmnlPq+74+Y/4SmQg+QM5QACJRaa88599ZaL6X0ZVlun/+UpkEPkNj8d1iBknPupZTeWuvruo7TuCzL+H0pZaxfNf/uffo49G3bBlSsx7UbG/8Xyr7vP3CPJ/eK+Xfv00ehR68oOedeax2Y/0GJk3t2JV8x/+lNjR6n8LV4375DiRln7+4r5j+9qdGPvZ7EUsrph9bxKzylNOCumj9DH4ve2vlfquO1HvDrul42f4amQzfRTXQT3UQ30bGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MBEByY6MNGBiQ5MdGCiAxMdmOjARAcmOjDRgYkOTHRgogMTHZjowEQHJjow0YGJDkx0YKIDEx2Y6MC+Ac7AmJBH0NO6AAAAAElFTkSuQmCC" alt="..." class="img-thumbnail">
+								</div>
+								<div class="col-sm-10" id="newphoto-panel" style="display: none">	<!-- new photo -->
+									<input type="file" name="photo">
+									<button id="photo-submit" type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px">上傳照片</button>
 								</div>
 							</div>
 						</div>
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" href="#collapseAccount">
-									帳號
-								</a>
+						<div class="panel panel-default">	<!-- email -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">帳號/Email</h3>
+								<button id="email-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
 							</div>
-							<div id="collapseAccount" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<div class="form-horizontal">
-										<div class="control-group">
-											<label class="control-label" for="settingEmail">帳號/Email</label>
-											<div class="controls">
-												<input type="text" id="settingEmail" placeholder="">
-											</div>
+							<div class="panel-body"> 
+								<div id="oldemail-panel" class="col-sm-10">	<!-- old email -->
+									<p id="oldeamil" class="form-control-static">sq0032@gmail.com</p>
+								</div>
+								<div id="newemail-panel" class="form-horizontal" style="display: none">	<!-- new email -->
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="settingEmail">新Email帳號</label>
+										<div class="col-sm-6">
+											<input type="email" class="form-control" id="settingEmail" placeholder="New Email">
 										</div>
-										<div class="control-group">
-											<label class="control-label" for="settingUsername">名稱</label>
-											<div class="controls">
-												<input type="text" id="settingUsername" placeholder="">
-											</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-offset-3 col-sm-3">
+											<button type="submit" class="btn btn-primary btn-sm">修改Email</button>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" href="#collapsePassword">修改密碼</a>
+							<div class="panel-footer">
+								<p class="text-danger">信箱未認證<a data-toggle="modal" href="#infoEmailModal" style="float: right">為什麼要認證?</a></p>
 							</div>
-							<div id="collapsePassword" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<div class="form-horizontal">
-										<div class="control-group">
-											<label class="control-label" for="settingPassword">舊密碼</label>
-											<div class="controls">
-												<input type="password" id="settingPassword" placeholder="">
-											</div>
+						</div>
+						<div class="panel panel-default">	<!-- name -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">名稱</h3>
+								<button id="name-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="account-edit glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
+							</div>
+							<div class="panel-body"> 
+								<div id="oldname-panel" class="col-sm-10" >	<!-- oldname -->
+									<p id="oldname" class="form-control-static"></p>
+								</div>	
+								<div id="newname-panel" class="col-sm-10"  style="display: none"> <!-- newname -->
+									<p>名稱為網路身分識別所用，因此不提供使用者修改‧</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel panel-default">	<!-- password -->
+							<div class="panel-heading">
+								<h3 class="panel-title" style="display: inline">密碼</h3>
+								<button id="password-edit" class="btn btn-default btn-xs" type="button" style="float: right">
+									<a class="account-edit glyphicon glyphicon-edit" style="color: black">Edit</a>
+								</button>
+							</div>
+							<div class="panel-body"> 
+								<div class="col-sm-10" id="oldpass-panel"> <!-- old password -->
+									<p class="form-control-static">********</p>
+								</div>
+								<div id="newpass-panel" class="form-horizontal" style="display: none"> <!--new password-->
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="settingPassword">舊密碼</label>
+										<div class="col-sm-6">
+											<input type="password" class="form-control" id="settingPassword" placeholder="">
 										</div>
-										<div class="control-group">
-											<label class="control-label" for="settingNewPassword">新密碼</label>
-											<div class="controls">
-												<input type="password" id="settingNewPassword" placeholder="">
-											</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="settingNewPassword">新密碼</label>
+										<div class="col-sm-6">
+											<input type="password" class="form-control" id="settingNewPassword" placeholder="">
 										</div>
-										<div class="control-group">
-											<label class="control-label" for="settingNewPassword2">確認新密碼</label>
-											<div class="controls">
-												<input type="password" id="settingNewPassword2" placeholder="">
-											</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="settingNewPassword2">確認新密碼</label>
+										<div class="col-sm-6">
+											<input type="password" class="form-control" id="settingNewPassword2" placeholder="">
 										</div>
-										<div class="control-group">
-											<div class="controls">
-												<button class="btn-submit btn btn-primary">確認修改</button>
-											</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-offset-3 col-sm-10">
+											<button type="submit" class="btn btn-primary btn-sm">修改密碼</button>
 										</div>
 									</div>
 								</div>
 							</div>
+						</div>	
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		
+		<!-- Q&A Why Email Verification Modal -->
+		<div id="infoEmailModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">為什麼要信箱認證?</h4>
+					</div>
+					<div class="modal-body">
+						<img src="http://www.marketingpugetsound.com/wp-content/uploads/2013/01/Email-icon-square.png" class="img-rounded" width="200px" height="200px">				
+						<dl>
+							<dt>信箱認證之後你可以...</dt>
+							<dd>透過站內聊天系統與賣家聯繫</dd>
+							<dd>保護你的帳號，忘記密碼時可由認證信箱取得新密碼‧</dd>
+						</dl>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+						<button id="sendVerifyEmail" type="button" class="btn btn-primary">寄發認證信</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+		<!-- Main Panels -->
+		<div class="main-panels tab-content">
+			<div class="tab-pane active fade in" id="mapPanel"> <!-- Map Panels -->
+				<div id="mainMap"></div>
+				<div id="mapBoxList"></div>
+			</div>
+			<div class="tab-pane fade" id="buyerPanel"> <!-- Buyer Panel -->
+				<div id="itemFavorList">
+					<h3 style="padding:10px; margin:0px">Tracing Item</h3>
+					<div class="list-toolbar" style="border-bottom:1px solid; border-top:1px solid; padding:5px">
+						<div class="list-toolbar-sort">
+							排序依
+							<select>
+								<option value="上架日期">上架日期</option>
+								<option value="價格">價格</option>
+							</select>
 						</div>
 					</div>
+					<div class="item-favor-list">
 					</div>
 				</div>
-				<div class="span2">
-					這裡放廣告
+				<div id="shopFavorList" style="display:none">
+					<h3 style="padding:10px; margin:0px">Tracing Shop</h3>
+					<div class="list-toolbar" style="border-bottom:1px solid; border-top:1px solid; padding:5px">
+						<div class="list-toolbar-sort">
+							排序依
+							<select>
+								<option value="上架日期">上架日期</option>
+								<option value="價格">價格</option>
+							</select>
+						</div>
+					</div>
+					<div class="shop-favor-list">
+					</div>
 				</div>
 			</div>
-		</div>
-		
-		<!--Seller Panel-->
-		<div id="sellerPanel" class="modal hide fade container" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3><img src="img/setting.png" style="vertical-align:bottom;width:130px;height:130px;">SHOP</h3>
-			</div>
-			<div class="row">
-				<div class="span3">
-					<ul class="nav nav-list">
-						<li class="active"><a href="#myShop" data-toggle="tab">我的商店</a></li>
-						<li><a href="#tab2" data-toggle="tab">我的店面</a></li>
-					</ul>
-				</div>
-				<div class="modal-body span8" style="min-height:400px;max-height:800px;">
-					<div class="tab-content">
-						<div class="tab-pane active" id="myShop">
-							<div>
-								<ul class="items list">
-									<li class="item" style="position:relative;width:100%;margin:0 0 30px 0;">
-										<div class="img"><img height="90" width="120" src="img/160x120.png"></div>
-										<div class="title" style="position:absolute;top:0px;left:180px;">品名:塑膠椅</div>
-										<div class="price" style="position:absolute;top:30px;left:180px;">價錢:100</div>
-										<div class="category" style="position:absolute;top:60px;left:180px;">分類:居家用品->椅子</div>
-										<div class="attribute" style="position:absolute;top:0px;left:360px;width:30px">
-											<span class="label label-info">二手品</span>
-											<span class="label label-info">機車可載</span>
-										</div>
-										<div class="description" style="position:absolute;top:0px;left:450px;">商品描述</div>
-									</li>
-									<li class="item" style="position:relative;width:100%;margin:0 0 30px 0;">
-										<div class="img"><img height="90" width="120" src="img/160x120.png"></div>
-										<div class="title" style="position:absolute;top:0px;left:180px;">品名:塑膠椅</div>
-										<div class="price" style="position:absolute;top:30px;left:180px;">價錢:100</div>
-										<div class="category" style="position:absolute;top:60px;left:180px;">分類:居家用品->椅子</div>
-										<div class="attribute" style="position:absolute;top:0px;left:360px;width:30px">
-											<span class="label label-info">二手品</span>
-											<span class="label label-info">機車可載</span>
-										</div>
-										<div class="description" style="position:absolute;top:0px;left:450px;">商品描述</div>
-									</li>
-									<li class="">
-										<button class="btn btn-large btn-block btn-primary" type="button">新增商品</button>
-									</li>
-								</ul>
+			<div class="tab-pane fade" id="sellerPanel"> <!-- Seller Panel -->
+				<div class="container" style="position:relative;height:100%">
+					<div id="sellerShopPanel">
+						<div class="btn-group" style="position:absolute;left:0px;right:-3px;bottom:0px;height:60px;">
+							<button class="btn btn-default" style="width:25%"> <!-- 開始營業 -->
+								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-play"></span>
+								開始營業
+							</button>
+							<button class="btn btn-default" style="width:25%" data-target="#shopEditModal" data-toggle="modal"> <!-- 編輯店面 -->
+								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-edit"></span>
+								編輯店面
+							</button>
+							<button class="btn btn-default" style="width:25%" id="itemModalBtn"> <!-- 商品上架 -->
+								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-cloud-upload"></span>
+								商品上架
+							</button>
+							<button class="btn btn-default" style="width:25%" id="test"> <!-- 最新消息 -->
+								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-exclamation-sign"></span>
+								最新消息
+							</button>
+						</div>
+						<div style="overflow:auto;position:absolute;top:0;left:0;right:0;bottom:60px">
+							<div id="sellerShopBox">
+							
+							</div>
+							<div class="sellerShopBtn" style="margin:5px; text-align:center">
+								<button id="shopModalBtn" type="button" class="btn btn-primary">檢視商店內容</button>
+								<button id="aboutMeModalBtn" type="button" class="btn btn-primary">檢視關於本店</button>
+							</div>
+							<div id="sellerShowCase" class="item-box-showcase">
+								<div class="list-toolbar" style="padding:5px 10px; border-bottom:1px solid; border-top:1px solid">
+									<div class="list-toolbar-sort">
+										商品排序依
+										<select>
+										  <option value="上架日期">上架日期</option>
+										  <option value="價格">價格</option>
+										</select>
+									</div>
+
+								</div>
+								<div id="sellerItemsList">
+									
+								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="tab2">
-							<p>One fine body…qqqqqqqqqqqqqqqq</p>
-						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- 
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div style="background-color:#dceaf4;" class="span10">
-				aaa
-				</div>
-				<div style="background-color:#dceaf4;" class="span2">
-				bbb
+			<div class="tab-pane fade" id="userPanel">  <!--User Panel -->
+				<div>
+					<div class="user-option">
+						<a href="#settingModal" data-toggle="modal">
+							<button type="button" id="settingModalbtn">帳號設定</button>
+						</a>
+					</div>
+					<div class="user-option">
+						<a href="#">
+							<button type="button">交易紀錄</button>
+						</a>
+					</div>
+					<div class="user-option">
+						<a href="#">
+							<button type="button">我的評價</button>
+						</a>
+					</div>
+					<div class="user-option">
+						<a href="#">
+							<button type="button" id="logoutBtn">登出帳號</button>
+						</a>
+					</div>
+					<!-- Chat system test start -->
+					<div id="chat-test" style="border:solid 1px">
+					</div>
+					<!-- Chat system test end -->
 				</div>
 			</div>
 		</div>
-		 -->
-		<div class="" id="map_canvas">
-		</div> <!-- /container -->
 		
-		<!--<script src="js/less-1.3.3.min.js"></script>-->
-		<script src="http://code.jquery.com/jquery.js"></script>
-		<script src="js/bootstrap.js"></script>
-		<!-- <script src="js/bootstrap.min.js"></script> -->
-		<!--<script src="js/bootstrap-modal.js"></script>
-		<script src="js/bootstrap-modalmanager.js"></script>-->
-		<script src="js/underscore-min.js"></script>
-		<script src="js/backbone-min.js"></script>
-		<script src="js/main.js"></script>
-		<script type="text/javascript">
 		
-		function viewport()
-		{
-		var e = window
-		, a = 'inner';
-		if ( !( 'innerWidth' in window ) )
-		{
-		a = 'client';
-		e = document.documentElement || document.body;
-		}
-		return { width : e[ a+'Width' ] , height : e[ a+'Height' ] }
-		}
-		$(window).resize(function() {
-			console.log(viewport())
-		});
+		{% csrf_token %}
 
-		var User = Backbone.Model.extend({
-			defaults : {
-				name : null,
-				email: null,
-			},
-			urlRoot:'accounts/users/'
-		});
-		
-		var loginUser = new User({id:'i'});
-		
-		var sellerPanelView = Backbone.View.extend({
-			el: $("#sellerPanel"),
-			events: {
-				"show": "showPanel",
-				"click #testBtn": "test",
-			},
-			test:function(){
-				this.$el.modal('hide');
-			},
-			initialize: function() {
-				$("#sellerPanel").modal({show:false,});
-				
-			},
-			showPanel: function(){
-				console.log('show');
-				/*
-				var view = this;
-				$("#sellerPanel").modal({height:'100px'});
-				this.$el.modal({height:'100px'});
-				
-				view.$el.modal('loading');
-				setTimeout(function(){
-					view.$el.modal('loading');
-				}, 1000);
-				*/
-			}
-		});
-		
-		var loginModalView = Backbone.View.extend({
-			el: $("#loginModal"),
-			events: {
-				"show": "showModal",
-				"click .btn-login": "login",
-			},
-			initialize: function() {
-				this.$('#loginEmail').val("");
-				this.$('#loginPassword').val("");
-			},
-			showModal: function() {
-				this.$('#loginPassword').val("");
-			},
-			login: function() {
-				var thisView = this;
-				var navBar = this.options.navBar;
-				var email = this.$("#loginEmail").val();
-				var password = this.$("#loginPassword").val();
-				$.get('accounts/login',{email:email,password:password})
-				.done(function(){
-					console.log('login done!')
-					loginUser.fetch();
-					thisView.$el.modal('hide');
-				}).fail(function(jqXHR, textStatus, errorThrown){
-					alert('帳號或密碼錯誤!');
-				});
-			},
-			render: function() {
-				
-			}
-		});
-		
-		var regModalView = Backbone.View.extend({
-			el: $("#regModal"),
-			events: {
-				"show": "showModal",
-				"click #registerBtn": "register",
-				"click .btn-captcha-refresh": "getCaptcha",
-				"change #regEmail": "checkEmail",
-				"change #regUsername": "checkUsername",
-				"keyup #regPassword": "checkPassword",
-				"keyup #regPasswordConfirm": "checkPasswordConfirm",
-				"keyup #regCaptcha": "clearCaptcha",
-				"click #regAgree": "clearAgree",
-			},
-			initialize: function() {
-				this.field = {
-					name: this.$('#regUsernameField'),
-					email: this.$('#regEmailField'),
-					password: this.$('#regPasswordField'),
-					passwordConfirm: this.$('#regPasswordConfirmField'),
-					captcha: this.$('#regCaptchaField'),
-					agree: this.$('#regAgreeField')
-				}
-				
-				this.input = {
-					name: this.$('#regUsername'),
-					email: this.$('#regEmail'),
-					password: this.$('#regPassword'),
-					passwordConfirm: this.$('#regPasswordConfirm'),
-					captcha: this.$('#regCaptcha'),
-					agree: this.$('#regAgree')
-				}
-				
-				this.$regBtn = this.$('#registerBtn');
-			},
-			showError: function(fieldName, msg){
-				var $field = this.field[fieldName];
-				if(!$field){return;}
-				$field.addClass('error');
-				if(msg){$field.find('.msg-error').text(msg);}
-			},
-			clearError: function(fieldName){
-				var $field = this.field[fieldName];
-				$field.removeClass('error');
-				$field.find('.msg-error').text('');
-			},
-			clearAgree: function(){
-				this.clearError('agree');
-			},
-			clearCaptcha: function(){
-				this.clearError('captcha');
-			},
-			checkEmail: function(){
-				var view = this;
-				var email = this.input.email.val();
-				if(email.length == 0){
-					this.clearError('email');
-					return;
-				}
-				$.getJSON('accounts/check-email', {email: email})
-				.done(function(data){
-					if(data.status == 'ERROR'){
-						view.showError('email',data.msg);
-					}else{
-						view.clearError('email');
-					}
-				});
-			},
-			checkUsername:function(){
-				var view = this;
-				var name = this.input.name.val();
-				var $nameField = this.$nameField;
-				if(name.length == 0){
-					this.clearError('name');
-					return
-				}else if(name.length > 20){
-					view.showError('name', '名稱太長');
-					return
-				}
-				$.getJSON('accounts/check-name', {name:name}).done(function(data){
-					if(data.status == 'ERROR'){
-						view.showError('name', data.msg);
-					}else{
-						view.clearError('name');
-					}
-				});
-			},
-			checkPassword:function(){
-				var password = this.input.password.val();
-				var length = password.length;
-				if(length > 0 && length < 8){
-					this.showError('password', '密碼長度太短');
-				}else if(length > 16){
-					this.showError('password', '密碼長度太長');
-				}else{
-					this.clearError('password');
-				}
-			},
-			checkPasswordConfirm:function(){
-				var password = this.input.password.val();
-				var passwordConfirm = this.input.passwordConfirm.val();
-				
-				if(password != passwordConfirm){
-					this.showError('passwordConfirm', '密碼不符');
-				}else{
-					this.clearError('passwordConfirm');
-				}
-			},
-			showModal: function() {
-				this.getCaptcha();
-				this.input.name.val("");
-				this.input.email.val("");
-				this.input.password.val("");
-				this.input.passwordConfirm.val("");
-				this.input.captcha.val();
-				this.input.agree.prop("checked",false);
-				this.$('.error').removeClass('error');
-				this.$('.msg-error').text('');
-			},
-			getCaptcha: function(){
-				var view = this;
-				return $.get('accounts/captcha',function(data){
-					view.$('.captcha').html(data);
-					view.input.captcha.val('');
-					//view.clearCaptcha();
-				});
-			},
-			register: function() {
-				var view = this;
-				var name = this.input.name.val();
-				var email = this.input.email.val();
-				var password = this.input.password.val();
-				var captcha = this.input.captcha.val();
-				var agree = this.input.agree.prop("checked");
-				
-				if(this.$('.error').length != 0){
-					return;
-				}else if(email.length == 0){
-					this.showError('email', '請輸入帳號');
-					return;
-				}else if(name.length == 0){
-					this.showError('name', '請輸入名稱');
-					return;
-				}else if(password.length == 0){
-					this.showError('password', '請輸入密碼');
-					return;
-				}else if(captcha.length == 0){
-					this.showError('captcha', '請輸入驗證碼');
-					return;
-				}else if(!agree){
-					this.showError('agree');
-					return;
-				}
-				
-				var $regBtn = this.$regBtn;
-				$regBtn.button('loading');
-				
-				$.post('accounts/create-user',{name:name,email:email,password:password,captcha:captcha},'json')
-				.done(function(data){
-					$regBtn.button('reset');
-					console.log(data);
-					if(data.status == 'OK'){
-						view.$el.modal('hide');
-						loginUser.set('id','i').fetch();
-						return;
-					}
-					
-					for(var fieldName in data){
-						if(fieldName == 'captcha'){
-							view.getCaptcha();
-						}
-						view.showError(fieldName, data[fieldName]);
-					}
-					
-				}).fail(function(){
-					$regBtn.button('reset');
-					alert('註冊失敗!');
-				});
-			},
-			render: function() {
-				
-			}
-		});
-		
-		var settingView = Backbone.View.extend({
-			el:$('#settingModal'),
-			events:{
-				'click #collapsePassword .btn-submit':'changePassword'
-			},
-			initialize: function() {
-				this.listenTo(loginUser, 'change:name', this.updateUser);
-			},
-			changePassword: function(){
-				var thisView = this;
-				var password = this.$('#settingPassword').val();
-				var newPassword = this.$('#settingNewPassword').val();
-				var newPassword2 = this.$('#settingNewPassword2').val();
-				if (newPassword !== newPassword2){
-					alert('新密碼不相符!');
-					return
-				}
-				$.post('accounts/password',{password:password,newpassword:newPassword})
-				.done(function(data){
-					alert('修改完成!')
-					thisView.$('#settingPassword').val('');
-					thisView.$('#settingNewPassword').val('');
-					thisView.$('#settingNewPassword2').val('');
-				}).fail(function(a,b){
-					console.log(a)
-					console.log(b)
-					alert('密碼錯誤!');
-				});
-			},
+		<!--Load 3rd party libraries-->
+		<script src="js/lib/jquery-1.10.2.min.js"></script>
+		<script src="js/lib/jquery.ui.widget.js"></script>
+		<script src="js/lib/jquery.iframe-transport.js"></script>
+		<script src="js/lib/jquery.fileupload.js"></script>
+		<script src="js/lib/jquery.fileupload-process.js"></script>
+		<script src="js/lib/jquery.fileupload-image.js"></script>
+		<script src="js/lib/bootstrap.js"></script>
+		<script src="js/lib/underscore-min.js"></script>
+		<script src="js/lib/backbone.js"></script>
 
-			updateUser: function(){
-				console.log(loginUser)
-				var email = loginUser.get('email');
-				var name = loginUser.get('name');
-				this.$('#settingEmail').val(email);
-				this.$('#settingUsername').val(name);
-			}
-		})
-		
-		
-		var navBarView = Backbone.View.extend({
-			el:$('#navBar'),
-			events: {
-				"click #logoutBtn": "logout",
-			},
-			initialize: function() {
-				this.$userNav = this.$("#userNav");
-				this.$guestNav = this.$("#guestNav");
-				this.guestMode();
-				
-				this.listenTo(loginUser, 'change:name', this.changeMode);
-				
-			},
-			changeMode: function(){
-				if(loginUser.get('name') == 'guest'){
-					this.guestMode();
-				}else{
-					this.userMode(loginUser);
-				}
-				console.log('changeMode');
-				console.log(loginUser);
-			},
-			logout: function(){
-				$.get('accounts/logout').done(function(data) {
-					loginUser.set('id','i');
-					loginUser.fetch();
-				}).fail(function(){
-					alert('登出失敗!');
-				});
-			},
-			guestMode: function(){
-				this.$userNav.hide();
-				this.$guestNav.show();
-			},
-			userMode: function(user){
-				this.$userNav.show().find('.username').text(user.get('name'));
-				this.$guestNav.hide();
-			}
-		});
-		/*
-		var testUser2 = new User({id:2});
-		testUser2.fetch();
-		console.log(testUser2);
-		
-		var testUser = new User({name:'qq',email:'qq@qq.com',password:'password'});
-		testUser.save();
-		console.log(testUser);
-		
-		$.get('accounts/captcha',function(data){
-			console.log(data);
-		});
-		*/
-			$(function(){
-				function initialize() {
-					var initlatlng = new google.maps.LatLng(25.056220142845, 121.54178450802);
-					var mapOptions = {
-						center: initlatlng,
-						zoom: 14,
-						mapTypeId: google.maps.MapTypeId.ROADMAP
-					};
-					var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-					var noPoi = [{
-						featureType: "poi",
-						stylers: [{ visibility: "off" }]
-					}];
-					map.setOptions({styles: noPoi});
-				}
-				//initialize();
-				
-				var navBar = new navBarView();
-				var loginModal = new loginModalView({navBar:navBar});
-				var regModal = new regModalView({navBar:navBar});
-				var settingModal = new settingView();
-				var sellerPanel = new sellerPanelView();
-				
-				loginUser.fetch();
-				
-			});
-		</script>
+		<!--Load Models&Collections-->
+		<script src="js/model/User.js"></script>
+		<script src="js/model/LoginUser.js"></script>
+		<script src="js/model/Item.js"></script>
+		<script src="js/model/ItemCategory.js"></script>
+		<script src="js/model/Chat.js"></script>
+		<script src="js/model/Reply.js"></script>
+		<script src="js/model/Shop.js"></script>
+		<script src="js/model/Favorite.js"></script>
+
+		<!--Load Router-->
+		<script src="js/router.js"></script>
+
+		<!--Set Global Variables-->
+		<script src="js/main.js"></script> 
+
+		<!--Load 1st-level Views-->
+		<script src="js/view/item/ItemBoxView.js"></script>
+		<script src="js/view/shop/ShopBoxView.js"></script>
+		<script src="js/view/shop/ShopMarkerView.js"></script>
+		<script src="js/view/chat/ReplyView.js"></script>
+
+		<!--Load 2nd-level Views-->
+		<script src="js/view/item/ItemBoxSellerView.js"></script>
+		<script src="js/view/shop/ShopBoxListView.js"></script>
+		<script src="js/view/item/ItemFavorListView.js"></script>
+		<script src="js/view/shop/ShopFavorListView.js"></script>
+
+		<!--Load main-level Views-->
+		<script src="js/view/main/NavBarView.js"></script>
+		<script src="js/view/main/MapPanelView.js"></script>
+		<script src="js/view/main/UserPanelView.js"></script>
+		<script src="js/view/main/SellerPanelView.js"></script>
+		<script src="js/view/main/BuyerPanelView.js"></script>
+
+		<!--Load Modal Views-->
+		<script src="js/view/item/ItemEditModalView.js"></script>
+		<script src="js/view/item/ItemModalView.js"></script>
+		<script src="js/view/shop/ShopEditModalView.js"></script>
+		<script src="js/view/shop/ShopModalView.js"></script>
+		<script src="js/view/chat/ChatroomModalView.js"></script>
+		<script src="js/view/user/LoginModalView.js"></script>
+		<script src="js/view/user/RegModalView.js"></script>
+		<script src="js/view/user/SettingModalView.js"></script>
+
+		<!--Load other Views-->
+		<script src="js/view/others/FormFieldView.js"></script>
+		<script src="js/view/others/InfoEmailView.js"></script>
+
+		<!--Load app View-->
+		<script src="js/view/app.js"></script>
+
 	</body>
 </html>
