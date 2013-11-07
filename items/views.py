@@ -89,7 +89,10 @@ class ItemsDetail(APIView):
 		item.state = Item.DEL
 		item.save()
 		return Response(status=status.HTTP_200_OK)
-
+	def get(self, request, id):
+		item = Item.objects.get(id=id)
+		serializer = ItemSerializer(item, user=request.user)
+		return Response(serializer.data)
 
 @api_view(['GET'])
 def getItemCategorys(request):
@@ -101,6 +104,61 @@ def getItemCategorys(request):
 @api_view(['GET'])
 def getItemConversationList(request, item_id):
 	chat = Chat.objects.filter(item__rid=item_id)
-	serializer = ChatSerializer(chat, many=True)
+	
+	if chat.exists()==False:
+		print('has no chat')
+		return Response()
+	
+	print(chat[0].buyer)
+	print(chat[0])
+	
+	if chat[0].seller == request.user:
+		serializer = ChatSerializer(chat, many=True)
+	elif chat.filter(buyer = request.user).exists() == True:
+		chat = chat.filter(buyer = request.user)
+		serializer = ChatSerializer(chat)
+	else:
+		return Response()
+		
+
+#	print('print chat')
+#	print(request.user)
+#	print(chat)
+	
 	return Response(serializer.data)
+
+class ItemsFavorList(APIView):
+	def post(self, request, item_id):
+		item = Item.objects.get(id=item_id)
+		if item.owner==request.user:
+			print('is owner')
+			return Response()
+		
+		if Chat.objects.filter(item = item).filter(buyer = request.user).exists() == False:
+			print('has no chat')
+			chat = Chat(buyer = request.user,
+						seller = item.owner,
+						item = item)
+			chat.save();
+		
+		if item.follower.all().filter(username = request.user.username).exists():
+			item.follower.remove(request.user)
+			return HttpResponse('removed')
+		else:
+			item.follower.add(request.user)
+			return HttpResponse('added')
+		return Response()
+	
+	def get(self, request, item_id):	
+		item = Item.objects.filter(follower = request.user)
+		serializer = ItemSerializer(item, many=True)
+		return Response(serializer.data)
+	
+	
+@api_view(['GET'])
+def getItemTest(request, item_id):
+	item = Item.objects.all()
+	serializer = ItemSerializer(item,user=request.user)
+	return Response(serializer.data)
+
 

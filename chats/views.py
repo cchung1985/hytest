@@ -44,7 +44,7 @@ def reply(request, chat_id):
 		#Set chat "seen" attribute
 		if request.user == chat.seller:
 			chat.buyer_seen = False
-		elif reqeust.user == chat.buyer:
+		elif request.user == chat.buyer:
 			chat.seller_seen = False
 		chat.save()
 
