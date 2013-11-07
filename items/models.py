@@ -46,6 +46,7 @@ class Item(models.Model):
 	category = models.ForeignKey(Category)
 	attrs = models.ManyToManyField(Attribute)
 	description = models.TextField(blank=True,null=True,verbose_name="Description")
+	follower = models.ManyToManyField(User, blank=True, related_name="favoritems")
 	def __unicode__(self):
 		return "%s %s %s"%(self.owner,self.name,self.pub_date)
 
