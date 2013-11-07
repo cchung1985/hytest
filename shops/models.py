@@ -12,5 +12,6 @@ class Shop(models.Model):
 	open = models.BooleanField(default=False)
 	owner = models.ForeignKey(User,related_name="shops")
 	items = models.ManyToManyField(Item,blank=True,related_name="shops")
+	follower = models.ManyToManyField(User,blank=True,related_name="favorshops")
 	def __unicode__(self):
 		return "%s (%s)"%(self.owner.username,self.name)
