@@ -4,7 +4,7 @@ returned by list views.
 """
 from __future__ import unicode_literals
 from django.db import models
-from rest_framework.compat import django_filters, six
+from rest_framework.compat import django_filters, six, guardian
 from functools import reduce
 import operator
 
@@ -53,6 +53,7 @@ class DjangoFilterBackend(BaseFilterBackend):
                 class Meta:
                     model = queryset.model
                     fields = filter_fields
+                    order_by = True
             return AutoFilterSet
 
         return None
@@ -109,8 +110,7 @@ class OrderingFilter(BaseFilterBackend):
 
     def get_ordering(self, request):
         """
-        Search terms are set by a ?search=... query parameter,
-        and may be comma and/or whitespace delimited.
+        Ordering is set by a comma delimited ?ordering=... query parameter.
         """
         params = request.QUERY_PARAMS.get(self.ordering_param)
         if params:
@@ -134,10 +134,31 @@ class OrderingFilter(BaseFilterBackend):
             ordering = self.remove_invalid_fields(queryset, ordering)
 
         if not ordering:
-            # Use 'ordering' attribtue by default
+            # Use 'ordering' attribute by default
             ordering = self.get_default_ordering(view)
 
         if ordering:
             return queryset.order_by(*ordering)
 
         return queryset
+
+
+class DjangoObjectPermissionsFilter(BaseFilterBackend):
+    """
+    A filter backend that limits results to those where the requesting user
+    has read object level permissions.
+    """
+    def __init__(self):
+        assert guardian, 'Using DjangoObjectPermissionsFilter, but django-guardian is not installed'
+
+    perm_format = '%(app_label)s.view_%(model_name)s'
+
+    def filter_queryset(self, request, queryset, view):
+        user = request.user
+        model_cls = queryset.model
+        kwargs = {
+            'app_label': model_cls._meta.app_label,
+            'model_name': model_cls._meta.module_name
+        }
+        permission = self.perm_format % kwargs
+        return guardian.shortcuts.get_objects_for_user(user, permission, queryset)
