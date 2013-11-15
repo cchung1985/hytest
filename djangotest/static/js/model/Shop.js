@@ -5,6 +5,7 @@ app.Shop = Backbone.Model.extend({
 	initialize: function(){
 		var that = this;
 		this.items = new app.Items();
+		this.items.shop = this;
 		this.items.url = function(){
 			return 'shops/'+that.id+'/items/';
 		}
@@ -30,12 +31,6 @@ app.Shops = Backbone.Collection.extend({
 		}
 	},
 	fetchByBounds:function(bounds){
-		/*var that = this;
-		var dfd = $.get('shops/',bounds);
-		dfd.done(function(shops){
-			that.set(shops);
-		});
-		return dfd;*/
 		this.setBounds(bounds);
 		return this.fetch();
 	},

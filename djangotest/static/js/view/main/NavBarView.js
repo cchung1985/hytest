@@ -11,7 +11,7 @@ app.NavBarView = Backbone.View.extend({
 		this.$userNav = this.$("#userNav");
 		this.$guestNav = this.$("#guestNav");
 		this.guestMode();
-		this.listenTo(app.loginUser, 'login', this.loginMode);
+		this.listenTo(app.loginUser, 'getNav', this.loginMode);
 	},
 	guestMode: function(){
 		this.$userNav.hide();

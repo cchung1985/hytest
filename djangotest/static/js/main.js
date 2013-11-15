@@ -5,6 +5,7 @@ app.loginUser = new app.LoginUser();
 app.itemCategorys = new app.ItemCategorys();
 app.myShop = new app.Shop();
 console.log(app.myShop);
+app.myFavorite = new app.Favorite({'id':0});
 new app.myRouter();
 Backbone.history.start();
 
@@ -133,15 +134,25 @@ function msgbox(message){
 var globalEvents = {
 	newmsg:function(data){
 		var reply = data;
+
 		app.myShop.items.each(function(item){
 			console.log(item.get('name'));
 			item.chats.each(function(chat){
-			//console.log("chat.get('id'): "+chat.get('id'));
-			//console.log("reply.chat: "+reply.chat);
 				if(chat.get('id') == reply.chat){
 					if(chat.replys.length==0){
-						$("img[data-chat-id="+chat.get('id')+"]").addClass('newmsg');
-						$("img[data-item-id="+item.get('id')+"]").addClass('newmsg');
+						var $chatBox = $("div[data-chat-id='"+chat.get('id')+"'] .badge");
+						if($chatBox.hasClass('seen')){
+							//change chat-box notification
+							$chatBox.removeClass('seen').addClass('unseen');
+							
+							//change chat-list notification
+							$chatList = $("div[id='chats"+item.get('id')+"'] .panel-title .badge");
+							count = parseInt($chatList.text());
+							if(isNaN(count)){count=0;}
+							$chatList.removeClass('seen').addClass('unseen').text(count+1);
+						}
+						
+						alert(chat.get('buyer')+'向你詢問'+chat.get('item'));
 					}
 					else{
 						chat.replys.each(function(existReply){
@@ -149,17 +160,30 @@ var globalEvents = {
 							return;
 						});
 						reply = new app.Reply(reply);
-						//reply.trigger('seen');
-						//reply.once('seen',funciton(){
-							//remove event
-						//	event.destroy();
-						//});
 						chat.replys.add(reply);
 					}
 				}
 			});
 		});
-		//console.log('receive a new messgae')
+		
+		app.myFavorite.items.each(function(item){
+			item.chats.each(function(chat){
+				if(chat.get('id')==reply.chat){
+					if(chat.replys.length==0){
+						$("div[data-chat-id="+chat.get('id')+"] .badge").addClass('unseen');
+						alert(chat.get('seller')+'向你詢問'+chat.get('item'));
+					}else{
+						reply = new app.Reply(reply);
+						chat.replys.add(reply);
+					}
+				}
+			});
+		});
+	},
+	newchat:function(data){
+		var item = app.myShop.items.get(data);
+		item.chats.fetch({reset:true});
+		//alert(data.id);
 	},
 	//sendMessage:function(data){
 	//	myShop.items.each(function(item){
@@ -189,7 +213,7 @@ function hEvent(e){
 };
 
 $(function(){
-	new app.AppView();
+	app.app = new app.AppView();
 
 	window.onresize = function(event) {
 		if(window.innerWidth>window.innerHeight){

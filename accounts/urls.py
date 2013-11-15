@@ -18,6 +18,6 @@ urlpatterns = patterns('',
 	url(r'^events$', views.events),
 	#url(r'^users/(?P<user_id>\d+)$', views.userDetail.as_view()),
 	
-	url(r'^users$', views.users),
+	url(r'^createUsers$', views.createUsers),
 	url(r'^.*$','django.views.defaults.page_not_found')
 )

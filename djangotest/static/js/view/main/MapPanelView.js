@@ -10,7 +10,7 @@ app.MapPanelView = Backbone.View.extend({
 	},
 	search:function(){
 		var searchString = this.$('#mapSearchText').val();
-		this.shops.setSearch(searchString).fetch({reset:true});
+		this.items.setSearch(searchString).fetch({reset:true});
 	},
 	selectSearchType:function(e){
 		var $option = $(e.target);
@@ -61,7 +61,7 @@ app.MapPanelView = Backbone.View.extend({
 			},500);
 		});
 		
-		var shopsCache = this.shops = new app.Shops();
+		var shopsCache = this.items = new app.Items();
 		shopsCache.comparator = function(shop1,shop2){
 			var center = centerMarker.getPosition();
 			var latlng1 = new google.maps.LatLng(shop1.get('latitude'), shop1.get('longitude'));
@@ -76,9 +76,9 @@ app.MapPanelView = Backbone.View.extend({
 		var shopMarkers = {};
 		var displayShopMarkers = {};
 		
-		var shopBoxList = new app.ShopBoxListView({
-			shops:shopsCache,
-			el:'#mapBoxList',
+		var shopBoxList = new app.ItemBoxListView({
+			items:shopsCache,
+			el:'#mapBoxList'/*,
 			display:function(shops){
 				_.each(displayShopMarkers,function(marker){
 					marker.setMap(null);
@@ -94,7 +94,7 @@ app.MapPanelView = Backbone.View.extend({
 					displayShopMarkers[shop.id] = marker;
 					displayShopMarkers[shop.id].setAnimation(google.maps.Animation.BOUNCE);
 				});
-			}
+			}*/
 		});
 		
 		/*
@@ -125,15 +125,15 @@ app.MapPanelView = Backbone.View.extend({
 				marker.setMap(null);
 				delete marker;
 			});
-			shopsCache.each(function(shop){
+			shopsCache.each(function(item){
 			
-				var latlng = new google.maps.LatLng(shop.get('latitude'),shop.get('longitude'));
-				var shopBox = new app.ShopBoxView({model:shop});
+				var latlng = new google.maps.LatLng(item.get('latitude'),item.get('longitude'));
+				var shopBox = new app.ItemBoxView({model:item});
 				//console.log(shopMarkers[shop.id])
-				shopMarkers[shop.id] = new ShopMapMarker({
+				shopMarkers[item.id] = new ShopMapMarker({
 					position:latlng,
 					map:map,
-					shop:shop
+					shop:item
 				});
 				/*
 				shopMarkers[shop.id] = new google.maps.Marker({

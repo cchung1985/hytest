@@ -21,9 +21,13 @@ from items.models import Attribute
 from items.serializers import ItemSerializer
 from items.models import Item
 from items.models import ItemImage
+from items.models import Thumbnail
 
 from chats.models import Chat
 from chats.serializer import ChatSerializer
+
+from PIL import Image
+import shlex
 
 class JSONResponse(HttpResponse):
 	def __init__(self, data, **kwargs):
@@ -51,11 +55,13 @@ def uploadItemImage(request,item_id,index):
 	item = Item.objects.get(id=item_id)
 	for index in request.FILES:
 		print index
-		if index == '0':
-			item.pic = request.FILES[index]
-			item.save()
+		#save the first image as a thumbnail
 		image = ItemImage(item=item,index=index,image=request.FILES[index])
 		image.save()
+		
+		if index == '0':
+			thumbnail = Thumbnail(name = 'test', item = item, thumbnail=request.FILES[index])
+			thumbnail.save()		
 	return JSONResponse({'status':'OK'},status=status.HTTP_201_CREATED)
 
 
@@ -65,7 +71,14 @@ def randomID(length):
 
 class ItemsList(APIView):
 	def get(self, request, format=None):
-		return Response(status=status.HTTP_204_NO_CONTENT)
+		items = Item.objects.all()
+		GET = request.GET
+		if GET.has_key('string'):
+			patterns = shlex.split(GET['string']);
+			for pattern in patterns:
+				shops = items.filter(name__contains=pattern)
+		serializer = ItemSerializer(shops,many=True)
+		return Response(serializer.data,status=status.HTTP_200_OK)
 
 	def post(self, request, format=None):
 		data = request.DATA
@@ -83,13 +96,17 @@ class ItemsDetail(APIView):
 		try:
 			item = Item.objects.get(id=id)
 			if item.owner.id != user.id:
-				return Response(status=status.HTTP_401_UNAUTHORIZED)
+				item.follower.remove(request.user)
+				return Response('removed')
 		except Item.DoesNotExist:
 			return Response(status=status.HTTP_404_NOT_FOUND)
 		item.state = Item.DEL
 		item.save()
 		return Response(status=status.HTTP_200_OK)
-
+	def get(self, request, id):
+		item = Item.objects.get(id=id)
+		serializer = ItemSerializer(item, user=request.user)
+		return Response(serializer.data)
 
 @api_view(['GET'])
 def getItemCategorys(request):
@@ -98,9 +115,84 @@ def getItemCategorys(request):
 	return Response(serializer.data)
 
 #權限未完成
+#取得聊天室清單
 @api_view(['GET'])
 def getItemConversationList(request, item_id):
-	chat = Chat.objects.filter(item__rid=item_id)
-	serializer = ChatSerializer(chat, many=True)
+	chat = Chat.objects.filter(item__id=item_id)
+	
+	if chat.exists()==False:
+		print('has no chat')
+		return Response()
+	
+	print(chat[0].buyer)
+	print(chat[0])
+	
+	if chat[0].seller == request.user:
+		serializer = ChatSerializer(chat, many=True)
+	elif chat.filter(buyer = request.user).exists() == True:
+		chat = chat.filter(buyer = request.user)
+		serializer = ChatSerializer(chat)
+	else:
+		return Response()
+		
+
+#	print('print chat')
+#	print(request.user)
+#	print(chat)
+	
 	return Response(serializer.data)
+
+class ItemsFavorList(APIView):
+	def post(self, request, item_id):
+		item = Item.objects.get(id=item_id)
+		if item.owner==request.user:
+			print('is owner')
+			return Response()
+		
+		if Chat.objects.filter(item = item).filter(buyer = request.user).exists() == False:
+			print('has no chat')
+			chat = Chat(buyer = request.user,
+						seller = item.owner,
+						item = item)
+			chat.save();
+		
+		if item.follower.all().filter(username = request.user.username).exists():
+			item.follower.remove(request.user)
+			return HttpResponse('removed')
+		else:
+			item.follower.add(request.user)
+			serializer = ItemSerializer(item, user=request.user)
+			return Response(serializer.data)
+		return Response()
+	
+	def get(self, request, item_id):	
+		item = Item.objects.filter(follower = request.user)
+		serializer = ItemSerializer(item, user=request.user, many=True)
+		return Response(serializer.data)
+
+	def delete(self, request, item_id):
+		item = Item.objects.filter(follower = request.user)
+		item.follower.remove(request.user)
+		print('remove item')
+		return HttpResponse('removed')
+
+@api_view(['GET'])
+def getItemTest(request, item_id):
+	item = Item.objects.get(id=item_id)
+	print(item)
+	print('print item.pic')
+	print(str(item.pic))
+	img = Image.open(item.pic)
+#	print('print img size')
+	img = cropped_thumbnail(img, (100,100))
+	
+	#img.show()
+#	img.save(MEDIA_ROOT+str(item.pic),'PNG')
+#	img.save('D:/test/sdf.png')
+#	print(type(img))
+	#item.pic = img
+	#item.save()
+	return HttpResponse(123)
+	#return Response(serializer.data)
+
 

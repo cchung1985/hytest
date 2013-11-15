@@ -21,5 +21,4 @@ app.Chat = Backbone.Model.extend({
 
 app.Chats = Backbone.Collection.extend({
 	model: app.Chat,
-	url: 'chats/list'
 });

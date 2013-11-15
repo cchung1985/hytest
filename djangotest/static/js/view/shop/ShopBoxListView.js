@@ -18,10 +18,10 @@ app.ShopBoxListView = Backbone.View.extend({
 				var top = position.top;
 				var bottom = top + shopBox.$el.height();
 				if((top>=0 && top<height)||(bottom>=0 && bottom<height)){
-					that.shopBoxs[shop.id].$el.css('color','red');
+					//that.shopBoxs[shop.id].$el.css('color','red');
 					shownShops.push(shop);
 				}else{
-					that.shopBoxs[shop.id].$el.css('color','black');
+					//that.shopBoxs[shop.id].$el.css('color','black');
 					hiddenShops.push(shop);
 				}
 			});

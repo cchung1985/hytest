@@ -12,7 +12,22 @@ app.Item = Backbone.Model.extend({
 });
 
 app.Items = Backbone.Collection.extend({
-	model: app.Item
+	model: app.Item,
+	initialize:function(options){
+		var that = this;
+		this.url = function(){ 
+			if (that.bounds){
+				return 'items/?'+$.param(that.bounds);
+			}else if (that.string){
+				return 'items/?'+$.param(that.string);
+			}
+			return 'items/';
+		}
+	},
+	setSearch:function(string){
+		this.string = {string:string};
+		return this;
+	}
 });
 
 
