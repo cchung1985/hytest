@@ -47,9 +47,9 @@ app.MapPanelView = Backbone.View.extend({
 			var latlng2 = new google.maps.LatLng(shop2.get('latitude'), shop2.get('longitude'));
 			var d1 = google.maps.geometry.spherical.computeDistanceBetween(center,latlng1)
 			var d2 = google.maps.geometry.spherical.computeDistanceBetween(center,latlng2)
-			if(d1>d2){return 1;}
-			else if(d1=d2){return 0;}
-			else{return -1}
+			if(d1==d2){return 0;}
+			else if(d1<d2){return -1;}
+			else{return 1;}
 		}
 		
 		var shopMarkers = {};

@@ -11,7 +11,7 @@ from datetime import datetime
 class Chat(models.Model):
 	seller = models.ForeignKey(User, related_name="seller_chat")
 	buyer = models.ForeignKey(User, related_name="buyer_chat")
-	item = models.ForeignKey(Item)
+	item = models.ForeignKey(Item, related_name="item_chat")
 	datetime = models.DateTimeField(auto_now_add=True)
 	seller_seen = models.BooleanField(default=True)
 	buyer_seen = models.BooleanField(default=True)

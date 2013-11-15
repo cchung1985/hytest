@@ -3,8 +3,10 @@ var app = app || {};
 app.ShopBoxView = Backbone.View.extend({
 	className: "shop-box",
 	events: {
+		"click .media":"openShopModal",
 	},
 	initialize: function() {
+		this.shop = this.model;
 		this.listenTo(this.model, "change", this.render);
 		this.render();
 	},
@@ -26,6 +28,18 @@ app.ShopBoxView = Backbone.View.extend({
 				</div>\
 			</div>'
 		);
-	}
+	},
+	openShopModal: function(){
+		var shop = new app.Shop();
+		shop.set('id',this.shop.get('id'));
+		shop.fetch().pipe(function(){
+			return shop.items.fetch({reset:true});
+		}).done(function(){
+			var shopModal = new app.ShopModalView({model:shop});
+			shopModal.open();
+		}).fail(function(){
+			alert('網路傳輸錯誤 請稍後再試');
+		});
+	},
 });
 

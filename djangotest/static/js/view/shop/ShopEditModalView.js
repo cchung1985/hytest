@@ -59,7 +59,7 @@ app.ShopEditModalView = Backbone.View.extend({
 			longitude:longitude
 		});
 		app.myShop.save().done(function(){
-			alert('修改成功');
+			//alert('修改成功');
 			that.$el.modal('hide');
 		}).fail(function(){
 			app.myShop.fetch();

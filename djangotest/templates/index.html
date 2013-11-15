@@ -103,8 +103,8 @@
 		.msglist{
 			padding: 0px;
 			list-style-type: none;
-			overflow-y: scroll;
-			max-height: 400px;
+			/*overflow-y: scroll;*/
+			/*max-height: 400px;*/
 		}
 		
 		.msglist .msgbox{
@@ -113,7 +113,7 @@
 			margin-bottom: 10px;
 			padding: 5px;
 			word-wrap: break-word;
-			max-width: 400px;
+			max-width: 80%;
 		}
 		
 		.msglist .msg-me{
@@ -138,23 +138,60 @@
 		}
 		
 		/************************/
+		/*						*/
+		/*		item-modal		*/
+		/*						*/
+		/************************/
+		.item-modal-container{
+			margin:		20px;
+			text-align:	center;
+		}
+		
+		#item-modal-price:before{
+			content: "價格:";
+			float:	left;
+		}
+		
+		#item-modal-price:after{
+			content: " 元";
+		}
+		
+		#item-modal-add-time:before{
+			content: "上架日期:";
+			float:	left;
+		}
+		
+		#item-modal-price-attr span,
+		#item-modal-condition-attr span,
+		#item-modal-size-attr span{
+			border-radius:		5px; 
+			background-color:	#0c0; 
+			color:				white;
+			width:				80%;
+		}
+		
+		
+		/************************/
 		/*		shop-modal,		*/
 		/*		seller-item-box	*/
 		/*		 | item-box		*/
 		/*						*/
 		/************************/
+		.item-favor-list .item-box-price:before,
 		.shop-modal-showcase .item-box-price:before,
 		.seller-item-box .item-box-price:before{
 			content: "價格:";
 			float:	left;
 		}
 		
+		.item-favor-list .item-box-price:after,
 		.shop-modal-showcase .item-box-price:after,
 		.seller-item-box .item-box-price:after{
 			content: " 元";
 			
 		}
 		
+		.item-favor-list .item-box-attrs span,
 		.shop-modal-showcase .item-box-attrs span,
 		.seller-item-box .item-box-attrs span{
 			border-radius:		5px; 
@@ -163,6 +200,7 @@
 			width:				80px;
 		}
 
+		.item-favor-list .item-box-description,
 		.shop-modal-showcase .item-box-description,
 		.seller-item-box .item-box-description{
 			position:		absolute; 
@@ -170,18 +208,22 @@
 			margin-top:		14px;
 			padding-top:	6px;
 			padding-right:	20px;
-			left:			50%				
+			left:			50%;
 		}
 		
+		.item-favor-list .item-box-description .item-box-vertical,
 		.shop-modal-showcase .item-box-description .item-box-vertical,
 		.seller-item-box .item-box-description .item-box-vertical{
 			display:	none;
 		}
+		
+		.item-favor-list .item-box-description .item-box-horizontal,
 		.shop-modal-showcase .item-box-description .item-box-horizontal,
 		.seller-item-box .item-box-description .item-box-horizontal{
 			display:	block;
 		}
 		
+		.item-favor-list .item-box-description:before,
 		.shop-modal-showcase .item-box-description:before,
 		.seller-item-box .item-box-description:before{
 			font-weight:	bold;
@@ -198,53 +240,34 @@
 		/*		| chat-list		*/
 		/*						*/
 		/************************/
-		.seller-item-box .chat-list div{
+		.chat-list div{
 			border-bottom: 1px solid #ccc;
-			background-image: linear-gradient(-45deg, rgb(255,255,255) 25%, rgb(255,255,0) 90%);
+			/*background-image: linear-gradient(-45deg, rgb(255,255,255) 25%, rgb(255,255,0) 90%);*/
+			background-color: #E8E8E8;
 			padding: 5px;
 		}
 		
-		.seller-item-box .chat-list button,
-		.seller-item-box .chat-list img{
-			position:	relative;
-			float:		right;
+		.chat-list span.newmsg{
+			display:new;
 		}
 		
-		.seller-item-box .chat-list img{
-			width:		20px; 
-			height:		20px;
-			right:		-31px;
-			top:		-5px;
-			display:	none;
-		}			
-		
-		.seller-item-box .chat-list img.newmsg{
-			display:	inline;
+		.badge.seen{
+			display: none;
 		}
-
-		.seller-item-box .chat-list button{
-			border:1px solid;
-			border-radius: 5px;
-			background-color: white;
-			background-image: url("./img/chat.png");	
-			background-size: contain;
-			width: 30px;
-			height: 25px;
-			top: 2px;
-			right: 5px;
+		
+		.badge.unseen{
+			display: inline;
 		}
 		
 		.seller-item-box .chats-order{
-			line-height: 25px;
-			font-size: 1.75em;
 			font-weight: bold;
 			font-style: italic;
 			text-align: center;
 			color: white;
-			background-image: linear-gradient(-45deg, rgb(100,100,100) 30%, rgb(0,0,0) 70%);
+			/*background-image: linear-gradient(-45deg, rgb(100,100,100) 30%, rgb(0,0,0) 70%);*/
+			background-color: black;
 			display: inline-block;
 			width: 40px;
-			height: 25px;
 		}
 
 		/************************/
@@ -369,6 +392,7 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
 	</head>
 	<body>
+		<!--NavBar-->
 		<div id="navBar" style="background-color:#FFFFFF" class="navbar navbar-fixed-top">
 			<div class="container">
 				<div>
@@ -381,7 +405,7 @@
 							</a>
 						</li>
 						<li> <!-- Trace Panel Tab -->
-							<a href="#tracePanel" data-toggle="tab">
+							<a href="#buyerPanel" data-toggle="tab">
 								<span class="glyphicon glyphicon-list-alt"></span>
 								<span class="hidden-xs">追蹤清單</span>
 							</a>
@@ -627,75 +651,7 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
-		<!--Item Modal-->
-		<div id="itemModal" class="modal fade" tabindex="-1">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">ITEM</h4>
-					</div>
-					<div class="modal-body" style="min-height:300px; padding:0px">
-						<div class="modal-board">
-							<div style="position:relative; border-bottom:1px solid; padding:10px;">
-								<h4 style="margin-right:50px">這裡放商品的名稱這裡放商店的名稱這裡放商品的名稱</h4>
-								<button type="submit" style="position:absolute; right:0px; top:0px; margin:10px">
-									<span class="glyphicon glyphicon-star-empty" style="font-size:2em;"></span>
-								</button>
-							</div>
-						</div>
-						<div class="item-modal-photos" style="white-space:nowrap; padding:5px; border:1px solid; overflow:auto">
-							<span style=""><img src="img/first-slide.png" width="100%"></span>
-							<span style=""><img src="img/second-slide.png" width="100%"></span>
-							<span style=""><img src="img/third-slide.png" width="100%"></span>
-						</div>
-						<div class="row">
-							<div class="col-xs-12 col-sm-6">
-								<div class="item-modal-detail" style="text-align: center; margin:10px">
-									<div class="item-modal-price">100000</div>
-									<div class="item-modal-add-time"></div>
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6">
-								<div class="item-modal-attrs" style="margin:10px">
-									<div class="row" style="text-align:center">
-										<div class="col-xs-4">尺寸<br><span>背包可裝</span></div>
-										<div class="col-xs-4">新舊<br><span>全新品</span></div>
-										<div class="col-xs-4">談價空間<br><span>不二價</span></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="item-modal-description" style="margin:10px; text-align:center">
-							<h4>商品描述</h4>
-							<p style="text-align:left">商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述</p>
-						</div>
-						<div class="item-modal-map" style="margin:10px; text-align:center; height:100px;">
-							<h4>位置</h4>
-							<div>
-								<!--Googole Map-->
-							</div>
-						</div>
-						<div class="item-modal-chat" style="margin:10px; text-align:center">
-							<h4>想要買?有問題?</h4>
-							<button class="btn btn-primary" type="button">聯絡賣家</button>
-						</div>
-					</div>
-					<div class="modal-footer" style="text-align:center">
-						<div class="row">
-							<div class="col-xs-6">
-								<button type="button" class="btn btn-primary" style="margin:auto">瀏覽商店</button>
-							</div>
-							<div class="col-xs-6">
-								<button type="button" class="btn btn-primary" style="margin:auto">關於本店</button>
-							</div>
-						</div>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
-		
-		
+
 		
 		
 		<!--Edit Shop Modal-->
@@ -744,43 +700,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!--Shop Modal -->
-		<div id="shopModal" class="modal fade" tabindex="-1">
-			<div class="modal-dialog">
-					<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">SHOP</h4>
-					</div>
-					<div class="modal-body" style="min-height:300px; padding:0px">
-						<div id="shopModalBoard" class="shop-modal-board" style="position:relative; padding:10px;">
-							<h4 style="margin-right:50px"></h4>
-							<button type="submit" style="position:absolute; right:0px; top:0px; margin:10px">
-								<span class="glyphicon glyphicon-star-empty" style="font-size:2em;"></span>
-							</button>
-						</div>
-						<div id="shopModalShowcase" class="shop-modal-showcase">
-							<div class="showcase-toolbar" style="padding:5px 10px; border-bottom:1px solid">
-								<div class="showcase-toolbar-sort">
-									排序依
-									<select>
-									  <option value="上架日期">上架日期</option>
-									  <option value="價格">價格</option>
-									</select>
-								</div>
-							</div>
-							<div id="shopModalItemList" class="showcase-item-list" style="">
-								
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer" style="text-align:center">
-						<button type="button" class="btn btn-primary" style="margin:auto">關於本店</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
 		
 		<!--Setting modal -->
 		<div id="settingModal" class="modal fade" tabindex="-1">
@@ -922,11 +841,39 @@
 
 		<!-- Main Panels -->
 		<div class="main-panels tab-content">
-			<div class="tab-pane active fade in" id="mapPanel"> <!-- Map Panels -->
+			<div class="tab-pane active fade in" id="mapPanel" style="z-index:2"> <!-- Map Panels -->
 				<div id="mainMap"></div>
 				<div id="mapBoxList"></div>
 			</div>
-			<div class="tab-pane fade" id="tracePanel"> <!-- Trace Panel -->
+			<div class="tab-pane fade" id="buyerPanel"> <!-- Buyer Panel -->
+				<div id="itemFavorList">
+					<h3 style="padding:10px; margin:0px">Tracing Item</h3>
+					<div class="list-toolbar" style="border-bottom:1px solid; border-top:1px solid; padding:5px">
+						<div class="list-toolbar-sort">
+							排序依
+							<select>
+								<option value="上架日期">上架日期</option>
+								<option value="價格">價格</option>
+							</select>
+						</div>
+					</div>
+					<div class="item-favor-list">
+					</div>
+				</div>
+				<div id="shopFavorList" style="display:none">
+					<h3 style="padding:10px; margin:0px">Tracing Shop</h3>
+					<div class="list-toolbar" style="border-bottom:1px solid; border-top:1px solid; padding:5px">
+						<div class="list-toolbar-sort">
+							排序依
+							<select>
+								<option value="上架日期">上架日期</option>
+								<option value="價格">價格</option>
+							</select>
+						</div>
+					</div>
+					<div class="shop-favor-list">
+					</div>
+				</div>
 			</div>
 			<div class="tab-pane fade" id="sellerPanel"> <!-- Seller Panel -->
 				<div class="container" style="position:relative;height:100%">
@@ -940,7 +887,7 @@
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-edit"></span>
 								編輯店面
 							</button>
-							<button class="btn btn-default" style="width:25%" id="itemModalBtn"> <!-- 商品上架 -->
+							<button class="btn btn-default" style="width:25%" id="itemEditModalBtn"> <!-- 商品上架 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-cloud-upload"></span>
 								商品上架
 							</button>
@@ -954,12 +901,12 @@
 							
 							</div>
 							<div class="sellerShopBtn" style="margin:5px; text-align:center">
-								<button id="shopModalBtn" type="button" class="btn btn-primary">檢視商店內容</button>
-								<button id="aboutMeModalBtn" type="button" class="btn btn-primary">檢視關於本店</button>
+								<button id="shopModalBtn" type="button" class="btn btn-default">檢視商店內容</button>
+								<button id="aboutMeModalBtn" type="button" class="btn btn-default">檢視關於本店</button>
 							</div>
 							<div id="sellerShowCase" class="item-box-showcase">
-								<div class="showcase-toolbar" style="padding:5px 10px; border-bottom:1px solid; border-top:1px solid">
-									<div class="showcase-toolbar-sort">
+								<div class="list-toolbar" style="padding:5px 10px; border-bottom:1px solid; border-top:1px solid">
+									<div class="list-toolbar-sort">
 										商品排序依
 										<select>
 										  <option value="上架日期">上架日期</option>
@@ -998,25 +945,30 @@
 							<button type="button" id="logoutBtn">登出帳號</button>
 						</a>
 					</div>
-					<!-- Chat system test start -->
-					<div id="chat-test" style="border:solid 1px">
+					<div>
+						Upload Test
 					</div>
-					<!-- Chat system test end -->
 				</div>
 			</div>
 		</div>
 		
-		
 		{% csrf_token %}
 
 		<!--Load 3rd party libraries-->
+		<!--jQuery-->
 		<script src="js/lib/jquery-1.10.2.min.js"></script>
+		<!--jQuery-File-Upload-->
 		<script src="js/lib/jquery.ui.widget.js"></script>
+		<script src="js/lib/load-image.min.js"></script>
+		<script src="js/lib/canvas-to-blob.min.js"></script>
 		<script src="js/lib/jquery.iframe-transport.js"></script>
 		<script src="js/lib/jquery.fileupload.js"></script>
 		<script src="js/lib/jquery.fileupload-process.js"></script>
 		<script src="js/lib/jquery.fileupload-image.js"></script>
+		<script src="js/lib/jquery.fileupload-validate.js"></script>
+		<!--Bootstrap-->
 		<script src="js/lib/bootstrap.js"></script>
+		<!--BackBone-->
 		<script src="js/lib/underscore-min.js"></script>
 		<script src="js/lib/backbone.js"></script>
 
@@ -1028,6 +980,7 @@
 		<script src="js/model/Chat.js"></script>
 		<script src="js/model/Reply.js"></script>
 		<script src="js/model/Shop.js"></script>
+		<script src="js/model/Favorite.js"></script>
 
 		<!--Load Router-->
 		<script src="js/router.js"></script>
@@ -1043,13 +996,18 @@
 
 		<!--Load 2nd-level Views-->
 		<script src="js/view/item/ItemBoxSellerView.js"></script>
+		<script src="js/view/item/ItemBoxBuyerView.js"></script>
 		<script src="js/view/shop/ShopBoxListView.js"></script>
+		<script src="js/view/item/ItemFavorListView.js"></script>
+		<script src="js/view/shop/ShopFavorListView.js"></script>
+		
 
 		<!--Load main-level Views-->
 		<script src="js/view/main/NavBarView.js"></script>
 		<script src="js/view/main/MapPanelView.js"></script>
 		<script src="js/view/main/UserPanelView.js"></script>
 		<script src="js/view/main/SellerPanelView.js"></script>
+		<script src="js/view/main/BuyerPanelView.js"></script>
 
 		<!--Load Modal Views-->
 		<script src="js/view/item/ItemEditModalView.js"></script>

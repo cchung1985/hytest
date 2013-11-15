@@ -25,9 +25,9 @@ class JSONResponse(HttpResponse):
 def shopItems(request,shop_id):
 	user = request.user
 	shop = Shop.objects.get(id=shop_id)
-	if shop.owner.id != user.id:
-		return Response(status=status.HTTP_401_UNAUTHORIZED)
-	serializer = ItemSerializer(shop.items.filter(state=Item.ON),many=True)
+	#if shop.owner.id != user.id:
+	#	return Response(status=status.HTTP_401_UNAUTHORIZED)
+	serializer = ItemSerializer(shop.items.filter(state=Item.ON),user=request.user,many=True)
 	return Response(serializer.data)
 
 class ShopsList(APIView):
@@ -61,7 +61,7 @@ class ShopsDetail(APIView):
 			shop = Shop.objects.get(id=id)
 		except Shop.DoesNotExist:
 			return Response(status=status.HTTP_404_NOT_FOUND)
-		serializer = ShopSerializer(shop)
+		serializer = ShopSerializer(shop, user=request.user)
 		print serializer.data
 		return Response(serializer.data, status=status.HTTP_200_OK)
 	#修改商店資訊
@@ -81,3 +81,24 @@ class ShopsDetail(APIView):
 			return Response(serializer.data)
 		else:
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ShopsFavorList(APIView):
+	def post(self, request, shop_id):
+		shop = Shop.objects.get(id=shop_id)
+		if shop.follower.all().filter(username = request.user.username).exists():
+			shop.follower.remove(request.user)
+			return Response('remove')
+		else:
+			shop.follower.add(request.user)
+			serializer = ShopSerializer(shop, user=request.user)
+			return Response(serializer.data)
+	
+		return Response()
+
+	def get(self, request, shop_id):
+		shop = Shop.objects.filter(follower = request.user)
+		serializer = ShopSerializer(shop, user=request.user, many=True)
+		print(serializer.data)
+		return Response(serializer.data)
+	
+	

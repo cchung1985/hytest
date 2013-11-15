@@ -2013,40 +2013,6 @@
 },
 {
     "pk": 1, 
-    "model": "items.item", 
-    "fields": {
-        "category": 5, 
-        "name": "user1_item1", 
-        "price": 100, 
-        "pic": "", 
-        "attrs": [
-            2
-        ], 
-        "owner": 2, 
-        "rid": "1", 
-        "pub_date": "2013-09-26T21:19:23.980Z", 
-        "description": ""
-    }
-},
-{
-    "pk": 2, 
-    "model": "items.item", 
-    "fields": {
-        "category": 3, 
-        "name": "user1_item2", 
-        "price": 500, 
-        "pic": "", 
-        "attrs": [
-            1
-        ], 
-        "owner": 2, 
-        "rid": "2", 
-        "pub_date": "2013-09-26T21:19:47.622Z", 
-        "description": ""
-    }
-},
-{
-    "pk": 1, 
     "model": "shops.shop", 
     "fields": {
         "description": "\u5546\u5e97\u4ecb\u7d39", 
@@ -3461,42 +3427,6 @@
 },
 {
     "pk": 1, 
-    "model": "chats.chat", 
-    "fields": {
-        "seller_seen": true, 
-        "datetime": "2013-10-01T20:21:27.603Z", 
-        "item": 1, 
-        "buyer": 3, 
-        "seller": 2, 
-        "buyer_seen": true
-    }
-},
-{
-    "pk": 2, 
-    "model": "chats.chat", 
-    "fields": {
-        "seller_seen": true, 
-        "datetime": "2013-10-01T20:21:47.536Z", 
-        "item": 1, 
-        "buyer": 4, 
-        "seller": 2, 
-        "buyer_seen": true
-    }
-},
-{
-    "pk": 3, 
-    "model": "chats.chat", 
-    "fields": {
-        "seller_seen": true, 
-        "datetime": "2013-10-01T20:21:58.159Z", 
-        "item": 2, 
-        "buyer": 3, 
-        "seller": 2, 
-        "buyer_seen": true
-    }
-},
-{
-    "pk": 1, 
     "model": "accounts.eventtype", 
     "fields": {
         "type": "newmsg"
@@ -3511,6 +3441,13 @@
 },
 {
     "pk": 3, 
+    "model": "accounts.eventtype", 
+    "fields": {
+        "type": "newchat"
+    }
+},
+{
+    "pk": 4, 
     "model": "accounts.eventtype", 
     "fields": {
         "type": "test"

@@ -5,6 +5,7 @@ app.Shop = Backbone.Model.extend({
 	initialize: function(){
 		var that = this;
 		this.items = new app.Items();
+		this.items.shop = this;
 		this.items.url = function(){
 			return 'shops/'+that.id+'/items/';
 		}

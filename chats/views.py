@@ -29,6 +29,15 @@ def reply(request, chat_id):
 	if request.method == 'POST':		
 		#Create a reply
 		chat = Chat.objects.get(id=chat_id)
+		
+		#Create a 'newchat' event for seller if it is the first reply
+		if Reply.objects.filter(chat=chat).exists()==False:
+			print('newchat')
+			receiver = User.objects.get(username=request.DATA.get('receiver'))
+			type = EventType.objects.get(type='newchat')
+			Event.objects.create(user=receiver, event=type, data_id=chat_id)
+		
+		
 		reply = Reply.objects.create(chat	=chat, 
 									speaker	=request.user, 
 									ip		='123.123.123.123', 
@@ -44,7 +53,7 @@ def reply(request, chat_id):
 		#Set chat "seen" attribute
 		if request.user == chat.seller:
 			chat.buyer_seen = False
-		elif reqeust.user == chat.buyer:
+		elif request.user == chat.buyer:
 			chat.seller_seen = False
 		chat.save()
 

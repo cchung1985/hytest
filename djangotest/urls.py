@@ -24,6 +24,8 @@ urlpatterns = patterns('',
 	url(r'^image/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'media/image')}),
 	url(r'^less/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'static/less')}),
 	
+	url(r'^image/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(settings.PROJECT_PATH, 'media/image')}),
+	
 	url(r'^$', 'djangotest.views.index'),
 	url(r'^2$', TemplateView.as_view(template_name="index2.html")),
 	
