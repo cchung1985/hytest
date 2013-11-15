@@ -15,6 +15,8 @@ from shops.serializers import ShopSerializer
 from items.models import Item
 from items.serializers import ItemSerializer
 
+import shlex
+
 class JSONResponse(HttpResponse):
 	def __init__(self, data, **kwargs):
 		content = JSONRenderer().render(data)
@@ -33,12 +35,18 @@ def shopItems(request,shop_id):
 class ShopsList(APIView):
 	#商店清單(未完成)
 	def get(self, request, format=None):
-		northLatitude = float(request.GET['n_lat'])
-		southLatitude = float(request.GET['s_lat'])
-		eastLongitude = float(request.GET['e_lng'])
-		westLongitude = float(request.GET['w_lng'])
-		print type(northLatitude)
-		shops = Shop.objects.filter(latitude__range=(southLatitude,northLatitude),longitude__range=(westLongitude,eastLongitude))
+		shops = Shop.objects.all()
+		GET = request.GET
+		if GET.has_key('n_lat') and GET.has_key('s_lat') and GET.has_key('e_lng') and GET.has_key('w_lng'):
+			northLatitude = float(GET['n_lat'])
+			southLatitude = float(GET['s_lat'])
+			eastLongitude = float(GET['e_lng'])
+			westLongitude = float(GET['w_lng'])
+			shops = shops.filter(latitude__range=(southLatitude,northLatitude),longitude__range=(westLongitude,eastLongitude))
+		if GET.has_key('string'):
+			patterns = shlex.split(GET['string']);
+			for pattern in patterns:
+				shops = shops.filter(name__contains=pattern)
 		serializer = ShopSerializer(shops,many=True)
 		return Response(serializer.data,status=status.HTTP_200_OK)
 		#return Response(status=status.HTTP_400_BAD_REQUEST)

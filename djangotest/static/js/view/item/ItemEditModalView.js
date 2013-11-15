@@ -122,9 +122,10 @@ app.ItemEditModalView = Backbone.View.extend({
 		});
 		
 		this.item.save().done(function(){
+			app.myItems.add(that.item);
 			that.$el.modal('hide');
 			/*
-			var item_id = newItem.get('id');
+			var item_id = that.item.get('id');
 			var dfs = []
 			for(var i in that.files){
 				that.files[i].url = 'shops/upload/items/'+item_id+'/image/'+i;
@@ -134,8 +135,6 @@ app.ItemEditModalView = Backbone.View.extend({
 			console.log(dfs);
 			that.files = {};
 			that.$el.modal('hide');
-			newItem.set({'name':newItem.get('name')+"(上傳圖片中)"});
-			myItems.add(newItem);
 			$.when.apply($, dfs).done(function(){
 				myItems.fetch();
 			});
@@ -167,7 +166,7 @@ app.ItemEditModalView = Backbone.View.extend({
 		this.clearField();
 	},
 	open: function(item){
-		this.item = item?item:(new app.Item());
+		this.item = item ? item:(new app.Item());
 		if(this.item.isNew()){
 			this.clearField();
 			this.$el.modal('show');

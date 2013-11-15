@@ -23,6 +23,8 @@ app.Shops = Backbone.Collection.extend({
 		this.url = function(){ 
 			if (that.bounds){
 				return 'shops/?'+$.param(that.bounds);
+			}else if (that.string){
+				return 'shops/?'+$.param(that.string);
 			}
 			return 'shops/';
 		}
@@ -36,6 +38,10 @@ app.Shops = Backbone.Collection.extend({
 		return dfd;*/
 		this.setBounds(bounds);
 		return this.fetch();
+	},
+	setSearch:function(string){
+		this.string = {string:string};
+		return this;
 	},
 	setBounds:function(bounds){
 		this.bounds = bounds

@@ -55,69 +55,7 @@ $.ajaxSetup({
 	}
 });
 
-RINGOverlay.prototype = new google.maps.OverlayView();
-function RINGOverlay(center,outerRadial,innerRadial, map) {
-	this.center_ = center;
-	this.outerRadial_ = outerRadial;
-	this.innerRadial_ = innerRadial;
-	this.div_ = null;
-	this.setMap(map);
-}
 
-RINGOverlay.prototype.setCenter = function(center){
-	this.center_ = center;
-	this.draw();
-}
-
-RINGOverlay.prototype.setRadial = function(outerRadial,innerRadial){
-	this.outerRadial_ = outerRadial;
-	this.innerRadial_ = innerRadial;
-	this.draw();
-}
-
-RINGOverlay.prototype.onAdd = function() {
-	var div = document.createElement('div');
-	div.style.borderStyle = 'solid';
-	div.style.borderWidth = '10px';
-	div.style.borderColor = 'rgba(66, 139, 202, 0.5)';
-	div.style.position = 'absolute';
-	this.div_ = div;
-	$(div).css('border-radius','100% 100% 100% 100%').css('transition','width 0.5s,height 0.5s,left 0.5s,top 0.5s,border 0.5s');
-	var panes = this.getPanes();
-	panes.overlayLayer.appendChild(div);
-};
-
-RINGOverlay.prototype.draw = function() {
-	var overlayProjection = this.getProjection();
-	var center = this.center_;
-	var outerRadial = this.outerRadial_;
-	var innerRadial = this.innerRadial_;
-	var computeOffset = google.maps.geometry.spherical.computeOffset;
-	
-	var ni_latlng = computeOffset(center,innerRadial,0);
-	var no_latlng = computeOffset(center,outerRadial,0);
-	var ni = overlayProjection.fromLatLngToDivPixel(ni_latlng);
-	var no = overlayProjection.fromLatLngToDivPixel(no_latlng);
-	
-	var sw_latlng = computeOffset(center,outerRadial*1.41421,225);
-	var ne_latlng = computeOffset(center,outerRadial*1.41421,45);
-	var sw = overlayProjection.fromLatLngToDivPixel(sw_latlng);
-	var ne = overlayProjection.fromLatLngToDivPixel(ne_latlng);
-	var div = this.div_;
-	//console.log('gg',overlayProjection.getWorldWidth(),outerRadial,innerRadial);
-	//div.style.borderWidth = overlayProjection.getWorldWidth()/4007.57/(outerRadial-innerRadial) + 'px';
-	console.log(ni,no,outerRadial,innerRadial)
-	div.style.borderWidth = Math.abs(no.y-ni.y) +'px';
-	div.style.left = sw.x + 'px';
-	div.style.top = ne.y + 'px';
-	div.style.width = (ne.x - sw.x) + 'px';
-	div.style.height = (sw.y - ne.y) + 'px';
-};
-
-RINGOverlay.prototype.onRemove = function() {
-  this.div_.parentNode.removeChild(this.div_);
-  this.div_ = null;
-};
 
 
 

@@ -78,6 +78,16 @@
 			*min-height:500px;
 		}
 		
+		#mapSearchTool {
+			position: absolute;
+			top: 5px;
+			left: 10px;
+			width: 300px;
+			height:auto;
+			z-index:5;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+		}
+		
 		#mainMap {
 			position: absolute;
 			top: 0px;
@@ -133,8 +143,8 @@
 			height: 20px;
 		}
 		
-		.container{
-			padding:0;
+		.map-shop-marker {
+			
 		}
 		
 		/************************/
@@ -923,6 +933,23 @@
 		<!-- Main Panels -->
 		<div class="main-panels tab-content">
 			<div class="tab-pane active fade in" id="mapPanel"> <!-- Map Panels -->
+				<div id="mapSearchTool">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+								<span class="map-search-type">商品</span> <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a class="map-search-type-option" data-option="item" href="#">商品</a></li>
+								<li><a class="map-search-type-option" data-option="shop" href="#">商店</a></li>
+							</ul>
+						</div>
+						<input  id="mapSearchText" type="text" class="form-control">
+						<div class="input-group-btn">
+							<button id="mapSearchBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+						</div>
+					</div>
+				</div>
 				<div id="mainMap"></div>
 				<div id="mapBoxList"></div>
 			</div>
@@ -931,7 +958,7 @@
 			<div class="tab-pane fade" id="sellerPanel"> <!-- Seller Panel -->
 				<div class="container" style="position:relative;height:100%">
 					<div id="sellerShopPanel">
-						<div class="btn-group" style="position:absolute;left:0px;right:-3px;bottom:0px;height:60px;">
+						<div class="btn-group" style="position:fixed;left:0px;right:-3px;bottom:0px;height:60px;">
 							<button class="btn btn-default" style="width:25%"> <!-- 開始營業 -->
 								<span style="display:block;font-size: 24px;" class="glyphicon glyphicon-play"></span>
 								開始營業
